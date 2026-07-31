@@ -37,6 +37,11 @@ class LauncherPlatformHandler(
                         throw HomeSettingsUnavailable()
                     }
                 }
+                "openCurrentHome" -> handle(result, "current_home_unavailable") {
+                    if (!homeRoleGateway.openCurrentHome()) {
+                        throw CurrentHomeUnavailable()
+                    }
+                }
                 "launchApp" -> handle(result) { launchApp(call) }
                 "openAppDetails" -> handle(result) { openAppDetails(call) }
                 else -> result.notImplemented()
@@ -162,6 +167,8 @@ class LauncherPlatformHandler(
     private class InvalidArguments(message: String) : IllegalArgumentException(message)
     private class ActivityNotFound(message: String) : IllegalStateException(message)
     private class HomeSettingsUnavailable : IllegalStateException("No Android Home settings screen is available.")
+    private class CurrentHomeUnavailable :
+        IllegalStateException("No different Android Home application is selected.")
 
     companion object {
         private const val CHANNEL_NAME = "com.abstractvision.phonedetox/launcher"

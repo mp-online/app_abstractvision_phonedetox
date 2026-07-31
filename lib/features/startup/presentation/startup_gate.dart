@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../l10n/app_localizations.dart';
+import '../../jail_break/domain/jail_break_state.dart';
+import '../../jail_break/presentation/jail_break_completed_screen.dart';
+import '../../jail_break/presentation/jail_break_controller.dart';
 import '../../launcher/presentation/launcher_screen.dart';
 import '../domain/startup_status.dart';
 import 'launcher_activation_screen.dart';
@@ -38,8 +41,26 @@ class _StartupGateState extends ConsumerState<StartupGate>
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(jailBreakControllerProvider, (previous, next) {
+      if (previous?.status != JailBreakStatus.cancelled &&
+          next.status == JailBreakStatus.cancelled) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (!mounted) return;
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                AppLocalizations.of(context).jailBreakCancelledMessage,
+              ),
+            ),
+          );
+          ref.read(jailBreakControllerProvider.notifier).reset();
+        });
+      }
+    });
+
     final state = ref.watch(startupControllerProvider);
     final controller = ref.read(startupControllerProvider.notifier);
+    final jailBreakController = ref.read(jailBreakControllerProvider.notifier);
     return switch (state.status) {
       StartupStatus.loading => const _LoadingScreen(),
       StartupStatus.activationRequired => LauncherActivationScreen(
@@ -65,6 +86,14 @@ class _StartupGateState extends ConsumerState<StartupGate>
         requesting: false,
         onRestore: controller.requestHomeRole,
         onOpenSettings: controller.openHomeSettings,
+      ),
+      StartupStatus.jailBreakCompleted => JailBreakCompletedScreen(
+        onOpenHome: jailBreakController.openCurrentHome,
+        onUseAgain: controller.usePhoneDetoxAgain,
+      ),
+      StartupStatus.jailBreakFailure => _JailBreakFailureScreen(
+        onRetry: controller.retryJailBreakRoleCheck,
+        onOpenSettings: jailBreakController.openHomeSettingsAnyway,
       ),
       StartupStatus.unavailable => _MessageScreen(
         icon: Icons.phonelink_erase_outlined,
@@ -108,6 +137,57 @@ class _LoadingScreen extends StatelessWidget {
       ),
     ),
   );
+}
+
+class _JailBreakFailureScreen extends StatelessWidget {
+  const _JailBreakFailureScreen({
+    required this.onRetry,
+    required this.onOpenSettings,
+  });
+
+  final VoidCallback onRetry;
+  final VoidCallback onOpenSettings;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(24),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 560),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Icon(Icons.error_outline, size: 64),
+                  const SizedBox(height: 24),
+                  Text(
+                    l10n.jailBreakFailureTitle,
+                    style: Theme.of(context).textTheme.headlineMedium,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(l10n.jailBreakFailureBody, textAlign: TextAlign.center),
+                  const SizedBox(height: 24),
+                  FilledButton(
+                    onPressed: onOpenSettings,
+                    child: Text(l10n.jailBreakOpenHomeSettingsAction),
+                  ),
+                  const SizedBox(height: 8),
+                  OutlinedButton(
+                    onPressed: onRetry,
+                    child: Text(l10n.jailBreakRetryAction),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 class _MessageScreen extends StatelessWidget {

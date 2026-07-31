@@ -146,3 +146,14 @@ A change is complete only when:
 - Reboot readiness means Android resolves the selected Home app after restart and unlock.
 - Do not claim Pixel, Samsung, older-Android, Home-button, reboot, revocation, or Detox device QA without actual execution evidence.
 - See `docs/adr/0003-home-role-activation-and-startup.md` for the accepted decision.
+
+## Active PR-004 Jail Break constraints
+
+- Jail Break must remain visible in the launcher header and redundantly available in Settings.
+- Android Home-app settings and an authoritative resume role check are required; never claim the app removes its own Home role.
+- Stop active native and Flutter Detox session state before opening Home settings, while preserving Home and Accessibility recovery actions if cleanup fails.
+- Do not disable Accessibility programmatically; an enabled service without an active native session performs no blocking.
+- StartupController remains the only lifecycle observer and distinguishes intentional Jail Break from unexpected role loss.
+- Do not add a second platform channel, process kill, background activity launch, Home-role auto-reclaim, permission, or service for Jail Break.
+- Do not claim Pixel, Samsung, older-Android, TalkBack, Home-button, or active-enforcement QA without execution evidence.
+- See `docs/adr/0004-jail-break-and-home-role-exit.md`.

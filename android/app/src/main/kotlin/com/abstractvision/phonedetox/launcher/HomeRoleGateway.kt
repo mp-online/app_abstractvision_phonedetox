@@ -6,4 +6,5 @@ interface HomeRoleGateway {
     fun getStatus(): HomeRoleStatus
     fun createRequestIntent(): Intent?
     fun openHomeSettings(): Boolean
+    fun openCurrentHome(): Boolean
 }

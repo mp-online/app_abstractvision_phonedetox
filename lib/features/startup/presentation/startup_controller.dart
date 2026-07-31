@@ -3,10 +3,13 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../detox/presentation/detox_controller.dart';
+import '../../jail_break/domain/jail_break_state.dart';
+import '../../jail_break/presentation/jail_break_controller.dart';
 import '../../launcher/domain/home_role_request_result.dart';
 import '../../launcher/domain/home_role_status.dart';
 import '../../launcher/presentation/launcher_controller.dart';
 import '../data/shared_preferences_startup_repository.dart';
+import '../domain/home_role_loss_reason.dart';
 import '../domain/startup_preferences_repository.dart';
 import '../domain/startup_state.dart';
 import '../domain/startup_status.dart';
@@ -63,20 +66,35 @@ class StartupController extends Notifier<StartupState> {
   Future<void> refreshOnResume() async {
     if (_requestInProgress) return;
     final generation = ++_refreshGeneration;
+    final wasWaiting =
+        ref.read(jailBreakControllerProvider).status ==
+        JailBreakStatus.waitingForSelection;
     try {
       final completed = await _preferences.hasCompletedLauncherActivation();
       final role = await ref
           .read(launcherRepositoryProvider)
           .getHomeRoleStatus();
       if (generation != _refreshGeneration) return;
+      await ref.read(detoxControllerProvider.notifier).refresh();
+      if (generation != _refreshGeneration) return;
+      ref.read(jailBreakControllerProvider.notifier).handleHomeRoleStatus(role);
       await _applyRoleStatus(
         role,
         previouslyCompleted: completed,
         generation: generation,
+        detoxAlreadyReconciled: true,
       );
     } catch (error) {
       if (generation == _refreshGeneration) {
-        state = state.copyWith(status: StartupStatus.error, error: error);
+        ref
+            .read(jailBreakControllerProvider.notifier)
+            .handleHomeRoleCheckFailure(error);
+        state = state.copyWith(
+          status: wasWaiting
+              ? StartupStatus.jailBreakFailure
+              : StartupStatus.error,
+          error: error,
+        );
       }
     }
   }
@@ -143,25 +161,64 @@ class StartupController extends Notifier<StartupState> {
     }
   }
 
+  Future<void> usePhoneDetoxAgain() async {
+    ref.read(jailBreakControllerProvider.notifier).reset();
+    await requestHomeRole();
+  }
+
+  Future<void> retryJailBreakRoleCheck() async {
+    ref.read(jailBreakControllerProvider.notifier).prepareRoleCheckRetry();
+    state = state.copyWith(status: StartupStatus.loading, clearError: true);
+    await refreshOnResume();
+  }
+
   Future<void> _applyRoleStatus(
     HomeRoleStatus role, {
     required bool previouslyCompleted,
     required int generation,
     HomeRoleRequestResult? requestResult,
+    bool detoxAlreadyReconciled = false,
   }) async {
     if (role == HomeRoleStatus.held) {
       await _preferences.setHasCompletedLauncherActivation(true);
       if (generation != _refreshGeneration) return;
-      await Future.wait([
-        ref.read(detoxControllerProvider.notifier).refresh(),
+      final refreshes = <Future<void>>[
         ref.read(launcherControllerProvider.notifier).refresh(),
-      ]);
+      ];
+      if (!detoxAlreadyReconciled) {
+        refreshes.add(ref.read(detoxControllerProvider.notifier).refresh());
+      }
+      await Future.wait(refreshes);
       if (generation != _refreshGeneration) return;
       state = StartupState(
         status: StartupStatus.ready,
         homeRoleStatus: role,
         lastRequestResult: requestResult,
         hasPreviouslyCompletedActivation: true,
+      );
+      return;
+    }
+
+    final jailBreak = ref.read(jailBreakControllerProvider);
+    if (role == HomeRoleStatus.notHeld &&
+        jailBreak.status == JailBreakStatus.completed) {
+      state = StartupState(
+        status: StartupStatus.jailBreakCompleted,
+        homeRoleStatus: role,
+        homeRoleLossReason: HomeRoleLossReason.intentionalJailBreak,
+        hasPreviouslyCompletedActivation: previouslyCompleted,
+      );
+      return;
+    }
+    if (jailBreak.status == JailBreakStatus.error &&
+        (jailBreak.failureKind == JailBreakFailureKind.homeRoleUnavailable ||
+            jailBreak.failureKind == JailBreakFailureKind.homeRoleCheck)) {
+      state = StartupState(
+        status: StartupStatus.jailBreakFailure,
+        homeRoleStatus: role,
+        homeRoleLossReason: HomeRoleLossReason.intentionalJailBreak,
+        hasPreviouslyCompletedActivation: previouslyCompleted,
+        error: jailBreak.error,
       );
       return;
     }

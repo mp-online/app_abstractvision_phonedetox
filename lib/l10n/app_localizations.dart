@@ -655,6 +655,168 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Set up strict blocking'**
   String get startupStrictBlockingAction;
+
+  /// Tooltip and settings action for leaving Phone Detox as the Android Home app.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave Phone Detox Home mode'**
+  String get jailBreakTooltip;
+
+  /// Confirmation title when leaving without an active Detox session.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave Phone Detox?'**
+  String get jailBreakDialogTitle;
+
+  /// Explanation of Android Home selection for an inactive session.
+  ///
+  /// In en, this message translates to:
+  /// **'Android will open the Home app settings. Select your previous launcher, such as Pixel Launcher or One UI Home, to stop using Phone Detox as your Home screen.'**
+  String get jailBreakDialogBody;
+
+  /// Explanation that Android requires explicit user confirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Detox cannot change the default Home app without your confirmation.'**
+  String get jailBreakPlatformExplanation;
+
+  /// Confirmation action for leaving Phone Detox Home mode.
+  ///
+  /// In en, this message translates to:
+  /// **'Jail Break'**
+  String get jailBreakConfirmAction;
+
+  /// Confirmation title when Jail Break will end an active session.
+  ///
+  /// In en, this message translates to:
+  /// **'End Detox and leave Phone Detox?'**
+  String get jailBreakActiveDialogTitle;
+
+  /// Active-session Jail Break consequences.
+  ///
+  /// In en, this message translates to:
+  /// **'Jail Break will immediately end the active Detox session, remove app blocking, and open Android\'s Home app settings.'**
+  String get jailBreakActiveDialogBody;
+
+  /// Confirmation action that ends a session and opens Home settings.
+  ///
+  /// In en, this message translates to:
+  /// **'End session and Jail Break'**
+  String get jailBreakActiveConfirmAction;
+
+  /// Progress message during active-session cleanup.
+  ///
+  /// In en, this message translates to:
+  /// **'Ending the active Detox session…'**
+  String get jailBreakEndingSession;
+
+  /// Progress message while Home settings opens.
+  ///
+  /// In en, this message translates to:
+  /// **'Opening Android Home app settings…'**
+  String get jailBreakOpeningSettings;
+
+  /// Status while Android Home selection is pending.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for your Home app selection…'**
+  String get jailBreakWaitingForSelection;
+
+  /// Neutral completion title after intentional Home-role loss.
+  ///
+  /// In en, this message translates to:
+  /// **'Jail Break complete'**
+  String get jailBreakCompletedTitle;
+
+  /// Neutral completion explanation after selecting another launcher.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Detox is no longer your Home app. Press Home to open the launcher you selected.'**
+  String get jailBreakCompletedBody;
+
+  /// Action opening the newly selected Android Home app.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Home screen'**
+  String get jailBreakOpenHomeAction;
+
+  /// Action requesting Phone Detox as Home again.
+  ///
+  /// In en, this message translates to:
+  /// **'Use Phone Detox again'**
+  String get jailBreakUseAgainAction;
+
+  /// Non-error message after keeping Phone Detox selected.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Detox is still your Home app.'**
+  String get jailBreakCancelledMessage;
+
+  /// Title for a recoverable Jail Break failure.
+  ///
+  /// In en, this message translates to:
+  /// **'Jail Break could not be completed'**
+  String get jailBreakFailureTitle;
+
+  /// Recoverable Home-role verification failure.
+  ///
+  /// In en, this message translates to:
+  /// **'Android\'s Home app status could not be confirmed. Open default-app settings or try again.'**
+  String get jailBreakFailureBody;
+
+  /// Failure shown when active Detox cleanup fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Detox could not fully remove the active blocking session.'**
+  String get jailBreakActiveCleanupFailureBody;
+
+  /// Action retrying a failed Jail Break step.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get jailBreakRetryAction;
+
+  /// Recovery action that opens Home settings despite cleanup failure.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Home settings anyway'**
+  String get jailBreakOpenSettingsAnywayAction;
+
+  /// Recovery action opening Android default-app settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Open default-app settings'**
+  String get jailBreakOpenHomeSettingsAction;
+
+  /// Recovery action opening Accessibility settings for manual control.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Accessibility settings'**
+  String get jailBreakOpenAccessibilityAction;
+
+  /// Explanation that Accessibility access remains enabled without active blocking.
+  ///
+  /// In en, this message translates to:
+  /// **'The active blocking session will end. Phone Detox Accessibility access may remain enabled, but it will not block applications without an active Detox session.'**
+  String get jailBreakAccessibilityStillEnabled;
+
+  /// Title of the settings recovery section.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery'**
+  String get jailBreakSettingsSectionTitle;
+
+  /// Description of the settings Jail Break recovery action.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose another Android Home application and stop using Phone Detox as your launcher.'**
+  String get jailBreakSettingsDescription;
+
+  /// Fallback when the selected Home app cannot be launched directly.
+  ///
+  /// In en, this message translates to:
+  /// **'Press the Android Home button to open the launcher you selected.'**
+  String get jailBreakOpenHomeFailed;
 }
 
 class _AppLocalizationsDelegate

@@ -62,6 +62,10 @@ class PlatformLauncherRepository implements LauncherRepository {
       _channel.invokeMethod<void>('openHomeSettings');
 
   @override
+  Future<void> openCurrentHome() =>
+      _channel.invokeMethod<void>('openCurrentHome');
+
+  @override
   Future<void> launchApp(LaunchableApp app) =>
       _channel.invokeMethod<void>('launchApp', <String, String>{
         'packageName': app.packageName,

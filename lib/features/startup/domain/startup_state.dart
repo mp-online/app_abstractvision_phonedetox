@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 
 import '../../launcher/domain/home_role_request_result.dart';
 import '../../launcher/domain/home_role_status.dart';
+import 'home_role_loss_reason.dart';
 import 'startup_status.dart';
 
 @immutable
@@ -11,6 +12,7 @@ class StartupState {
     this.homeRoleStatus = HomeRoleStatus.notHeld,
     this.lastRequestResult,
     this.hasPreviouslyCompletedActivation = false,
+    this.homeRoleLossReason = HomeRoleLossReason.unknown,
     this.error,
   });
 
@@ -18,6 +20,7 @@ class StartupState {
   final HomeRoleStatus homeRoleStatus;
   final HomeRoleRequestResult? lastRequestResult;
   final bool hasPreviouslyCompletedActivation;
+  final HomeRoleLossReason homeRoleLossReason;
   final Object? error;
 
   StartupState copyWith({
@@ -26,6 +29,7 @@ class StartupState {
     HomeRoleRequestResult? lastRequestResult,
     bool clearLastRequestResult = false,
     bool? hasPreviouslyCompletedActivation,
+    HomeRoleLossReason? homeRoleLossReason,
     Object? error,
     bool clearError = false,
   }) => StartupState(
@@ -37,6 +41,7 @@ class StartupState {
     hasPreviouslyCompletedActivation:
         hasPreviouslyCompletedActivation ??
         this.hasPreviouslyCompletedActivation,
+    homeRoleLossReason: homeRoleLossReason ?? this.homeRoleLossReason,
     error: clearError ? null : error ?? this.error,
   );
 
@@ -49,6 +54,7 @@ class StartupState {
           lastRequestResult == other.lastRequestResult &&
           hasPreviouslyCompletedActivation ==
               other.hasPreviouslyCompletedActivation &&
+          homeRoleLossReason == other.homeRoleLossReason &&
           error == other.error;
 
   @override
@@ -57,6 +63,7 @@ class StartupState {
     homeRoleStatus,
     lastRequestResult,
     hasPreviouslyCompletedActivation,
+    homeRoleLossReason,
     error,
   );
 }

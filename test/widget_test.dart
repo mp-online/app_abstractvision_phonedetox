@@ -38,6 +38,9 @@ class WidgetLauncherRepository implements LauncherRepository {
 
   @override
   Future<void> openHomeSettings() async {}
+
+  @override
+  Future<void> openCurrentHome() async {}
   @override
   Future<HomeRoleRequestResult> requestHomeRole() async =>
       HomeRoleRequestResult.alreadyHeld;

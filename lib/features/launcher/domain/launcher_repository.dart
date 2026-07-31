@@ -7,6 +7,7 @@ abstract interface class LauncherRepository {
   Future<HomeRoleStatus> getHomeRoleStatus();
   Future<HomeRoleRequestResult> requestHomeRole();
   Future<void> openHomeSettings();
+  Future<void> openCurrentHome();
   Future<void> launchApp(LaunchableApp app);
   Future<void> openAppDetails(String packageName);
 }

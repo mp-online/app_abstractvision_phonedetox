@@ -1,0 +1,1 @@
+enum HomeRoleLossReason { unknown, intentionalJailBreak }

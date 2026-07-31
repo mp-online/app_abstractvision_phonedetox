@@ -4,6 +4,8 @@ enum StartupStatus {
   requestingHomeRole,
   ready,
   roleLost,
+  jailBreakCompleted,
+  jailBreakFailure,
   unavailable,
   error,
 }

@@ -63,4 +63,30 @@ class AndroidHomeRoleGateway(private val activity: Activity) : HomeRoleGateway {
         activity.startActivity(intent)
         return true
     }
+
+    override fun openCurrentHome(): Boolean {
+        if (getStatus() != HomeRoleStatus.NOT_HELD) return false
+        val homeIntent = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
+        val resolved = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            activity.packageManager.resolveActivity(
+                homeIntent,
+                PackageManager.ResolveInfoFlags.of(
+                    PackageManager.MATCH_DEFAULT_ONLY.toLong(),
+                ),
+            )
+        } else {
+            @Suppress("DEPRECATION")
+            activity.packageManager.resolveActivity(
+                homeIntent,
+                PackageManager.MATCH_DEFAULT_ONLY,
+            )
+        } ?: return false
+        val info = resolved.activityInfo ?: return false
+        if (info.packageName == activity.packageName) return false
+        activity.startActivity(homeIntent.apply {
+            component = android.content.ComponentName(info.packageName, info.name)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        })
+        return true
+    }
 }

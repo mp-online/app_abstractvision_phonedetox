@@ -39,6 +39,9 @@ class FakeHomeRepository implements LauncherRepository {
   Future<void> openAppDetails(String packageName) async {}
   @override
   Future<void> openHomeSettings() async {}
+
+  @override
+  Future<void> openCurrentHome() async {}
 }
 
 class FakeStartupPreferences implements StartupPreferencesRepository {

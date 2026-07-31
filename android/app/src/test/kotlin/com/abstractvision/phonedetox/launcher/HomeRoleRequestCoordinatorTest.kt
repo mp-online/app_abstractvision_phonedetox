@@ -92,5 +92,6 @@ class HomeRoleRequestCoordinatorTest {
         override fun getStatus(): HomeRoleStatus = currentStatus
         override fun createRequestIntent(): Intent? = requestIntent
         override fun openHomeSettings(): Boolean = settingsAvailable
+        override fun openCurrentHome(): Boolean = false
     }
 }

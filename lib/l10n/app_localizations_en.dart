@@ -337,4 +337,95 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get startupStrictBlockingAction => 'Set up strict blocking';
+
+  @override
+  String get jailBreakTooltip => 'Leave Phone Detox Home mode';
+
+  @override
+  String get jailBreakDialogTitle => 'Leave Phone Detox?';
+
+  @override
+  String get jailBreakDialogBody =>
+      'Android will open the Home app settings. Select your previous launcher, such as Pixel Launcher or One UI Home, to stop using Phone Detox as your Home screen.';
+
+  @override
+  String get jailBreakPlatformExplanation =>
+      'Phone Detox cannot change the default Home app without your confirmation.';
+
+  @override
+  String get jailBreakConfirmAction => 'Jail Break';
+
+  @override
+  String get jailBreakActiveDialogTitle => 'End Detox and leave Phone Detox?';
+
+  @override
+  String get jailBreakActiveDialogBody =>
+      'Jail Break will immediately end the active Detox session, remove app blocking, and open Android\'s Home app settings.';
+
+  @override
+  String get jailBreakActiveConfirmAction => 'End session and Jail Break';
+
+  @override
+  String get jailBreakEndingSession => 'Ending the active Detox session…';
+
+  @override
+  String get jailBreakOpeningSettings => 'Opening Android Home app settings…';
+
+  @override
+  String get jailBreakWaitingForSelection =>
+      'Waiting for your Home app selection…';
+
+  @override
+  String get jailBreakCompletedTitle => 'Jail Break complete';
+
+  @override
+  String get jailBreakCompletedBody =>
+      'Phone Detox is no longer your Home app. Press Home to open the launcher you selected.';
+
+  @override
+  String get jailBreakOpenHomeAction => 'Open Home screen';
+
+  @override
+  String get jailBreakUseAgainAction => 'Use Phone Detox again';
+
+  @override
+  String get jailBreakCancelledMessage => 'Phone Detox is still your Home app.';
+
+  @override
+  String get jailBreakFailureTitle => 'Jail Break could not be completed';
+
+  @override
+  String get jailBreakFailureBody =>
+      'Android\'s Home app status could not be confirmed. Open default-app settings or try again.';
+
+  @override
+  String get jailBreakActiveCleanupFailureBody =>
+      'Phone Detox could not fully remove the active blocking session.';
+
+  @override
+  String get jailBreakRetryAction => 'Try again';
+
+  @override
+  String get jailBreakOpenSettingsAnywayAction => 'Open Home settings anyway';
+
+  @override
+  String get jailBreakOpenHomeSettingsAction => 'Open default-app settings';
+
+  @override
+  String get jailBreakOpenAccessibilityAction => 'Open Accessibility settings';
+
+  @override
+  String get jailBreakAccessibilityStillEnabled =>
+      'The active blocking session will end. Phone Detox Accessibility access may remain enabled, but it will not block applications without an active Detox session.';
+
+  @override
+  String get jailBreakSettingsSectionTitle => 'Recovery';
+
+  @override
+  String get jailBreakSettingsDescription =>
+      'Choose another Android Home application and stop using Phone Detox as your launcher.';
+
+  @override
+  String get jailBreakOpenHomeFailed =>
+      'Press the Android Home button to open the launcher you selected.';
 }

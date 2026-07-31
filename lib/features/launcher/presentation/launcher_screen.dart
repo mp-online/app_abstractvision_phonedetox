@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/widgets/clock_header.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../jail_break/presentation/jail_break_controller.dart';
+import '../../jail_break/presentation/jail_break_dialog.dart';
 import '../../settings/presentation/settings_screen.dart';
 import '../../detox/domain/accessibility_status.dart';
 import '../../detox/presentation/detox_controller.dart';
@@ -24,6 +26,7 @@ class _LauncherScreenState extends ConsumerState<LauncherScreen> {
   Widget build(BuildContext context) {
     final state = ref.watch(launcherControllerProvider);
     final detox = ref.watch(detoxControllerProvider);
+    final jailBreak = ref.watch(jailBreakControllerProvider);
     final l10n = AppLocalizations.of(context);
     return Scaffold(
       body: SafeArea(
@@ -36,6 +39,14 @@ class _LauncherScreenState extends ConsumerState<LauncherScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Expanded(child: ClockHeader()),
+                  IconButton(
+                    key: const Key('launcher_jail_break_button'),
+                    tooltip: l10n.jailBreakTooltip,
+                    icon: const Icon(Icons.lock_open_rounded),
+                    onPressed: jailBreak.isProcessing
+                        ? null
+                        : () => showJailBreakDialog(context, ref),
+                  ),
                   IconButton(
                     tooltip: l10n.detoxTooltip,
                     icon: const Icon(Icons.timer_outlined),

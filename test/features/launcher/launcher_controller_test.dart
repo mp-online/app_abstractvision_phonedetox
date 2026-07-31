@@ -34,6 +34,9 @@ class FakeLauncherRepository implements LauncherRepository {
   Future<void> openHomeSettings() async {}
 
   @override
+  Future<void> openCurrentHome() async {}
+
+  @override
   Future<HomeRoleRequestResult> requestHomeRole() async =>
       HomeRoleRequestResult.alreadyHeld;
 }

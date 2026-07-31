@@ -346,4 +346,102 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get startupStrictBlockingAction => 'Strikte Blockierung einrichten';
+
+  @override
+  String get jailBreakTooltip => 'Aus Phone Detox ausbrechen';
+
+  @override
+  String get jailBreakDialogTitle => 'Phone Detox verlassen?';
+
+  @override
+  String get jailBreakDialogBody =>
+      'Android öffnet die Einstellungen für die Start-App. Wähle deinen vorherigen Launcher, etwa Pixel Launcher oder One UI Home, um Phone Detox nicht mehr als Startbildschirm zu verwenden.';
+
+  @override
+  String get jailBreakPlatformExplanation =>
+      'Phone Detox kann die Standard-Start-App nicht ohne deine Bestätigung ändern.';
+
+  @override
+  String get jailBreakConfirmAction => 'Ausbrechen';
+
+  @override
+  String get jailBreakActiveDialogTitle =>
+      'Detox beenden und Phone Detox verlassen?';
+
+  @override
+  String get jailBreakActiveDialogBody =>
+      'Durch Ausbrechen wird die aktive Detox-Sitzung sofort beendet, die App-Blockierung aufgehoben und die Android-Einstellung für Start-Apps geöffnet.';
+
+  @override
+  String get jailBreakActiveConfirmAction => 'Sitzung beenden und ausbrechen';
+
+  @override
+  String get jailBreakEndingSession => 'Aktive Detox-Sitzung wird beendet…';
+
+  @override
+  String get jailBreakOpeningSettings =>
+      'Android-Einstellungen für Start-Apps werden geöffnet…';
+
+  @override
+  String get jailBreakWaitingForSelection =>
+      'Warten auf deine Auswahl der Start-App…';
+
+  @override
+  String get jailBreakCompletedTitle => 'Ausbruch abgeschlossen';
+
+  @override
+  String get jailBreakCompletedBody =>
+      'Phone Detox ist nicht mehr deine Start-App. Drücke Home, um den ausgewählten Launcher zu öffnen.';
+
+  @override
+  String get jailBreakOpenHomeAction => 'Startbildschirm öffnen';
+
+  @override
+  String get jailBreakUseAgainAction => 'Phone Detox wieder verwenden';
+
+  @override
+  String get jailBreakCancelledMessage =>
+      'Phone Detox ist weiterhin deine Start-App.';
+
+  @override
+  String get jailBreakFailureTitle =>
+      'Ausbruch konnte nicht abgeschlossen werden';
+
+  @override
+  String get jailBreakFailureBody =>
+      'Der Status der Android-Start-App konnte nicht bestätigt werden. Öffne die Standard-App-Einstellungen oder versuche es erneut.';
+
+  @override
+  String get jailBreakActiveCleanupFailureBody =>
+      'Phone Detox konnte die aktive Blockierungssitzung nicht vollständig entfernen.';
+
+  @override
+  String get jailBreakRetryAction => 'Erneut versuchen';
+
+  @override
+  String get jailBreakOpenSettingsAnywayAction =>
+      'Start-App-Einstellungen trotzdem öffnen';
+
+  @override
+  String get jailBreakOpenHomeSettingsAction =>
+      'Standard-App-Einstellungen öffnen';
+
+  @override
+  String get jailBreakOpenAccessibilityAction =>
+      'Bedienungshilfen-Einstellungen öffnen';
+
+  @override
+  String get jailBreakAccessibilityStillEnabled =>
+      'Die aktive Blockierungssitzung wird beendet. Der Bedienungshilfenzugriff von Phone Detox kann aktiviert bleiben, blockiert ohne aktive Detox-Sitzung aber keine Apps.';
+
+  @override
+  String get jailBreakSettingsSectionTitle => 'Wiederherstellung';
+
+  @override
+  String get jailBreakSettingsDescription =>
+      'Wähle eine andere Android-Start-App und verwende Phone Detox nicht mehr als Launcher.';
+
+  @override
+  String get jailBreakOpenHomeFailed =>
+      'Drücke die Android-Home-Taste, um den ausgewählten Launcher zu öffnen.';
 }

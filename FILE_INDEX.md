@@ -2,38 +2,35 @@
 
 ## Handoff and policy
 
-- `PR_DESCRIPTION.md` — PR-003 scope, automated verification, remaining device QA, and restrictions.
+- `PR_DESCRIPTION.md` — PR-004 scope, automated acceptance, remaining device QA, and restrictions.
 - `CODEX_HANDOFF.md` — exact verification and manual-device handoff.
-- `AGENTS.md` — persistent repository and PR-003 startup constraints.
-- `docs/ARCHITECTURE.md` — root startup, Flutter/Kotlin ownership, channels, persistence, and enforcement.
-- `docs/PLAY_POLICY.md` — Home-role and Accessibility policy boundaries.
-- `docs/ROADMAP.md` — PR-003 activation milestone and later work.
+- `AGENTS.md` — persistent repository, PR-003 startup, and PR-004 recovery constraints.
+- `docs/ARCHITECTURE.md` — root startup, Jail Break coordination, Flutter/Kotlin ownership, channels, and enforcement.
+- `docs/PLAY_POLICY.md` — Home-role exit and Accessibility policy boundaries.
+- `docs/ROADMAP.md` — PR-001 through PR-008 sequence.
 - `docs/adr/0001-flutter-kotlin-boundary.md` — platform boundary.
 - `docs/adr/0002-accessibility-based-detox-enforcement.md` — optional blocking enforcement.
-- `docs/adr/0003-home-role-activation-and-startup.md` — OS-authoritative Home activation and reboot model.
+- `docs/adr/0003-home-role-activation-and-startup.md` — OS-authoritative activation and reboot model.
+- `docs/adr/0004-jail-break-and-home-role-exit.md` — explicit Home selection, enforcement cleanup, and intentional exit.
 
 ## Flutter source
 
-- `lib/features/startup/domain/` — immutable startup state/status and dedicated preferences contract.
-- `lib/features/startup/data/` — informational `SharedPreferencesAsync` adapter.
-- `lib/features/startup/presentation/` — root lifecycle coordinator, gate, activation, role-lost, loading, unavailable, and error surfaces.
-- `lib/features/launcher/domain/home_role_*.dart` — typed status and request-result wire models.
-- `lib/features/launcher/` — component discovery, launcher state/UI, typed platform adapter, and launch decisions.
-- `lib/features/detox/` — optional disclosure, package selection, session state, and enforcement reconciliation.
-- `lib/l10n/` — generated English/German localization sourced from metadata-complete ARB files.
+- `lib/features/jail_break/domain/` — immutable status, failure, and result models.
+- `lib/features/jail_break/presentation/` — shared coordinator, confirmation/recovery dialog, and neutral completion screen.
+- `lib/features/startup/` — the sole lifecycle reconciler, typed loss reason, and root routing.
+- `lib/features/launcher/` — header entry point, component discovery, typed platform adapter, and verified current-Home opening.
+- `lib/features/settings/` — hidden-app management and redundant Jail Break recovery action.
+- `lib/features/detox/` — optional disclosure, package selection, session state, enforcement cleanup, and reconciliation.
+- `lib/l10n/` — metadata-complete English/German ARB sources and generated localization.
 
 ## Android source
 
-- `MainActivity.kt` — thin Activity Result registration and channel owner.
-- `launcher/AndroidHomeRoleGateway.kt` — Android 10+ RoleManager and older resolved-Home/status settings fallback.
-- `launcher/HomeRoleRequestCoordinator.kt` — single pending request and post-result role recheck.
-- `launcher/LauncherPlatformHandler.kt` — primitive/versioned launcher MethodChannel adapter.
-- `detox/PhoneDetoxAccessibilityService.kt` — Android-owned package-only enforcement service with connect-time expiry cleanup.
+- `launcher/AndroidHomeRoleGateway.kt` — role status, OEM settings fallback, and guarded explicit current-Home launch.
+- `launcher/LauncherPlatformHandler.kt` — existing launcher channel including `openCurrentHome`.
+- `detox/PhoneDetoxAccessibilityService.kt` — package-only enforcement; inactive without a native session.
 
 ## Tests
 
-- `test/features/startup/` — state, controller, lifecycle, concurrency, localization, and large-text coverage.
-- `test/features/launcher/` — wire parsing, sorting/filtering, persistence transitions, and launch decisions.
-- `test/features/detox/` — session, controller, and widget regression coverage.
-- `android/app/src/test/.../launcher/` — Home-role request coordinator decisions.
-- `android/app/src/test/.../detox/` — decision engine and snapshot validation.
+- `test/features/jail_break/` — coordinator sequencing, duplicate suppression, failures, UI, localization, and accessibility layout.
+- `test/features/startup/jail_break_startup_test.dart` — intentional/cancelled/unexpected role-loss regression.
+- Existing launcher, Detox, startup, and Android unit suites remain regression coverage.

@@ -1,10 +1,10 @@
-# Codex Handoff — PR-003 device QA
+# Codex Handoff — PR-004 Jail Break QA
 
 ## Implemented
 
-PR-003 adds typed Home-role status/results, Activity Result-based asynchronous role requests, OS-state rechecks, settings fallback, one-request-at-a-time protection, first-run activation, root startup coordination, role-revocation recovery, centralized resume reconciliation, informational startup preferences, English/German UI, native/Dart tests, and service-connect expiry cleanup.
+PR-004 adds the launcher-header and Settings Jail Break entry points, one shared confirmation UI, an immutable Riverpod coordinator, active Detox cleanup, existing Home-settings fallback reuse, centralized resume verification, typed intentional role loss, neutral completion UI, cancellation messaging, recovery after cleanup/status failures, and guarded current-Home opening on the existing launcher channel.
 
-No permission was added. No boot receiver, foreground service, background activity launch, polling, alarm, OEM autostart request, battery exemption, or Accessibility auto-enablement was added.
+No permission or dependency was added. Accessibility is not disabled programmatically. Phone Detox never claims or attempts to silently remove its own Home role. No second lifecycle observer/channel, boot receiver, foreground service, background activity launch, polling, process kill, Home-role auto-reclaim, device administrator, or uninstall prevention was added.
 
 ## Automated verification
 
@@ -17,18 +17,20 @@ dart format --set-exit-if-changed lib test
 flutter analyze --no-pub
 flutter test --no-pub
 cd android
+gradlew testDebugUnitTest
 gradlew :app:testDebugUnitTest
 cd ..
 flutter build apk --debug
 ```
 
-On Windows with the repository and Pub cache on different drives, Gradle's aggregate `testDebugUnitTest` may fail while configuring or testing the `shared_preferences_android` dependency. The app-only task is the authoritative project Kotlin suite; preserve the aggregate-command output in the final report.
+On Windows with the repository and Pub cache on different drives, aggregate Gradle tests may encounter the documented dependency-owned path issue. Preserve that result and separately report the app Kotlin task.
 
 ## Manual verification still required
 
-- Pixel on Android 15+: fresh activation, cancel/retry, repeated Home, restart/unlock, revoke/restore.
-- Current Samsung/One UI: button and gesture Home, restart/unlock, revoke/restore, confirm no OEM autostart prompt.
-- One supported pre-Android-10 device: resolved-Home status, settings fallback, cancel/return, restart/unlock.
-- Detox regression: disclosure, active blocking from external surfaces, restart during session, native reconciliation, and safe recovery paths.
+- Pixel: header placement, confirmation cancel, keep Phone Detox, select Pixel Launcher, repeated Home, reopen, restore, active-session cleanup, Accessibility remains enabled but inert.
+- Samsung/One UI: repeat with One UI Home and button/gesture navigation; confirm no autostart prompt or auto-reclaim.
+- Supported pre-Android-10 device: settings fallback, resolved-Home result, cancel/return.
+- Failure cases: native cleanup error, settings unavailable, process death/rotation while Android settings is open.
+- Device accessibility: TalkBack order/labels and large system text.
 
-Do not mark these complete until the named device or emulator was actually exercised. PR-002 manual QA also remains incomplete.
+Do not mark any manual device item complete without the named device or emulator evidence.

@@ -501,10 +501,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mindfulSettingsDescription =>
-      'Pause before opening selected apps.';
+      'Mindful Opening adds a pause before selected apps open.\n\nIt does not currently limit how long you remain in an app or show reminders after 15 minutes.';
 
   @override
-  String get mindfulEnabledTitle => 'Mindful opening enabled';
+  String get mindfulEnabledTitle => 'Enable Mindful Opening';
+
+  @override
+  String get mindfulEnabledStatus => 'Mindful Opening: Enabled';
+
+  @override
+  String get mindfulDisabledStatus => 'Mindful Opening: Disabled';
 
   @override
   String get mindfulPartialCoverageWarning =>

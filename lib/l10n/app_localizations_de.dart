@@ -517,10 +517,16 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get mindfulSettingsDescription =>
-      'Vor dem Öffnen ausgewählter Apps kurz innehalten.';
+      '„Bewusstes Öffnen“ fügt vor dem Start ausgewählter Apps eine Pause ein.\n\nEs begrenzt derzeit nicht die Nutzungsdauer und zeigt nach 15 Minuten keine Erinnerung an.';
 
   @override
-  String get mindfulEnabledTitle => 'Bewusstes Öffnen aktiviert';
+  String get mindfulEnabledTitle => 'Bewusstes Öffnen aktivieren';
+
+  @override
+  String get mindfulEnabledStatus => 'Bewusstes Öffnen: Aktiviert';
+
+  @override
+  String get mindfulDisabledStatus => 'Bewusstes Öffnen: Deaktiviert';
 
   @override
   String get mindfulPartialCoverageWarning =>

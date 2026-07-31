@@ -270,6 +270,7 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(find.text('Recovery'), 300);
     expect(find.text('Recovery'), findsOneWidget);
     expect(find.byKey(const Key('settings_jail_break_button')), findsOneWidget);
     await tester.tap(find.byKey(const Key('settings_jail_break_button')));

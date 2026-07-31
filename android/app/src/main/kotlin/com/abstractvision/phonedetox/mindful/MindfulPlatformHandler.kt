@@ -66,6 +66,9 @@ class MindfulPlatformHandler(context: Context, messenger: BinaryMessenger) {
     private fun requestDirect(call: MethodCall): MindfulLaunchRequestSnapshot? {
         val packageName = requiredPackage(call)
         requestStore.getActive()?.let { return it }
+        admissionStore.getActive()?.let {
+            if (it.packageName == packageName) return null
+        }
         val rule = rulesStore.read()?.rules?.get(packageName) ?: return null
         val request = MindfulLaunchRequestSnapshot.create(rule, "launcher", System.currentTimeMillis())
         if (!requestStore.save(request)) fail("request_persistence_failed", "Could not persist request")
@@ -75,7 +78,13 @@ class MindfulPlatformHandler(context: Context, messenger: BinaryMessenger) {
     private fun grantAdmission(call: MethodCall) {
         val packageName = requiredPackage(call)
         val now = System.currentTimeMillis()
-        if (!admissionStore.save(MindfulAdmissionSnapshot(packageName, now, now + 12 * 60 * 60 * 1000L))) {
+        if (!admissionStore.save(MindfulAdmissionSnapshot(
+                packageName = packageName,
+                phase = MindfulAdmissionPhase.AWAITING_TARGET,
+                grantedAtEpochMs = now,
+                targetDeadlineEpochMs = now + 15 * 1000L,
+                expiresAtEpochMs = now + 12 * 60 * 60 * 1000L,
+            ))) {
             fail("admission_persistence_failed", "Could not persist admission")
         }
     }

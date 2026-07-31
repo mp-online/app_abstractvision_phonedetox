@@ -38,6 +38,11 @@ class SettingsScreen extends ConsumerWidget {
                 .read(mindfulOpeningControllerProvider.notifier)
                 .setEnabled,
           ),
+          Text(
+            mindful.enabled
+                ? l10n.mindfulEnabledStatus
+                : l10n.mindfulDisabledStatus,
+          ),
           Text(l10n.mindfulConfiguredCount(mindful.rules.length)),
           if (detox.accessibilityStatus != AccessibilityStatus.enabled ||
               (detox.acceptedDisclosureVersion ?? 0) <

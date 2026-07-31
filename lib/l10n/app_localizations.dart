@@ -950,17 +950,29 @@ abstract class AppLocalizations {
   /// **'Mindful opening'**
   String get mindfulSettingsTitle;
 
-  /// mindfulSettingsDescription.
+  /// Explains that Mindful Opening adds app-entry friction and does not monitor in-app duration.
   ///
   /// In en, this message translates to:
-  /// **'Pause before opening selected apps.'**
+  /// **'Mindful Opening adds a pause before selected apps open.\n\nIt does not currently limit how long you remain in an app or show reminders after 15 minutes.'**
   String get mindfulSettingsDescription;
 
-  /// mindfulEnabledTitle.
+  /// Toggle label for globally enabling Mindful Opening.
   ///
   /// In en, this message translates to:
-  /// **'Mindful opening enabled'**
+  /// **'Enable Mindful Opening'**
   String get mindfulEnabledTitle;
+
+  /// Status shown when Mindful Opening is globally enabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Mindful Opening: Enabled'**
+  String get mindfulEnabledStatus;
+
+  /// Status shown when Mindful Opening is globally disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Mindful Opening: Disabled'**
+  String get mindfulDisabledStatus;
 
   /// mindfulPartialCoverageWarning.
   ///

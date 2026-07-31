@@ -20,6 +20,6 @@ Widgets never call channels. Typed repositories validate primitive payloads.
 
 `PhoneDetoxAccessibilityService` initializes all stores before reading them, reads only `event.packageName`, debounces repeated events, resolves current Home, and delegates product decisions. `ForegroundDecisionEngine` applies critical-surface allow, strict Detox, admission, then Mindful precedence. A Mindful request is committed before `GLOBAL_ACTION_HOME`; persistence failure allows the target.
 
-Native rules contain package, mode, and delay. A request contains package/source/mode and UTC deadlines. Admission contains package and UTC grant/expiry. Intention text and behavioral history never cross the Flutter boundary or persist.
+Native rules contain package, mode, and delay. A request contains package/source/mode and UTC deadlines. Flutter clears that request, grants the awaiting-target admission immediately before launch, and clears the admission if launch fails. Admission schema v2 contains package, phase, UTC grant time, a 15-second target deadline, and the existing 12-hour safety expiry. An AWAITING_TARGET admission preserves Phone Detox and transient Android surfaces until the target appears, then becomes ACTIVE; an active admission clears when Phone Detox, Settings, or another meaningful app appears. Intention text and behavioral history never cross the Flutter boundary or persist.
 
 No process kill, boot receiver, background launch, foreground service, polling, Usage Access, overlay, VPN, or Home-role reclaim exists.

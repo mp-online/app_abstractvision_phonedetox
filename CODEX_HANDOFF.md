@@ -1,21 +1,38 @@
-# Codex Handoff — PR-005 Mindful Opening QA
+# Codex Handoff — PR-005.1 Admission Loop QA
 
 ## Implemented
 
-Mindful rules, global enablement, direct and external request creation, full-screen countdown/intention UI, admission, strict Detox precedence, current-Home safety, disclosure v2, centralized startup recovery, Jail Break cleanup, indicators, Settings management, English/German localization, and native/Dart decision tests.
+The confirmed-launch race is fixed with schema-v2 two-phase admission:
 
-No permission, runtime dependency, service, receiver, billing, subscription, analytics, network call, or behavioral history was added. External notification/deep-link destinations are not restored; the primary launcher activity opens after confirmation.
+1. Flutter clears the pending request.
+2. Native grants AWAITING_TARGET with a 15-second target deadline.
+3. Flutter launches the target.
+4. Phone Detox, keyboards, System UI, permission controller, and package installer preserve awaiting admission.
+5. The target foreground event persists ACTIVE without invoking Home.
+6. Active admission preserves the target/transient surfaces and clears on Phone Detox, Settings, the dialer, another meaningful app, global disable, Jail Break, or its 12-hour safety expiry.
 
-## Automated verification
+Launch failure clears admission and leaves no pending request. Schema-v1, unknown-phase, and corrupted admission records are invalidated. Direct and external decision paths suppress duplicate requests while admission exists.
 
-Run `flutter pub get`, `flutter gen-l10n`, `dart format --set-exit-if-changed lib test`, `flutter analyze --no-pub`, `flutter test --no-pub`, `android/gradlew :app:testDebugUnitTest`, `android/gradlew testDebugUnitTest`, and `flutter build apk --debug`. Preserve the known cross-drive aggregate Gradle result if it remains.
+Settings explain that Mindful Opening controls app entry, not time spent in an app or 15-minute reminders. Global enabled/disabled status, configured count, and zero-app state are visible in English and German.
+
+## Automated verification completed
+
+- Flutter dependency resolution and localization generation: passed.
+- Dart format check: passed with zero changes.
+- Flutter analyzer: no issues.
+- Flutter tests: 68 passed.
+- Android app Kotlin unit tests: passed.
+- Debug APK: built at build/app/outputs/flutter-apk/app-debug.apk.
+
+Gradle emitted existing Kotlin/AGP deprecation warnings; they did not fail compilation or tests.
 
 ## Manual verification still required
 
-- Pixel Android 15+, current Samsung/One UI, and Android 10.
-- Direct pause/cancel/confirm, navigation within an admitted app, Home then reopen.
-- External Recents, notification, browser link, other app, and assistant opening.
-- Accessibility disabled partial coverage and v1-to-v2 disclosure migration.
-- Jail Break with pending/admitted state and rules preserved after restoring Home.
-- Reboot and Flutter process death with valid and expired requests.
-- Gesture/buttons, large text, TalkBack order, and recovery paths.
+No device or emulator QA was performed. Do not mark these complete without execution evidence:
+
+- Chrome direct countdown confirmation and Home/reopen reproduction.
+- External Recents, notification, and browser-link flow.
+- Einbürgerungscoach left open for more than 15 minutes.
+- Pixel, Samsung/One UI, Android 10, TalkBack, Home button, reboot/process death, permission dialogs, or live Jail Break enforcement.
+
+The existing external-flow limitation remains: confirmation opens the target application's primary launcher activity and does not restore the original notification or deep-link destination.

@@ -604,13 +604,21 @@
   "@mindfulSettingsTitle": {
     "description": "German localization for mindfulSettingsTitle."
   },
-  "mindfulSettingsDescription": "Vor dem Öffnen ausgewählter Apps kurz innehalten.",
+  "mindfulSettingsDescription": "„Bewusstes Öffnen“ fügt vor dem Start ausgewählter Apps eine Pause ein.\n\nEs begrenzt derzeit nicht die Nutzungsdauer und zeigt nach 15 Minuten keine Erinnerung an.",
   "@mindfulSettingsDescription": {
-    "description": "German localization for mindfulSettingsDescription."
+    "description": "Erklärt, dass Bewusstes Öffnen den App-Start verzögert und die Nutzungsdauer nicht überwacht."
   },
-  "mindfulEnabledTitle": "Bewusstes Öffnen aktiviert",
+  "mindfulEnabledTitle": "Bewusstes Öffnen aktivieren",
   "@mindfulEnabledTitle": {
-    "description": "German localization for mindfulEnabledTitle."
+    "description": "Schalter zum globalen Aktivieren von Bewusstes Öffnen."
+  },
+  "mindfulEnabledStatus": "Bewusstes Öffnen: Aktiviert",
+  "@mindfulEnabledStatus": {
+    "description": "Status bei global aktiviertem Bewussten Öffnen."
+  },
+  "mindfulDisabledStatus": "Bewusstes Öffnen: Deaktiviert",
+  "@mindfulDisabledStatus": {
+    "description": "Status bei global deaktiviertem Bewussten Öffnen."
   },
   "mindfulPartialCoverageWarning": "Bewusstes Öffnen funktioniert in Phone Detox. Aktiviere den Bedienungshilfenzugriff und akzeptiere die aktualisierte Erklärung, um auch Apps aus Benachrichtigungen, Links, der Übersicht und anderen Apps zu erfassen.",
   "@mindfulPartialCoverageWarning": {

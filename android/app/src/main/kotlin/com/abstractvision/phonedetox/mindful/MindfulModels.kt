@@ -78,13 +78,33 @@ data class MindfulLaunchRequestSnapshot(
     }
 }
 
+enum class MindfulAdmissionPhase(val wireValue: String) {
+    AWAITING_TARGET("awaitingTarget"),
+    ACTIVE("active");
+
+    companion object {
+        fun fromWire(value: String): MindfulAdmissionPhase? =
+            entries.firstOrNull { it.wireValue == value }
+    }
+}
+
 data class MindfulAdmissionSnapshot(
     val packageName: String,
+    val phase: MindfulAdmissionPhase,
     val grantedAtEpochMs: Long,
+    val targetDeadlineEpochMs: Long,
     val expiresAtEpochMs: Long,
 ) {
     init {
         require(packageName.isNotBlank())
-        require(grantedAtEpochMs < expiresAtEpochMs)
+        require(grantedAtEpochMs < targetDeadlineEpochMs)
+        require(targetDeadlineEpochMs <= expiresAtEpochMs)
+    }
+
+    fun activate(): MindfulAdmissionSnapshot = copy(phase = MindfulAdmissionPhase.ACTIVE)
+
+    fun isExpiredAt(nowEpochMs: Long): Boolean = when (phase) {
+        MindfulAdmissionPhase.AWAITING_TARGET -> targetDeadlineEpochMs <= nowEpochMs
+        MindfulAdmissionPhase.ACTIVE -> expiresAtEpochMs <= nowEpochMs
     }
 }

@@ -169,9 +169,9 @@ class MindfulOpeningController extends Notifier<MindfulOpeningState> {
         !state.canContinueAt(instant)) {
       throw StateError('Mindful Opening requirements are not satisfied.');
     }
-    await _repository.grantAdmission(app.packageName);
+    await _repository.clearPendingLaunch();
     try {
-      await _repository.clearPendingLaunch();
+      await _repository.grantAdmission(app.packageName);
       await ref.read(launcherRepositoryProvider).launchApp(app);
       state = state.copyWith(
         status: MindfulOpeningStatus.admitted,
@@ -181,7 +181,6 @@ class MindfulOpeningController extends Notifier<MindfulOpeningState> {
       );
     } catch (_) {
       await _repository.clearAdmission();
-      await _repository.clearPendingLaunch();
       state = state.copyWith(
         status: MindfulOpeningStatus.error,
         clearPendingRequest: true,

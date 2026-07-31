@@ -1,28 +1,44 @@
-# PR-005 — Mindful Opening
+# PR-005.1 — Fix Mindful Admission Loop and Clarify Feature Behaviour
 
 ## Summary
 
-Adds local per-app launch friction with 5, 10, 15, or 30 second pauses and optional memory-only intention selection. Direct launcher taps create a native pending request; package-only Accessibility events can intercept external foreground transitions after disclosure version 2 while Phone Detox remains Home.
+Fixes the admission race that could reopen a confirmed application for about one second and then return immediately to the Mindful Opening countdown. The native admission is now schema version 2 with explicit AWAITING_TARGET and ACTIVE phases.
 
-The Accessibility initialization crash is fixed by calling `super.onServiceConnected()`, constructing every store and resolver, and only then reading/clearing persisted snapshots. The service now delegates precedence to a pure foreground decision engine.
+Flutter clears the pending request before granting an awaiting-target admission immediately before launch. Phone Detox and transient Android surfaces preserve that phase; the target package activates it. Active admission remains valid for the target and transient surfaces, and clears on Home, Settings, the dialer, another meaningful app, global disable, Jail Break, or safety expiry.
 
-## Implemented and automated
+Mindful Opening settings now state that the feature delays app entry only. It does not monitor time spent in an app or show 15-minute reminders; those remain PR-008 work. Settings also show global status and the configured-app count, including the zero-app state.
 
-- [x] Validated immutable Dart rules and UTC request model.
-- [x] SharedPreferences product rules/global toggle; no history store.
-- [x] Versioned native rules, five-minute request, and twelve-hour admission stores.
-- [x] Direct launch gate, countdown, optional intention, immediate Go back, and admission-before-launch.
-- [x] External package interception guarded by disclosure v2 and current Home resolution.
-- [x] Detox hard block precedence, request deduplication, transient-system admission preservation, and meaningful-transition clearing.
-- [x] Startup pending-request recovery and stale expiry through the sole lifecycle coordinator.
-- [x] Jail Break clears request/admission while preserving rules.
-- [x] Long-press editor, launcher indicators, Settings toggle/management, English/German localization.
-- [x] No permission, service, receiver, runtime dependency, billing, subscription, analytics, or network feature added.
+## Root cause
 
-## Verification status
+The previous Flutter sequence granted admission while Phone Detox was still foreground. The following Phone Detox Accessibility event used the active-admission clearing rule, deleted that admission before the target appeared, and allowed the target's next event to create another request. Two-phase admission makes the authorization-to-target transition explicit and safe under nondeterministic Android event ordering.
 
-Flutter analysis, Flutter tests, and app Kotlin tests pass. Aggregate Gradle and debug APK results are recorded in the implementation handoff. No device or emulator QA was performed; Pixel, Samsung, Android 10, external notification/deep-link, reboot/process-death, TalkBack, and live Jail Break enforcement checks remain unverified.
+## Persistence and privacy
 
-## Known platform limitation
+Admission schema version 2 stores only:
 
-Accessibility supplies the visible package but not the original launch intent. External confirmation opens the package's primary launcher activity; notification and deep-link destinations are not restored.
+- schemaVersion
+- packageName
+- phase
+- grantedAtEpochMs
+- targetDeadlineEpochMs
+- expiresAtEpochMs
+
+Awaiting target has a 15-second deadline; active admission retains the 12-hour safety expiry. Phase-less schema-v1 records, unknown phases, and corrupted timelines are cleared and never inferred as active. No intention, duration, behavioral history, content, notification, URL, or original intent is stored.
+
+No permission, dependency, service, receiver, analytics, network, Usage Access, overlay, VPN, billing, subscription, or foreground service was added.
+
+## Automated verification
+
+- flutter pub get: passed.
+- flutter gen-l10n: passed.
+- dart format --set-exit-if-changed lib test: passed, zero changes.
+- flutter analyze --no-pub: passed, no issues.
+- flutter test --no-pub: passed, 68 tests.
+- android/gradlew :app:testDebugUnitTest: passed.
+- flutter build apk --debug: passed; output at build/app/outputs/flutter-apk/app-debug.apk.
+
+Automated coverage includes both admission phases, strict Detox precedence, transient surfaces, target activation/deadlines, schema decoding/migration rejection, exact Chrome event regression behavior, Flutter launch ordering/failure cleanup, localized settings/count/empty states, and large text scaling.
+
+## Manual verification still required
+
+No device or emulator was used in this change. Chrome direct-launch reproduction, external Recents/notification/link behavior, and the Einbürgerungscoach 15-minute expectation remain unverified. Pixel, Samsung/One UI, Android 10, TalkBack, Home-button, reboot/process-death, permission-dialog, and live Jail Break enforcement checks also remain unverified.

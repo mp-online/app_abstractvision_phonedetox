@@ -604,13 +604,21 @@
   "@mindfulSettingsTitle": {
     "description": "mindfulSettingsTitle."
   },
-  "mindfulSettingsDescription": "Pause before opening selected apps.",
+  "mindfulSettingsDescription": "Mindful Opening adds a pause before selected apps open.\n\nIt does not currently limit how long you remain in an app or show reminders after 15 minutes.",
   "@mindfulSettingsDescription": {
-    "description": "mindfulSettingsDescription."
+    "description": "Explains that Mindful Opening adds app-entry friction and does not monitor in-app duration."
   },
-  "mindfulEnabledTitle": "Mindful opening enabled",
+  "mindfulEnabledTitle": "Enable Mindful Opening",
   "@mindfulEnabledTitle": {
-    "description": "mindfulEnabledTitle."
+    "description": "Toggle label for globally enabling Mindful Opening."
+  },
+  "mindfulEnabledStatus": "Mindful Opening: Enabled",
+  "@mindfulEnabledStatus": {
+    "description": "Status shown when Mindful Opening is globally enabled."
+  },
+  "mindfulDisabledStatus": "Mindful Opening: Disabled",
+  "@mindfulDisabledStatus": {
+    "description": "Status shown when Mindful Opening is globally disabled."
   },
   "mindfulPartialCoverageWarning": "Mindful Opening works from Phone Detox. Enable Accessibility access and accept the updated disclosure to also catch apps opened from notifications, links, Recents, and other apps.",
   "@mindfulPartialCoverageWarning": {

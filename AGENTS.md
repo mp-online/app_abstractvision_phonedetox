@@ -166,6 +166,9 @@ A change is complete only when:
 - Accessibility handling remains package-name-only; never inspect nodes, content, notifications, URLs, or original intents.
 - Persist rules, one temporary request, and one temporary admission only. Never persist intentions or behavioral history.
 - Admission ends on meaningful package transitions and survives keyboards/System UI/permission surfaces.
+- Admission schema v2 has AWAITING_TARGET and ACTIVE phases; awaiting preserves Phone Detox and transient surfaces, activates on the target, and expires after 15 seconds.
+- Clear the pending request before granting admission immediately before launch; launch failure clears admission.
+- Mindful Opening controls app entry only. In-app reminders and daily budgets remain PR-008 work.
 - Jail Break and global disable clear request/admission but preserve configured rules.
 - Do not claim external deep-link restoration or device QA without execution evidence.
 - Do not add Usage Access, notification access, overlay, VPN, foreground service, boot receiver, billing, subscription, analytics, network communication, or a backend.

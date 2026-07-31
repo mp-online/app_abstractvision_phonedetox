@@ -97,19 +97,52 @@ class MindfulRequestStore(context: Context) {
 class MindfulAdmissionStore(context: Context) {
     private val preferences = context.getSharedPreferences(STORE_NAME, Context.MODE_PRIVATE)
     fun save(value: MindfulAdmissionSnapshot): Boolean = preferences.edit()
+        .putInt("schemaVersion", SCHEMA_VERSION)
         .putString("packageName", value.packageName)
+        .putString("phase", value.phase.wireValue)
         .putLong("grantedAtEpochMs", value.grantedAtEpochMs)
+        .putLong("targetDeadlineEpochMs", value.targetDeadlineEpochMs)
         .putLong("expiresAtEpochMs", value.expiresAtEpochMs).commit()
     fun read(): MindfulAdmissionSnapshot? = try {
         val packageName = preferences.getString("packageName", null) ?: return null
-        MindfulAdmissionSnapshot(packageName, preferences.getLong("grantedAtEpochMs", -1), preferences.getLong("expiresAtEpochMs", -1))
+        decode(
+            schemaVersion = preferences.getInt("schemaVersion", -1),
+            packageName = packageName,
+            phase = preferences.getString("phase", null),
+            grantedAtEpochMs = preferences.getLong("grantedAtEpochMs", -1),
+            targetDeadlineEpochMs = preferences.getLong("targetDeadlineEpochMs", -1),
+            expiresAtEpochMs = preferences.getLong("expiresAtEpochMs", -1),
+        ) ?: run { clear(); null }
     } catch (_: Exception) { clear(); null }
     fun getActive(nowEpochMs: Long = System.currentTimeMillis()): MindfulAdmissionSnapshot? {
         val value = read() ?: return null
-        if (value.expiresAtEpochMs <= nowEpochMs) { clear(); return null }
+        if (value.isExpiredAt(nowEpochMs)) { clear(); return null }
         return value
     }
     fun clearExpired(nowEpochMs: Long = System.currentTimeMillis()) { getActive(nowEpochMs) }
     fun clear(): Boolean = preferences.edit().clear().commit()
-    companion object { private const val STORE_NAME = "phone_detox_native_mindful_admission" }
+    companion object {
+        const val SCHEMA_VERSION = 2
+        private const val STORE_NAME = "phone_detox_native_mindful_admission"
+
+        internal fun decode(
+            schemaVersion: Int,
+            packageName: String?,
+            phase: String?,
+            grantedAtEpochMs: Long,
+            targetDeadlineEpochMs: Long,
+            expiresAtEpochMs: Long,
+        ): MindfulAdmissionSnapshot? = try {
+            if (schemaVersion != SCHEMA_VERSION) return null
+            MindfulAdmissionSnapshot(
+                packageName = packageName?.takeIf { it.isNotBlank() } ?: return null,
+                phase = MindfulAdmissionPhase.fromWire(phase ?: "") ?: return null,
+                grantedAtEpochMs = grantedAtEpochMs,
+                targetDeadlineEpochMs = targetDeadlineEpochMs,
+                expiresAtEpochMs = expiresAtEpochMs,
+            )
+        } catch (_: IllegalArgumentException) {
+            null
+        }
+    }
 }

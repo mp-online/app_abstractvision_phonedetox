@@ -60,7 +60,7 @@ class PhoneDetoxAccessibilityService : AccessibilityService() {
             session = sessionStore.read(),
             mindful = mindfulRulesStore.read(),
             pendingRequest = mindfulRequestStore.getActive(now),
-            admission = mindfulAdmissionStore.getActive(now),
+            admission = mindfulAdmissionStore.read(),
             isCurrentHome = isCurrentHome,
             dynamicSafePackages = dynamicSafePackages(),
             admissionClearingPackages = admissionClearingPackages(),
@@ -69,6 +69,8 @@ class PhoneDetoxAccessibilityService : AccessibilityService() {
             ForegroundDecision.Allow -> Unit
             ForegroundDecision.ClearExpiredDetox -> sessionStore.clear()
             ForegroundDecision.ClearAdmissionAndAllow -> mindfulAdmissionStore.clear()
+            is ForegroundDecision.ActivateAdmissionAndAllow ->
+                mindfulAdmissionStore.save(decision.admission)
             ForegroundDecision.ReturnHomeForDetox -> performGlobalAction(GLOBAL_ACTION_HOME)
             is ForegroundDecision.ReturnHomeForMindfulOpening -> {
                 // Persist first: failure must leave the target app usable.

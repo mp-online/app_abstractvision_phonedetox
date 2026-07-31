@@ -80,23 +80,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get restoreAction => 'Restore';
 
   @override
-  String get detoxTooltip => 'Open Detox';
+  String get detoxTooltip => 'Open Block apps now';
 
   @override
-  String get detoxTitle => 'Detox';
+  String get detoxTitle => 'Block apps now';
 
   @override
-  String get detoxLoading => 'Loading Detox settings…';
+  String get detoxLoading => 'Loading blocking settings…';
 
   @override
-  String get detoxLoadError => 'Detox settings could not be loaded. Try again.';
+  String get detoxLoadError =>
+      'Blocking settings could not be loaded. Try again.';
 
   @override
   String get detoxManageAppsTitle => 'Apps to block';
 
   @override
   String get detoxManageAppsDescription =>
-      'These packages will be blocked during a session.';
+      'These apps will be unavailable during an active block.';
 
   @override
   String get detoxNoAppsAvailable => 'No launchable apps are available.';
@@ -114,10 +115,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get detoxEmptyList => 'Choose at least one distracting app.';
+  String get detoxEmptyList => 'Choose at least one app to block.';
 
   @override
-  String get detoxDurationTitle => 'Session duration';
+  String get detoxDurationTitle => 'Block selected apps for';
 
   @override
   String detoxMinutes(int minutes) {
@@ -125,41 +126,41 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get detoxCustomDurationLabel => 'Custom duration (5–480 minutes)';
+  String get detoxCustomDurationLabel => 'Custom block duration';
 
   @override
-  String get detoxCustomDurationError => 'Enter a value from 5 to 480.';
+  String get detoxCustomDurationError =>
+      'Enter a duration between 5 minutes and 8 hours.';
 
   @override
   String get detoxAccessibilityExplanation =>
-      'Strict blocking requires Accessibility access. It is only used to observe the visible app package during an active session.';
+      'Phone Detox can detect attempts to open selected apps and return you Home.';
 
   @override
-  String get detoxAccessibilityEnabled => 'Accessibility access enabled';
+  String get detoxAccessibilityEnabled => 'Strict blocking is ready';
 
   @override
-  String get detoxAccessibilityDisabled => 'Accessibility access disabled';
+  String get detoxAccessibilityDisabled => 'Strict blocking is not enabled';
 
   @override
-  String get detoxAccessibilityUnavailable =>
-      'Accessibility access unavailable';
+  String get detoxAccessibilityUnavailable => 'Strict blocking is unavailable';
 
   @override
-  String get detoxStartAction => 'Start session';
+  String get detoxStartAction => 'Start blocking';
 
   @override
   String get detoxStartError =>
-      'The session could not be started. Check Accessibility access and try again.';
+      'Blocking could not be started. Check blocking access and try again.';
 
   @override
-  String get detoxAddAction => 'Add to detox list';
+  String get detoxAddAction => 'Add to apps to block';
 
   @override
-  String get detoxRemoveAction => 'Remove from detox list';
+  String get detoxRemoveAction => 'Remove from apps to block';
 
   @override
-  String detoxBlockedUntil(String endTime) {
-    return 'This app is blocked until $endTime.';
+  String detoxBlockedUntil(String appName, String endTime) {
+    return '$appName is unavailable until $endTime.';
   }
 
   @override
@@ -198,7 +199,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get detoxDisclosureControlBody =>
-      'You can end a session, disable Accessibility access, choose another Home app, or uninstall Phone Detox at any time.';
+      'You can end a block, disable Accessibility access, choose another Home app, or uninstall Phone Detox at any time.';
 
   @override
   String get detoxDisclosureConsent =>
@@ -208,11 +209,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get continueAction => 'Continue';
 
   @override
-  String get detoxActiveTitle => 'Detox session active';
+  String get detoxActiveTitle => 'Apps blocked';
 
   @override
   String detoxEndsAt(String endTime) {
-    return 'Ends at $endTime';
+    return 'Until $endTime';
   }
 
   @override
@@ -220,31 +221,31 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count blocked apps',
-      one: '1 blocked app',
+      other: '$count apps are currently blocked',
+      one: '1 app is currently blocked',
     );
     return '$_temp0';
   }
 
   @override
   String get detoxEnforcementDisabledWarning =>
-      'The session is still active, but blocking is not enforced because Accessibility access is disabled.';
+      'The block is still active, but blocking is not enforced because Accessibility access is disabled.';
 
   @override
   String get detoxOpenAccessibilitySettings => 'Open Accessibility settings';
 
   @override
-  String get detoxEndSessionAction => 'End session';
+  String get detoxEndSessionAction => 'End block early';
 
   @override
-  String get detoxEndSessionTitle => 'End this session?';
+  String get detoxEndSessionTitle => 'End the block early?';
 
   @override
   String get detoxEndSessionBody =>
-      'Hold the button for 3 seconds to end the session.';
+      'The selected apps will become available immediately. Hold the button for 3 seconds to confirm.';
 
   @override
-  String get detoxHoldToEnd => 'Hold to end';
+  String get detoxHoldToEnd => 'Hold to end block';
 
   @override
   String get detoxEmergencyExitAction => 'Emergency exit';
@@ -254,13 +255,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get detoxEmergencyExitBody =>
-      'This immediately ends the session and removes blocking.';
+      'Immediately make the selected apps available again.';
 
   @override
-  String get detoxEmergencyExitConfirm => 'End now';
+  String get detoxEmergencyExitConfirm => 'Make apps available';
 
   @override
-  String get detoxSessionComplete => 'Detox session complete.';
+  String get detoxSessionComplete => 'The block has ended.';
 
   @override
   String get startupLoading => 'Preparing your Home screen…';
@@ -356,17 +357,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get jailBreakConfirmAction => 'Jail Break';
 
   @override
-  String get jailBreakActiveDialogTitle => 'End Detox and leave Phone Detox?';
+  String get jailBreakActiveDialogTitle =>
+      'End the block and leave Phone Detox?';
 
   @override
   String get jailBreakActiveDialogBody =>
-      'Jail Break will immediately end the active Detox session, remove app blocking, and open Android\'s Home app settings.';
+      'Jail Break immediately ends the active block, makes the selected apps available, and opens Android Home-app settings.';
 
   @override
-  String get jailBreakActiveConfirmAction => 'End session and Jail Break';
+  String get jailBreakActiveConfirmAction => 'End block and Jail Break';
 
   @override
-  String get jailBreakEndingSession => 'Ending the active Detox session…';
+  String get jailBreakEndingSession => 'Ending active block…';
 
   @override
   String get jailBreakOpeningSettings => 'Opening Android Home app settings…';
@@ -400,7 +402,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get jailBreakActiveCleanupFailureBody =>
-      'Phone Detox could not fully remove the active blocking session.';
+      'Phone Detox could not fully remove the active block.';
 
   @override
   String get jailBreakRetryAction => 'Try again';
@@ -416,7 +418,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get jailBreakAccessibilityStillEnabled =>
-      'The active blocking session will end. Phone Detox Accessibility access may remain enabled, but it will not block applications without an active Detox session.';
+      'The active block is ended. Phone Detox Accessibility access may remain enabled, but it blocks no apps without an active block.';
 
   @override
   String get jailBreakSettingsSectionTitle => 'Recovery';
@@ -497,11 +499,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get mindfulConfiguredSemantics => 'Mindful Opening configured';
 
   @override
-  String get mindfulSettingsTitle => 'Mindful opening';
+  String get mindfulSettingsTitle => 'Mindful Opening';
 
   @override
   String get mindfulSettingsDescription =>
-      'Mindful Opening adds a pause before selected apps open.\n\nIt does not currently limit how long you remain in an app or show reminders after 15 minutes.';
+      'Pause before an app opens.\n\nMindful Opening does not limit time spent inside the app.';
 
   @override
   String get mindfulEnabledTitle => 'Enable Mindful Opening';
@@ -554,6 +556,217 @@ class AppLocalizationsEn extends AppLocalizations {
       other: '$count apps configured',
       one: '1 app configured',
       zero: 'No apps configured',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get detoxChooseAppsStepTitle => '1. Choose apps';
+
+  @override
+  String get detoxChooseAppsStepDescription =>
+      'Selected apps will be completely unavailable while the block is active.';
+
+  @override
+  String get detoxNoAppsSelectedDescription =>
+      'Choose at least one app to block.';
+
+  @override
+  String get detoxChooseAppsAction => 'Choose apps';
+
+  @override
+  String get detoxChangeSelectionAction => 'Change selection';
+
+  @override
+  String get detoxDurationStepTitle => '2. Block them for';
+
+  @override
+  String get detoxDurationStepDescription =>
+      'The countdown starts when you press Start blocking.';
+
+  @override
+  String detoxDurationMinutes(int minutes) {
+    String _temp0 = intl.Intl.pluralLogic(
+      minutes,
+      locale: localeName,
+      other: '$minutes minutes',
+      one: '1 minute',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String detoxDurationHours(int hours) {
+    String _temp0 = intl.Intl.pluralLogic(
+      hours,
+      locale: localeName,
+      other: '$hours hours',
+      one: '1 hour',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get detoxCustomDurationOption => 'Custom';
+
+  @override
+  String get detoxCustomDurationSupportingText =>
+      'Between 5 minutes and 8 hours';
+
+  @override
+  String get detoxBlockingAccessStepTitle => '3. Blocking access';
+
+  @override
+  String get detoxBlockingAccessReady => 'Strict blocking is ready';
+
+  @override
+  String get detoxBlockingAccessReadyDescription =>
+      'Phone Detox can detect attempts to open selected apps and return you Home.';
+
+  @override
+  String get detoxBlockingAccessDisabled => 'Strict blocking is not enabled';
+
+  @override
+  String get detoxBlockingAccessDisabledDescription =>
+      'Enable Accessibility access so Phone Detox can enforce the block outside the launcher.';
+
+  @override
+  String get detoxReviewBlockingAccessAction => 'Review and enable access';
+
+  @override
+  String get detoxWhatWillHappenTitle => 'What will happen?';
+
+  @override
+  String get detoxWhatWillHappenEmpty =>
+      'Choose at least one app to see exactly what will be blocked.';
+
+  @override
+  String detoxWhatWillHappenSummary(
+    int count,
+    String appName,
+    String duration,
+  ) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count selected apps will be blocked for $duration.',
+      one: '$appName will be blocked for $duration.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get detoxWhatWillHappenAvailability =>
+      'You will not be able to open them until the block ends or you deliberately end the block.';
+
+  @override
+  String detoxNotUsageAllowance(String duration) {
+    return 'This does not give you $duration of usage inside an app.';
+  }
+
+  @override
+  String get detoxChooseAppsToContinue => 'Choose apps to continue';
+
+  @override
+  String detoxDynamicStartAction(int count, String appName, String duration) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Block $count apps for $duration',
+      one: 'Block $appName for $duration',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get detoxBlockerNoApps => 'Choose at least one app to block.';
+
+  @override
+  String get detoxBlockerInvalidDuration => 'Enter a valid blocking duration.';
+
+  @override
+  String get detoxBlockerDisclosure => 'Review how blocking access is used.';
+
+  @override
+  String get detoxBlockerAccessibility => 'Enable strict blocking access.';
+
+  @override
+  String get detoxBlockerAlreadyActive => 'A block is already active.';
+
+  @override
+  String get detoxBlockerControllerError =>
+      'Blocking settings could not be loaded. Try again.';
+
+  @override
+  String detoxSelectionDone(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Done — $count selected',
+      one: 'Done — 1 selected',
+      zero: 'Done — no apps selected',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get detoxMindfulOpeningConfigured => 'Mindful Opening configured';
+
+  @override
+  String get detoxBlockEndsIn => 'Block ends in';
+
+  @override
+  String detoxCountdownSemantics(String remainingTime) {
+    return 'Block ends in $remainingTime';
+  }
+
+  @override
+  String get detoxBlockedAppsHeading => 'Blocked apps';
+
+  @override
+  String get detoxBlockedAppExplanation =>
+      'It is included in your active block.';
+
+  @override
+  String get detoxViewActiveBlock => 'View active block';
+
+  @override
+  String get settingsHowItWorksTitle => 'How Phone Detox works';
+
+  @override
+  String get settingsMindfulDefinition => 'Pause before selected apps open.';
+
+  @override
+  String get settingsMindfulDisabled => 'Disabled';
+
+  @override
+  String get settingsMindfulNoApps => 'No apps configured';
+
+  @override
+  String settingsMindfulEnabledCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Enabled for $count apps',
+      one: 'Enabled for 1 app',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get settingsTemporaryBlockDefinition =>
+      'Make selected apps completely unavailable for a chosen period.';
+
+  @override
+  String get settingsTemporaryBlockInactive => 'No active block';
+
+  @override
+  String settingsTemporaryBlockActive(int count, String endTime) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count apps blocked until $endTime',
+      one: '1 app blocked until $endTime',
     );
     return '$_temp0';
   }

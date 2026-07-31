@@ -173,3 +173,12 @@ A change is complete only when:
 - Do not claim external deep-link restoration or device QA without execution evidence.
 - Do not add Usage Access, notification access, overlay, VPN, foreground service, boot receiver, billing, subscription, analytics, network communication, or a backend.
 - See `docs/adr/0005-mindful-opening-and-admission.md`.
+## Active PR-005.2 terminology constraints
+
+- Product-facing Detox setup is **Block apps now**: selected apps are completely unavailable between fixed start and end timestamps.
+- Mindful Opening is friction before entry and never implies a time allowance inside an app.
+- Usage Limit is approved for PR-006 only. Do not advertise or implement it in PR-005.2.
+- Future Usage Limit is opt-in per app, off by default, and suggests 15 minutes only after explicit enablement.
+- Never claim Android force-stops another app; future expiry returns Home and applies an explicit reopening consequence.
+- Do not rename `DetoxSession`, persistence keys, or native session models for presentation terminology.
+- PR-005.2 must not change native enforcement, Accessibility event handling, package matching, timestamps, precedence, expiry, Mindful admission, Home-role behavior, or Jail Break recovery.

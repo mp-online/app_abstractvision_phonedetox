@@ -233,25 +233,25 @@ abstract class AppLocalizations {
   /// Tooltip for the launcher button that opens Detox.
   ///
   /// In en, this message translates to:
-  /// **'Open Detox'**
+  /// **'Open Block apps now'**
   String get detoxTooltip;
 
   /// Title of the Detox setup screen.
   ///
   /// In en, this message translates to:
-  /// **'Detox'**
+  /// **'Block apps now'**
   String get detoxTitle;
 
   /// Message shown while Detox state is loading.
   ///
   /// In en, this message translates to:
-  /// **'Loading Detox settings…'**
+  /// **'Loading blocking settings…'**
   String get detoxLoading;
 
   /// Recoverable Detox loading error.
   ///
   /// In en, this message translates to:
-  /// **'Detox settings could not be loaded. Try again.'**
+  /// **'Blocking settings could not be loaded. Try again.'**
   String get detoxLoadError;
 
   /// Title of the Detox app selection screen.
@@ -263,7 +263,7 @@ abstract class AppLocalizations {
   /// Explanation of the selected Detox package list.
   ///
   /// In en, this message translates to:
-  /// **'These packages will be blocked during a session.'**
+  /// **'These apps will be unavailable during an active block.'**
   String get detoxManageAppsDescription;
 
   /// Empty state for Detox app selection.
@@ -281,13 +281,13 @@ abstract class AppLocalizations {
   /// Guidance when the Detox list is empty.
   ///
   /// In en, this message translates to:
-  /// **'Choose at least one distracting app.'**
+  /// **'Choose at least one app to block.'**
   String get detoxEmptyList;
 
   /// Heading for Detox duration selection.
   ///
   /// In en, this message translates to:
-  /// **'Session duration'**
+  /// **'Block selected apps for'**
   String get detoxDurationTitle;
 
   /// A Detox duration in minutes.
@@ -299,68 +299,68 @@ abstract class AppLocalizations {
   /// Label for custom Detox duration input.
   ///
   /// In en, this message translates to:
-  /// **'Custom duration (5–480 minutes)'**
+  /// **'Custom block duration'**
   String get detoxCustomDurationLabel;
 
   /// Validation error for custom Detox duration.
   ///
   /// In en, this message translates to:
-  /// **'Enter a value from 5 to 480.'**
+  /// **'Enter a duration between 5 minutes and 8 hours.'**
   String get detoxCustomDurationError;
 
   /// Explanation of why Detox needs Accessibility special access.
   ///
   /// In en, this message translates to:
-  /// **'Strict blocking requires Accessibility access. It is only used to observe the visible app package during an active session.'**
+  /// **'Phone Detox can detect attempts to open selected apps and return you Home.'**
   String get detoxAccessibilityExplanation;
 
   /// Enabled Accessibility status.
   ///
   /// In en, this message translates to:
-  /// **'Accessibility access enabled'**
+  /// **'Strict blocking is ready'**
   String get detoxAccessibilityEnabled;
 
   /// Disabled Accessibility status.
   ///
   /// In en, this message translates to:
-  /// **'Accessibility access disabled'**
+  /// **'Strict blocking is not enabled'**
   String get detoxAccessibilityDisabled;
 
   /// Unavailable Accessibility status.
   ///
   /// In en, this message translates to:
-  /// **'Accessibility access unavailable'**
+  /// **'Strict blocking is unavailable'**
   String get detoxAccessibilityUnavailable;
 
   /// Action that starts a Detox session.
   ///
   /// In en, this message translates to:
-  /// **'Start session'**
+  /// **'Start blocking'**
   String get detoxStartAction;
 
   /// Recoverable error after Detox session start fails.
   ///
   /// In en, this message translates to:
-  /// **'The session could not be started. Check Accessibility access and try again.'**
+  /// **'Blocking could not be started. Check blocking access and try again.'**
   String get detoxStartError;
 
   /// Action that adds an app package to the Detox list.
   ///
   /// In en, this message translates to:
-  /// **'Add to detox list'**
+  /// **'Add to apps to block'**
   String get detoxAddAction;
 
   /// Action that removes an app package from the Detox list.
   ///
   /// In en, this message translates to:
-  /// **'Remove from detox list'**
+  /// **'Remove from apps to block'**
   String get detoxRemoveAction;
 
-  /// Message shown when direct launching is blocked.
+  /// Localized product copy for detoxBlockedUntil.
   ///
   /// In en, this message translates to:
-  /// **'This app is blocked until {endTime}.'**
-  String detoxBlockedUntil(String endTime);
+  /// **'{appName} is unavailable until {endTime}.'**
+  String detoxBlockedUntil(String appName, String endTime);
 
   /// Title of the prominent Accessibility disclosure.
   ///
@@ -425,7 +425,7 @@ abstract class AppLocalizations {
   /// Disclosure of user recovery controls.
   ///
   /// In en, this message translates to:
-  /// **'You can end a session, disable Accessibility access, choose another Home app, or uninstall Phone Detox at any time.'**
+  /// **'You can end a block, disable Accessibility access, choose another Home app, or uninstall Phone Detox at any time.'**
   String get detoxDisclosureControlBody;
 
   /// Affirmative consent checkbox for the Accessibility disclosure.
@@ -443,25 +443,25 @@ abstract class AppLocalizations {
   /// Title of the active Detox session screen.
   ///
   /// In en, this message translates to:
-  /// **'Detox session active'**
+  /// **'Apps blocked'**
   String get detoxActiveTitle;
 
   /// Local end time for the active session.
   ///
   /// In en, this message translates to:
-  /// **'Ends at {endTime}'**
+  /// **'Until {endTime}'**
   String detoxEndsAt(String endTime);
 
   /// Count of apps blocked by the active session.
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =1{1 blocked app} other{{count} blocked apps}}'**
+  /// **'{count, plural, =1{1 app is currently blocked} other{{count} apps are currently blocked}}'**
   String detoxBlockedAppsCount(int count);
 
   /// Warning when an active session is not enforced.
   ///
   /// In en, this message translates to:
-  /// **'The session is still active, but blocking is not enforced because Accessibility access is disabled.'**
+  /// **'The block is still active, but blocking is not enforced because Accessibility access is disabled.'**
   String get detoxEnforcementDisabledWarning;
 
   /// Action opening Android Accessibility settings.
@@ -473,25 +473,25 @@ abstract class AppLocalizations {
   /// Action opening the deliberate end-session flow.
   ///
   /// In en, this message translates to:
-  /// **'End session'**
+  /// **'End block early'**
   String get detoxEndSessionAction;
 
   /// Title of the deliberate end-session dialog.
   ///
   /// In en, this message translates to:
-  /// **'End this session?'**
+  /// **'End the block early?'**
   String get detoxEndSessionTitle;
 
   /// Instruction for deliberate session ending.
   ///
   /// In en, this message translates to:
-  /// **'Hold the button for 3 seconds to end the session.'**
+  /// **'The selected apps will become available immediately. Hold the button for 3 seconds to confirm.'**
   String get detoxEndSessionBody;
 
   /// Label for the 3-second hold button.
   ///
   /// In en, this message translates to:
-  /// **'Hold to end'**
+  /// **'Hold to end block'**
   String get detoxHoldToEnd;
 
   /// Accessible immediate session exit action.
@@ -509,19 +509,19 @@ abstract class AppLocalizations {
   /// Consequence explained by emergency exit confirmation.
   ///
   /// In en, this message translates to:
-  /// **'This immediately ends the session and removes blocking.'**
+  /// **'Immediately make the selected apps available again.'**
   String get detoxEmergencyExitBody;
 
   /// Confirmation action for emergency exit.
   ///
   /// In en, this message translates to:
-  /// **'End now'**
+  /// **'Make apps available'**
   String get detoxEmergencyExitConfirm;
 
   /// Message shown after a session naturally expires.
   ///
   /// In en, this message translates to:
-  /// **'Detox session complete.'**
+  /// **'The block has ended.'**
   String get detoxSessionComplete;
 
   /// Message shown while startup state is resolved.
@@ -689,25 +689,25 @@ abstract class AppLocalizations {
   /// Confirmation title when Jail Break will end an active session.
   ///
   /// In en, this message translates to:
-  /// **'End Detox and leave Phone Detox?'**
+  /// **'End the block and leave Phone Detox?'**
   String get jailBreakActiveDialogTitle;
 
   /// Active-session Jail Break consequences.
   ///
   /// In en, this message translates to:
-  /// **'Jail Break will immediately end the active Detox session, remove app blocking, and open Android\'s Home app settings.'**
+  /// **'Jail Break immediately ends the active block, makes the selected apps available, and opens Android Home-app settings.'**
   String get jailBreakActiveDialogBody;
 
   /// Confirmation action that ends a session and opens Home settings.
   ///
   /// In en, this message translates to:
-  /// **'End session and Jail Break'**
+  /// **'End block and Jail Break'**
   String get jailBreakActiveConfirmAction;
 
   /// Progress message during active-session cleanup.
   ///
   /// In en, this message translates to:
-  /// **'Ending the active Detox session…'**
+  /// **'Ending active block…'**
   String get jailBreakEndingSession;
 
   /// Progress message while Home settings opens.
@@ -767,7 +767,7 @@ abstract class AppLocalizations {
   /// Failure shown when active Detox cleanup fails.
   ///
   /// In en, this message translates to:
-  /// **'Phone Detox could not fully remove the active blocking session.'**
+  /// **'Phone Detox could not fully remove the active block.'**
   String get jailBreakActiveCleanupFailureBody;
 
   /// Action retrying a failed Jail Break step.
@@ -797,7 +797,7 @@ abstract class AppLocalizations {
   /// Explanation that Accessibility access remains enabled without active blocking.
   ///
   /// In en, this message translates to:
-  /// **'The active blocking session will end. Phone Detox Accessibility access may remain enabled, but it will not block applications without an active Detox session.'**
+  /// **'The active block is ended. Phone Detox Accessibility access may remain enabled, but it blocks no apps without an active block.'**
   String get jailBreakAccessibilityStillEnabled;
 
   /// Title of the settings recovery section.
@@ -947,13 +947,13 @@ abstract class AppLocalizations {
   /// mindfulSettingsTitle.
   ///
   /// In en, this message translates to:
-  /// **'Mindful opening'**
+  /// **'Mindful Opening'**
   String get mindfulSettingsTitle;
 
   /// Explains that Mindful Opening adds app-entry friction and does not monitor in-app duration.
   ///
   /// In en, this message translates to:
-  /// **'Mindful Opening adds a pause before selected apps open.\n\nIt does not currently limit how long you remain in an app or show reminders after 15 minutes.'**
+  /// **'Pause before an app opens.\n\nMindful Opening does not limit time spent inside the app.'**
   String get mindfulSettingsDescription;
 
   /// Toggle label for globally enabling Mindful Opening.
@@ -1015,6 +1015,276 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, =0{No apps configured} =1{1 app configured} other{{count} apps configured}}'**
   String mindfulConfiguredCount(int count);
+
+  /// Localized product copy for detoxChooseAppsStepTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Choose apps'**
+  String get detoxChooseAppsStepTitle;
+
+  /// Localized product copy for detoxChooseAppsStepDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected apps will be completely unavailable while the block is active.'**
+  String get detoxChooseAppsStepDescription;
+
+  /// Localized product copy for detoxNoAppsSelectedDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose at least one app to block.'**
+  String get detoxNoAppsSelectedDescription;
+
+  /// Localized product copy for detoxChooseAppsAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose apps'**
+  String get detoxChooseAppsAction;
+
+  /// Localized product copy for detoxChangeSelectionAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Change selection'**
+  String get detoxChangeSelectionAction;
+
+  /// Localized product copy for detoxDurationStepTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Block them for'**
+  String get detoxDurationStepTitle;
+
+  /// Localized product copy for detoxDurationStepDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'The countdown starts when you press Start blocking.'**
+  String get detoxDurationStepDescription;
+
+  /// Localized product copy for detoxDurationMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes, plural, =1{1 minute} other{{minutes} minutes}}'**
+  String detoxDurationMinutes(int minutes);
+
+  /// Localized product copy for detoxDurationHours.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours, plural, =1{1 hour} other{{hours} hours}}'**
+  String detoxDurationHours(int hours);
+
+  /// Localized product copy for detoxCustomDurationOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom'**
+  String get detoxCustomDurationOption;
+
+  /// Localized product copy for detoxCustomDurationSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Between 5 minutes and 8 hours'**
+  String get detoxCustomDurationSupportingText;
+
+  /// Localized product copy for detoxBlockingAccessStepTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'3. Blocking access'**
+  String get detoxBlockingAccessStepTitle;
+
+  /// Localized product copy for detoxBlockingAccessReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Strict blocking is ready'**
+  String get detoxBlockingAccessReady;
+
+  /// Localized product copy for detoxBlockingAccessReadyDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Detox can detect attempts to open selected apps and return you Home.'**
+  String get detoxBlockingAccessReadyDescription;
+
+  /// Localized product copy for detoxBlockingAccessDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Strict blocking is not enabled'**
+  String get detoxBlockingAccessDisabled;
+
+  /// Localized product copy for detoxBlockingAccessDisabledDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Accessibility access so Phone Detox can enforce the block outside the launcher.'**
+  String get detoxBlockingAccessDisabledDescription;
+
+  /// Localized product copy for detoxReviewBlockingAccessAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Review and enable access'**
+  String get detoxReviewBlockingAccessAction;
+
+  /// Localized product copy for detoxWhatWillHappenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What will happen?'**
+  String get detoxWhatWillHappenTitle;
+
+  /// Localized product copy for detoxWhatWillHappenEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose at least one app to see exactly what will be blocked.'**
+  String get detoxWhatWillHappenEmpty;
+
+  /// Localized product copy for detoxWhatWillHappenSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{{appName} will be blocked for {duration}.} other{{count} selected apps will be blocked for {duration}.}}'**
+  String detoxWhatWillHappenSummary(int count, String appName, String duration);
+
+  /// Localized product copy for detoxWhatWillHappenAvailability.
+  ///
+  /// In en, this message translates to:
+  /// **'You will not be able to open them until the block ends or you deliberately end the block.'**
+  String get detoxWhatWillHappenAvailability;
+
+  /// Localized product copy for detoxNotUsageAllowance.
+  ///
+  /// In en, this message translates to:
+  /// **'This does not give you {duration} of usage inside an app.'**
+  String detoxNotUsageAllowance(String duration);
+
+  /// Localized product copy for detoxChooseAppsToContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose apps to continue'**
+  String get detoxChooseAppsToContinue;
+
+  /// Localized product copy for detoxDynamicStartAction.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Block {appName} for {duration}} other{Block {count} apps for {duration}}}'**
+  String detoxDynamicStartAction(int count, String appName, String duration);
+
+  /// Localized product copy for detoxBlockerNoApps.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose at least one app to block.'**
+  String get detoxBlockerNoApps;
+
+  /// Localized product copy for detoxBlockerInvalidDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid blocking duration.'**
+  String get detoxBlockerInvalidDuration;
+
+  /// Localized product copy for detoxBlockerDisclosure.
+  ///
+  /// In en, this message translates to:
+  /// **'Review how blocking access is used.'**
+  String get detoxBlockerDisclosure;
+
+  /// Localized product copy for detoxBlockerAccessibility.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable strict blocking access.'**
+  String get detoxBlockerAccessibility;
+
+  /// Localized product copy for detoxBlockerAlreadyActive.
+  ///
+  /// In en, this message translates to:
+  /// **'A block is already active.'**
+  String get detoxBlockerAlreadyActive;
+
+  /// Localized product copy for detoxBlockerControllerError.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocking settings could not be loaded. Try again.'**
+  String get detoxBlockerControllerError;
+
+  /// Localized product copy for detoxSelectionDone.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{Done — no apps selected} =1{Done — 1 selected} other{Done — {count} selected}}'**
+  String detoxSelectionDone(int count);
+
+  /// Localized product copy for detoxMindfulOpeningConfigured.
+  ///
+  /// In en, this message translates to:
+  /// **'Mindful Opening configured'**
+  String get detoxMindfulOpeningConfigured;
+
+  /// Localized product copy for detoxBlockEndsIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Block ends in'**
+  String get detoxBlockEndsIn;
+
+  /// Localized product copy for detoxCountdownSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Block ends in {remainingTime}'**
+  String detoxCountdownSemantics(String remainingTime);
+
+  /// Localized product copy for detoxBlockedAppsHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked apps'**
+  String get detoxBlockedAppsHeading;
+
+  /// Localized product copy for detoxBlockedAppExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'It is included in your active block.'**
+  String get detoxBlockedAppExplanation;
+
+  /// Localized product copy for detoxViewActiveBlock.
+  ///
+  /// In en, this message translates to:
+  /// **'View active block'**
+  String get detoxViewActiveBlock;
+
+  /// Localized product copy for settingsHowItWorksTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How Phone Detox works'**
+  String get settingsHowItWorksTitle;
+
+  /// Localized product copy for settingsMindfulDefinition.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause before selected apps open.'**
+  String get settingsMindfulDefinition;
+
+  /// Localized product copy for settingsMindfulDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Disabled'**
+  String get settingsMindfulDisabled;
+
+  /// Localized product copy for settingsMindfulNoApps.
+  ///
+  /// In en, this message translates to:
+  /// **'No apps configured'**
+  String get settingsMindfulNoApps;
+
+  /// Localized product copy for settingsMindfulEnabledCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Enabled for 1 app} other{Enabled for {count} apps}}'**
+  String settingsMindfulEnabledCount(int count);
+
+  /// Localized product copy for settingsTemporaryBlockDefinition.
+  ///
+  /// In en, this message translates to:
+  /// **'Make selected apps completely unavailable for a chosen period.'**
+  String get settingsTemporaryBlockDefinition;
+
+  /// Localized product copy for settingsTemporaryBlockInactive.
+  ///
+  /// In en, this message translates to:
+  /// **'No active block'**
+  String get settingsTemporaryBlockInactive;
+
+  /// Localized product copy for settingsTemporaryBlockActive.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 app blocked until {endTime}} other{{count} apps blocked until {endTime}}}'**
+  String settingsTemporaryBlockActive(int count, String endTime);
 }
 
 class _AppLocalizationsDelegate

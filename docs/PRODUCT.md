@@ -5,3 +5,10 @@ Phone Detox is an Android-first, privacy-first replacement Home launcher that re
 The launcher provides a calm searchable list, favourites, hiding, strict timed Detox sessions, explicit Jail Break recovery, and Mindful Opening pauses for selected apps. Mindful intentions exist only in current memory and no behavioral history is recorded.
 
 Principles: add deliberate friction without trapping the user; keep data on-device; request only explained capabilities; never use ads, analytics, subscriptions, tracking, accounts, or a backend. A future Android purchase may be one lifetime entitlement priced no higher than €7.99.
+## Intervention definitions
+
+- **Mindful Opening:** pause before app entry; no in-app duration limit.
+- **Block apps now:** selected apps completely unavailable for a fixed period beginning at confirmation.
+- **Usage Limit:** approved for PR-006, not implemented; opt-in per app, off by default, with 15 minutes suggested only after enabling.
+
+See `PRODUCT_MODES.md` for the authoritative boundary.

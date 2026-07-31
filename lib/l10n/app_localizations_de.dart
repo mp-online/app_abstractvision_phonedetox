@@ -80,24 +80,24 @@ class AppLocalizationsDe extends AppLocalizations {
   String get restoreAction => 'Wiederherstellen';
 
   @override
-  String get detoxTooltip => 'Detox öffnen';
+  String get detoxTooltip => '„Apps jetzt blockieren“ öffnen';
 
   @override
-  String get detoxTitle => 'Detox';
+  String get detoxTitle => 'Apps jetzt blockieren';
 
   @override
-  String get detoxLoading => 'Detox-Einstellungen werden geladen…';
+  String get detoxLoading => 'Blockierungseinstellungen werden geladen…';
 
   @override
   String get detoxLoadError =>
-      'Detox-Einstellungen konnten nicht geladen werden. Versuche es erneut.';
+      'Blockierungseinstellungen konnten nicht geladen werden. Versuche es erneut.';
 
   @override
   String get detoxManageAppsTitle => 'Zu blockierende Apps';
 
   @override
   String get detoxManageAppsDescription =>
-      'Diese Pakete werden während einer Sitzung blockiert.';
+      'Diese Apps sind während einer aktiven Blockierung nicht verfügbar.';
 
   @override
   String get detoxNoAppsAvailable => 'Keine startbaren Apps verfügbar.';
@@ -115,10 +115,10 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get detoxEmptyList => 'Wähle mindestens eine ablenkende App.';
+  String get detoxEmptyList => 'Wähle mindestens eine zu blockierende App aus.';
 
   @override
-  String get detoxDurationTitle => 'Sitzungsdauer';
+  String get detoxDurationTitle => 'Ausgewählte Apps blockieren für';
 
   @override
   String detoxMinutes(int minutes) {
@@ -126,43 +126,43 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get detoxCustomDurationLabel => 'Eigene Dauer (5–480 Minuten)';
+  String get detoxCustomDurationLabel => 'Eigene Blockierungsdauer';
 
   @override
   String get detoxCustomDurationError =>
-      'Gib einen Wert zwischen 5 und 480 ein.';
+      'Gib eine Dauer zwischen 5 Minuten und 8 Stunden ein.';
 
   @override
   String get detoxAccessibilityExplanation =>
-      'Strikte Blockierung benötigt Bedienungshilfenzugriff. Er wird nur verwendet, um während einer aktiven Sitzung das sichtbare App-Paket zu erkennen.';
+      'Phone Detox kann Versuche erkennen, ausgewählte Apps zu öffnen, und dich zum Startbildschirm zurückbringen.';
 
   @override
-  String get detoxAccessibilityEnabled => 'Bedienungshilfenzugriff aktiviert';
+  String get detoxAccessibilityEnabled => 'Strikte Blockierung ist bereit';
 
   @override
   String get detoxAccessibilityDisabled =>
-      'Bedienungshilfenzugriff deaktiviert';
+      'Strikte Blockierung ist nicht aktiviert';
 
   @override
   String get detoxAccessibilityUnavailable =>
-      'Bedienungshilfenzugriff nicht verfügbar';
+      'Strikte Blockierung ist nicht verfügbar';
 
   @override
-  String get detoxStartAction => 'Sitzung starten';
+  String get detoxStartAction => 'Blockierung starten';
 
   @override
   String get detoxStartError =>
-      'Die Sitzung konnte nicht gestartet werden. Prüfe den Bedienungshilfenzugriff und versuche es erneut.';
+      'Die Blockierung konnte nicht gestartet werden. Prüfe den Blockierungszugriff und versuche es erneut.';
 
   @override
-  String get detoxAddAction => 'Zur Detox-Liste hinzufügen';
+  String get detoxAddAction => 'Zu den zu blockierenden Apps hinzufügen';
 
   @override
-  String get detoxRemoveAction => 'Aus Detox-Liste entfernen';
+  String get detoxRemoveAction => 'Aus den zu blockierenden Apps entfernen';
 
   @override
-  String detoxBlockedUntil(String endTime) {
-    return 'Diese App ist bis $endTime blockiert.';
+  String detoxBlockedUntil(String appName, String endTime) {
+    return '$appName ist bis $endTime nicht verfügbar.';
   }
 
   @override
@@ -201,7 +201,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get detoxDisclosureControlBody =>
-      'Du kannst jederzeit eine Sitzung beenden, den Zugriff deaktivieren, eine andere Start-App wählen oder Phone Detox deinstallieren.';
+      'Du kannst jederzeit eine Blockierung beenden, den Zugriff deaktivieren, eine andere Start-App wählen oder Phone Detox deinstallieren.';
 
   @override
   String get detoxDisclosureConsent =>
@@ -211,11 +211,11 @@ class AppLocalizationsDe extends AppLocalizations {
   String get continueAction => 'Weiter';
 
   @override
-  String get detoxActiveTitle => 'Detox-Sitzung aktiv';
+  String get detoxActiveTitle => 'Apps blockiert';
 
   @override
   String detoxEndsAt(String endTime) {
-    return 'Endet um $endTime';
+    return 'Bis $endTime';
   }
 
   @override
@@ -223,32 +223,32 @@ class AppLocalizationsDe extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count blockierte Apps',
-      one: '1 blockierte App',
+      other: '$count Apps sind derzeit blockiert',
+      one: '1 App ist derzeit blockiert',
     );
     return '$_temp0';
   }
 
   @override
   String get detoxEnforcementDisabledWarning =>
-      'Die Sitzung ist noch aktiv, aber die Blockierung greift nicht, weil der Bedienungshilfenzugriff deaktiviert ist.';
+      'Die Blockierung ist noch aktiv, wird aber nicht durchgesetzt, weil der Bedienungshilfenzugriff deaktiviert ist.';
 
   @override
   String get detoxOpenAccessibilitySettings =>
       'Bedienungshilfen-Einstellungen öffnen';
 
   @override
-  String get detoxEndSessionAction => 'Sitzung beenden';
+  String get detoxEndSessionAction => 'Blockierung vorzeitig beenden';
 
   @override
-  String get detoxEndSessionTitle => 'Diese Sitzung beenden?';
+  String get detoxEndSessionTitle => 'Blockierung vorzeitig beenden?';
 
   @override
   String get detoxEndSessionBody =>
-      'Halte die Schaltfläche 3 Sekunden lang gedrückt, um die Sitzung zu beenden.';
+      'Die ausgewählten Apps sind sofort wieder verfügbar. Halte die Schaltfläche 3 Sekunden lang gedrückt, um zu bestätigen.';
 
   @override
-  String get detoxHoldToEnd => 'Zum Beenden halten';
+  String get detoxHoldToEnd => 'Zum Beenden der Blockierung halten';
 
   @override
   String get detoxEmergencyExitAction => 'Notausstieg';
@@ -258,13 +258,13 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get detoxEmergencyExitBody =>
-      'Dadurch wird die Sitzung sofort beendet und die Blockierung aufgehoben.';
+      'Mache die ausgewählten Apps sofort wieder verfügbar.';
 
   @override
-  String get detoxEmergencyExitConfirm => 'Jetzt beenden';
+  String get detoxEmergencyExitConfirm => 'Apps verfügbar machen';
 
   @override
-  String get detoxSessionComplete => 'Detox-Sitzung abgeschlossen.';
+  String get detoxSessionComplete => 'Die Blockierung ist beendet.';
 
   @override
   String get startupLoading => 'Dein Startbildschirm wird vorbereitet…';
@@ -366,17 +366,18 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get jailBreakActiveDialogTitle =>
-      'Detox beenden und Phone Detox verlassen?';
+      'Blockierung beenden und Phone Detox verlassen?';
 
   @override
   String get jailBreakActiveDialogBody =>
-      'Durch Ausbrechen wird die aktive Detox-Sitzung sofort beendet, die App-Blockierung aufgehoben und die Android-Einstellung für Start-Apps geöffnet.';
+      'Der Notausstieg beendet die aktive Blockierung sofort, macht die ausgewählten Apps verfügbar und öffnet die Android-Einstellungen für Start-Apps.';
 
   @override
-  String get jailBreakActiveConfirmAction => 'Sitzung beenden und ausbrechen';
+  String get jailBreakActiveConfirmAction =>
+      'Blockierung beenden und ausbrechen';
 
   @override
-  String get jailBreakEndingSession => 'Aktive Detox-Sitzung wird beendet…';
+  String get jailBreakEndingSession => 'Aktive Blockierung wird beendet…';
 
   @override
   String get jailBreakOpeningSettings =>
@@ -413,7 +414,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get jailBreakActiveCleanupFailureBody =>
-      'Phone Detox konnte die aktive Blockierungssitzung nicht vollständig entfernen.';
+      'Phone Detox konnte die aktive Blockierung nicht vollständig entfernen.';
 
   @override
   String get jailBreakRetryAction => 'Erneut versuchen';
@@ -432,7 +433,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get jailBreakAccessibilityStillEnabled =>
-      'Die aktive Blockierungssitzung wird beendet. Der Bedienungshilfenzugriff von Phone Detox kann aktiviert bleiben, blockiert ohne aktive Detox-Sitzung aber keine Apps.';
+      'Die aktive Blockierung wird beendet. Der Bedienungshilfenzugriff von Phone Detox kann aktiviert bleiben, blockiert ohne aktive Blockierung aber keine Apps.';
 
   @override
   String get jailBreakSettingsSectionTitle => 'Wiederherstellung';
@@ -517,7 +518,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get mindfulSettingsDescription =>
-      '„Bewusstes Öffnen“ fügt vor dem Start ausgewählter Apps eine Pause ein.\n\nEs begrenzt derzeit nicht die Nutzungsdauer und zeigt nach 15 Minuten keine Erinnerung an.';
+      'Pausiere, bevor sich eine App öffnet.\n\nBewusstes Öffnen begrenzt nicht die Zeit innerhalb der App.';
 
   @override
   String get mindfulEnabledTitle => 'Bewusstes Öffnen aktivieren';
@@ -570,6 +571,223 @@ class AppLocalizationsDe extends AppLocalizations {
       other: '$count Apps konfiguriert',
       one: '1 App konfiguriert',
       zero: 'Keine Apps konfiguriert',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get detoxChooseAppsStepTitle => '1. Apps auswählen';
+
+  @override
+  String get detoxChooseAppsStepDescription =>
+      'Ausgewählte Apps sind vollständig nicht verfügbar, solange die Blockierung aktiv ist.';
+
+  @override
+  String get detoxNoAppsSelectedDescription =>
+      'Wähle mindestens eine zu blockierende App aus.';
+
+  @override
+  String get detoxChooseAppsAction => 'Apps auswählen';
+
+  @override
+  String get detoxChangeSelectionAction => 'Auswahl ändern';
+
+  @override
+  String get detoxDurationStepTitle => '2. Blockieren für';
+
+  @override
+  String get detoxDurationStepDescription =>
+      'Der Countdown beginnt, wenn du „Blockierung starten“ drückst.';
+
+  @override
+  String detoxDurationMinutes(int minutes) {
+    String _temp0 = intl.Intl.pluralLogic(
+      minutes,
+      locale: localeName,
+      other: '$minutes Minuten',
+      one: '1 Minute',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String detoxDurationHours(int hours) {
+    String _temp0 = intl.Intl.pluralLogic(
+      hours,
+      locale: localeName,
+      other: '$hours Stunden',
+      one: '1 Stunde',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get detoxCustomDurationOption => 'Eigene Dauer';
+
+  @override
+  String get detoxCustomDurationSupportingText =>
+      'Zwischen 5 Minuten und 8 Stunden';
+
+  @override
+  String get detoxBlockingAccessStepTitle => '3. Blockierungszugriff';
+
+  @override
+  String get detoxBlockingAccessReady => 'Strikte Blockierung ist bereit';
+
+  @override
+  String get detoxBlockingAccessReadyDescription =>
+      'Phone Detox kann Versuche erkennen, ausgewählte Apps zu öffnen, und dich zum Startbildschirm zurückbringen.';
+
+  @override
+  String get detoxBlockingAccessDisabled =>
+      'Strikte Blockierung ist nicht aktiviert';
+
+  @override
+  String get detoxBlockingAccessDisabledDescription =>
+      'Aktiviere den Bedienungshilfenzugriff, damit Phone Detox die Blockierung außerhalb des Launchers durchsetzen kann.';
+
+  @override
+  String get detoxReviewBlockingAccessAction => 'Zugriff prüfen und aktivieren';
+
+  @override
+  String get detoxWhatWillHappenTitle => 'Was wird passieren?';
+
+  @override
+  String get detoxWhatWillHappenEmpty =>
+      'Wähle mindestens eine App aus, um genau zu sehen, was blockiert wird.';
+
+  @override
+  String detoxWhatWillHappenSummary(
+    int count,
+    String appName,
+    String duration,
+  ) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ausgewählte Apps werden für $duration blockiert.',
+      one: '$appName wird für $duration blockiert.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get detoxWhatWillHappenAvailability =>
+      'Du kannst sie nicht öffnen, bis die Blockierung endet oder du sie bewusst beendest.';
+
+  @override
+  String detoxNotUsageAllowance(String duration) {
+    return 'Dies gibt dir nicht $duration Nutzungszeit innerhalb einer App.';
+  }
+
+  @override
+  String get detoxChooseAppsToContinue => 'Apps auswählen, um fortzufahren';
+
+  @override
+  String detoxDynamicStartAction(int count, String appName, String duration) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Apps für $duration blockieren',
+      one: '$appName für $duration blockieren',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get detoxBlockerNoApps =>
+      'Wähle mindestens eine zu blockierende App aus.';
+
+  @override
+  String get detoxBlockerInvalidDuration =>
+      'Gib eine gültige Blockierungsdauer ein.';
+
+  @override
+  String get detoxBlockerDisclosure =>
+      'Prüfe, wie der Blockierungszugriff verwendet wird.';
+
+  @override
+  String get detoxBlockerAccessibility =>
+      'Aktiviere den Zugriff für strikte Blockierung.';
+
+  @override
+  String get detoxBlockerAlreadyActive => 'Eine Blockierung ist bereits aktiv.';
+
+  @override
+  String get detoxBlockerControllerError =>
+      'Blockierungseinstellungen konnten nicht geladen werden. Versuche es erneut.';
+
+  @override
+  String detoxSelectionDone(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Fertig — $count ausgewählt',
+      one: 'Fertig — 1 ausgewählt',
+      zero: 'Fertig — keine Apps ausgewählt',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get detoxMindfulOpeningConfigured => 'Bewusstes Öffnen konfiguriert';
+
+  @override
+  String get detoxBlockEndsIn => 'Blockierung endet in';
+
+  @override
+  String detoxCountdownSemantics(String remainingTime) {
+    return 'Blockierung endet in $remainingTime';
+  }
+
+  @override
+  String get detoxBlockedAppsHeading => 'Blockierte Apps';
+
+  @override
+  String get detoxBlockedAppExplanation =>
+      'Sie ist Teil deiner aktiven Blockierung.';
+
+  @override
+  String get detoxViewActiveBlock => 'Aktive Blockierung anzeigen';
+
+  @override
+  String get settingsHowItWorksTitle => 'So funktioniert Phone Detox';
+
+  @override
+  String get settingsMindfulDefinition =>
+      'Pausiere, bevor ausgewählte Apps geöffnet werden.';
+
+  @override
+  String get settingsMindfulDisabled => 'Deaktiviert';
+
+  @override
+  String get settingsMindfulNoApps => 'Keine Apps konfiguriert';
+
+  @override
+  String settingsMindfulEnabledCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Für $count Apps aktiviert',
+      one: 'Für 1 App aktiviert',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get settingsTemporaryBlockDefinition =>
+      'Mache ausgewählte Apps für einen gewählten Zeitraum vollständig nicht verfügbar.';
+
+  @override
+  String get settingsTemporaryBlockInactive => 'Keine aktive Blockierung';
+
+  @override
+  String settingsTemporaryBlockActive(int count, String endTime) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Apps bis $endTime blockiert',
+      one: '1 App bis $endTime blockiert',
     );
     return '$_temp0';
   }

@@ -20,6 +20,7 @@ final detoxControllerProvider = NotifierProvider<DetoxController, DetoxState>(
 
 class DetoxController extends Notifier<DetoxState> {
   static const accessibilityDisclosureVersion = 2;
+  static const presetDurationMinutes = {15, 30, 60, 120};
   late final DetoxRepository _repository;
   Future<void>? _refreshInFlight;
   late final DetoxPreferencesRepository _preferences;
@@ -77,6 +78,7 @@ class DetoxController extends Notifier<DetoxState> {
             : DetoxStatus.activeButNotEnforced,
         blockedPackageNames: values[0] as Set<String>,
         selectedDurationMinutes: values[1] as int,
+        usesCustomDuration: !presetDurationMinutes.contains(values[1] as int),
         acceptedDisclosureVersion: values[2] as int?,
         activeSession: activeSession,
         accessibilityStatus: accessibility,
@@ -105,8 +107,24 @@ class DetoxController extends Notifier<DetoxState> {
     await _preferences.setBlockedPackageNames(updated);
   }
 
-  Future<void> setDurationMinutes(int minutes) async {
-    state = state.copyWith(selectedDurationMinutes: minutes);
+  Future<void> setPresetDurationMinutes(int minutes) async {
+    if (!presetDurationMinutes.contains(minutes)) return;
+    state = state.copyWith(
+      selectedDurationMinutes: minutes,
+      usesCustomDuration: false,
+    );
+    await _preferences.setDefaultDurationMinutes(minutes);
+  }
+
+  void selectCustomDuration() {
+    state = state.copyWith(usesCustomDuration: true);
+  }
+
+  Future<void> setCustomDurationMinutes(int minutes) async {
+    state = state.copyWith(
+      selectedDurationMinutes: minutes,
+      usesCustomDuration: true,
+    );
     if (minutes >= 5 && minutes <= 480) {
       await _preferences.setDefaultDurationMinutes(minutes);
     }

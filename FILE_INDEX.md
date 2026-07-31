@@ -11,3 +11,11 @@
 - `android/app/src/main/kotlin/com/abstractvision/phonedetox/foreground/` — package classifier, Home resolver, decisions, and pure engine.
 - `detox/PhoneDetoxAccessibilityService.kt` — thin package-only event adapter with initialized stores.
 - `test/features/mindful_opening/` and Android `foreground` tests — controller launch ordering, localized settings behavior, schema migration, phase transitions, and the admission-loop regression.
+## PR-005.2 product clarity
+
+- `lib/features/detox/presentation/detox_state.dart` — typed start-blocker priority and deliberate custom-duration state.
+- `lib/features/detox/presentation/detox_setup_screen.dart` — three-step Block apps now setup, dynamic explanation/action, and one disabled reason.
+- `lib/features/detox/presentation/detox_app_selection_screen.dart` — explicit Apps to block selection and Done action.
+- `lib/features/detox/presentation/detox_active_screen.dart` — active-block countdown and recovery terminology.
+- `docs/PRODUCT_MODES.md` — authoritative separation of Mindful Opening, Temporary Block, and future Usage Limit.
+- `docs/adr/0006-detox-terminology-and-usage-limit-direction.md` — accepted terminology and PR-006 direction.

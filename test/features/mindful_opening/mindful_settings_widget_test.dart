@@ -177,20 +177,22 @@ void main() {
       await tester.pumpWidget(testApp(locale: const Locale('en')));
       await tester.pumpAndSettle();
 
+      expect(find.textContaining('Pause before an app opens.'), findsOneWidget);
       expect(
-        find.textContaining(
-          'Mindful Opening adds a pause before selected apps open.',
-        ),
-        findsOneWidget,
-      );
-      expect(
-        find.textContaining(
-          'does not currently limit how long you remain in an app',
-        ),
+        find.textContaining('does not limit time spent inside the app'),
         findsOneWidget,
       );
       expect(find.text('Mindful Opening: Enabled'), findsOneWidget);
       expect(find.text('No apps configured'), findsOneWidget);
+      expect(find.text('How Phone Detox works'), findsOneWidget);
+      expect(find.text('Pause before selected apps open.'), findsOneWidget);
+      expect(
+        find.text(
+          'Make selected apps completely unavailable for a chosen period.',
+        ),
+        findsOneWidget,
+      );
+      expect(find.text('No active block'), findsOneWidget);
     },
   );
 
@@ -200,7 +202,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    expect(find.text('1 app configured'), findsOneWidget);
+    expect(find.text('Enabled for 1 app'), findsOneWidget);
     expect(find.text('No apps configured'), findsNothing);
   });
 
@@ -216,17 +218,15 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(
-      find.textContaining(
-        '„Bewusstes Öffnen“ fügt vor dem Start ausgewählter Apps eine Pause ein.',
-      ),
+      find.textContaining('Pausiere, bevor sich eine App öffnet.'),
       findsOneWidget,
     );
     expect(
-      find.textContaining('Es begrenzt derzeit nicht die Nutzungsdauer'),
+      find.textContaining('begrenzt nicht die Zeit innerhalb der App'),
       findsOneWidget,
     );
     expect(find.text('Bewusstes Öffnen: Aktiviert'), findsOneWidget);
-    expect(find.text('Keine Apps konfiguriert'), findsOneWidget);
+    expect(find.text('Keine Apps konfiguriert'), findsNWidgets(2));
     expect(tester.takeException(), isNull);
   });
 }

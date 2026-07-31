@@ -23,3 +23,8 @@ Widgets never call channels. Typed repositories validate primitive payloads.
 Native rules contain package, mode, and delay. A request contains package/source/mode and UTC deadlines. Flutter clears that request, grants the awaiting-target admission immediately before launch, and clears the admission if launch fails. Admission schema v2 contains package, phase, UTC grant time, a 15-second target deadline, and the existing 12-hour safety expiry. An AWAITING_TARGET admission preserves Phone Detox and transient Android surfaces until the target appears, then becomes ACTIVE; an active admission clears when Phone Detox, Settings, or another meaningful app appears. Intention text and behavioral history never cross the Flutter boundary or persist.
 
 No process kill, boot receiver, background launch, foreground service, polling, Usage Access, overlay, VPN, or Home-role reclaim exists.
+## Product-mode semantics
+
+Mindful Opening is entry friction: a pause and optional transient intention before admission. Temporary Block is a fixed start/end interval during which selected packages are unavailable. The presentation name is **Block apps now**; the existing `DetoxSession` domain/native models remain unchanged.
+
+Usage Limit is reserved for PR-006 and has no runtime architecture yet. It will require an independent per-package foreground-interval model and lifecycle QA. It must not be inferred from Detox timestamps or Mindful admission, and its future expiry will return Home rather than claim to force-stop another process. See `PRODUCT_MODES.md` and ADR 0006.

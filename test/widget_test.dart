@@ -95,6 +95,29 @@ class WidgetDetoxPreferences implements DetoxPreferencesRepository {
   Future<void> setDefaultDurationMinutes(int minutes) async {}
 }
 
+class ActiveWidgetDetoxRepository extends WidgetDetoxRepository {
+  ActiveWidgetDetoxRepository(this.session);
+  final DetoxSession session;
+
+  @override
+  Future<AccessibilityStatus> getAccessibilityStatus() async =>
+      AccessibilityStatus.enabled;
+  @override
+  Future<DetoxSession?> getNativeActiveSession() async => session;
+}
+
+class ActiveWidgetDetoxPreferences extends WidgetDetoxPreferences {
+  ActiveWidgetDetoxPreferences(this.session);
+  final DetoxSession session;
+
+  @override
+  Future<int?> getAccessibilityDisclosureVersion() async => 1;
+  @override
+  Future<DetoxSession?> getActiveSession() async => session;
+  @override
+  Future<Set<String>> getBlockedPackageNames() async => {'system.camera'};
+}
+
 class WidgetStartupPreferences implements StartupPreferencesRepository {
   @override
   Future<bool> hasCompletedLauncherActivation() async => true;
@@ -138,5 +161,46 @@ void main() {
     await tester.enterText(find.byType(EditableText), 'missing');
     await tester.pump();
     expect(find.text('No apps match your search.'), findsOneWidget);
+  });
+
+  testWidgets('blocked launcher feedback names the app and active block', (
+    tester,
+  ) async {
+    final now = DateTime.now().toUtc();
+    final session = DetoxSession(
+      id: 'active',
+      startedAt: now,
+      endsAt: now.add(const Duration(minutes: 5)),
+      blockedPackageNames: const {'system.camera'},
+    );
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          launcherRepositoryProvider.overrideWithValue(
+            WidgetLauncherRepository(),
+          ),
+          launcherPreferencesRepositoryProvider.overrideWithValue(
+            WidgetPreferencesRepository(),
+          ),
+          detoxRepositoryProvider.overrideWithValue(
+            ActiveWidgetDetoxRepository(session),
+          ),
+          detoxPreferencesRepositoryProvider.overrideWithValue(
+            ActiveWidgetDetoxPreferences(session),
+          ),
+          startupPreferencesRepositoryProvider.overrideWithValue(
+            WidgetStartupPreferences(),
+          ),
+        ],
+        child: const PhoneDetoxApp(),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Camera'));
+    await tester.pump();
+
+    expect(find.textContaining('Camera is unavailable until'), findsOneWidget);
+    expect(find.text('It is included in your active block.'), findsOneWidget);
+    expect(find.text('View active block'), findsOneWidget);
   });
 }

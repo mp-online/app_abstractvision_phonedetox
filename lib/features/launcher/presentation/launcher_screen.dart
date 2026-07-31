@@ -231,8 +231,27 @@ class _AppTile extends ConsumerWidget {
             );
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(
-                  AppLocalizations.of(context).detoxBlockedUntil(end),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      AppLocalizations.of(
+                        context,
+                      ).detoxBlockedUntil(app.label, end),
+                    ),
+                    Text(
+                      AppLocalizations.of(context).detoxBlockedAppExplanation,
+                    ),
+                  ],
+                ),
+                action: SnackBarAction(
+                  label: AppLocalizations.of(context).detoxViewActiveBlock,
+                  onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => const DetoxScreen(),
+                    ),
+                  ),
                 ),
               ),
             );

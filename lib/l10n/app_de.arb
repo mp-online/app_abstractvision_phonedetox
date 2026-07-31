@@ -94,19 +94,19 @@
   "@restoreAction": {
     "description": "Aktion zum Wiederherstellen einer App."
   },
-  "detoxTooltip": "Detox öffnen",
+  "detoxTooltip": "„Apps jetzt blockieren“ öffnen",
   "@detoxTooltip": {
     "description": "Kurzinfo der Detox-Schaltfläche im Launcher."
   },
-  "detoxTitle": "Detox",
+  "detoxTitle": "Apps jetzt blockieren",
   "@detoxTitle": {
     "description": "Titel der Detox-Einrichtung."
   },
-  "detoxLoading": "Detox-Einstellungen werden geladen…",
+  "detoxLoading": "Blockierungseinstellungen werden geladen…",
   "@detoxLoading": {
     "description": "Meldung beim Laden des Detox-Zustands."
   },
-  "detoxLoadError": "Detox-Einstellungen konnten nicht geladen werden. Versuche es erneut.",
+  "detoxLoadError": "Blockierungseinstellungen konnten nicht geladen werden. Versuche es erneut.",
   "@detoxLoadError": {
     "description": "Behebbarer Detox-Ladefehler."
   },
@@ -114,7 +114,7 @@
   "@detoxManageAppsTitle": {
     "description": "Titel der Detox-App-Auswahl."
   },
-  "detoxManageAppsDescription": "Diese Pakete werden während einer Sitzung blockiert.",
+  "detoxManageAppsDescription": "Diese Apps sind während einer aktiven Blockierung nicht verfügbar.",
   "@detoxManageAppsDescription": {
     "description": "Erklärung der ausgewählten Detox-Pakete."
   },
@@ -132,11 +132,11 @@
       }
     }
   },
-  "detoxEmptyList": "Wähle mindestens eine ablenkende App.",
+  "detoxEmptyList": "Wähle mindestens eine zu blockierende App aus.",
   "@detoxEmptyList": {
     "description": "Hinweis bei leerer Detox-Liste."
   },
-  "detoxDurationTitle": "Sitzungsdauer",
+  "detoxDurationTitle": "Ausgewählte Apps blockieren für",
   "@detoxDurationTitle": {
     "description": "Überschrift der Detox-Dauerauswahl."
   },
@@ -150,53 +150,57 @@
       }
     }
   },
-  "detoxCustomDurationLabel": "Eigene Dauer (5–480 Minuten)",
+  "detoxCustomDurationLabel": "Eigene Blockierungsdauer",
   "@detoxCustomDurationLabel": {
     "description": "Beschriftung der eigenen Detox-Dauer."
   },
-  "detoxCustomDurationError": "Gib einen Wert zwischen 5 und 480 ein.",
+  "detoxCustomDurationError": "Gib eine Dauer zwischen 5 Minuten und 8 Stunden ein.",
   "@detoxCustomDurationError": {
     "description": "Validierungsfehler der eigenen Detox-Dauer."
   },
-  "detoxAccessibilityExplanation": "Strikte Blockierung benötigt Bedienungshilfenzugriff. Er wird nur verwendet, um während einer aktiven Sitzung das sichtbare App-Paket zu erkennen.",
+  "detoxAccessibilityExplanation": "Phone Detox kann Versuche erkennen, ausgewählte Apps zu öffnen, und dich zum Startbildschirm zurückbringen.",
   "@detoxAccessibilityExplanation": {
     "description": "Erklärung des benötigten Bedienungshilfenzugriffs."
   },
-  "detoxAccessibilityEnabled": "Bedienungshilfenzugriff aktiviert",
+  "detoxAccessibilityEnabled": "Strikte Blockierung ist bereit",
   "@detoxAccessibilityEnabled": {
     "description": "Aktivierter Bedienungshilfenstatus."
   },
-  "detoxAccessibilityDisabled": "Bedienungshilfenzugriff deaktiviert",
+  "detoxAccessibilityDisabled": "Strikte Blockierung ist nicht aktiviert",
   "@detoxAccessibilityDisabled": {
     "description": "Deaktivierter Bedienungshilfenstatus."
   },
-  "detoxAccessibilityUnavailable": "Bedienungshilfenzugriff nicht verfügbar",
+  "detoxAccessibilityUnavailable": "Strikte Blockierung ist nicht verfügbar",
   "@detoxAccessibilityUnavailable": {
     "description": "Nicht verfügbarer Bedienungshilfenstatus."
   },
-  "detoxStartAction": "Sitzung starten",
+  "detoxStartAction": "Blockierung starten",
   "@detoxStartAction": {
     "description": "Aktion zum Starten einer Detox-Sitzung."
   },
-  "detoxStartError": "Die Sitzung konnte nicht gestartet werden. Prüfe den Bedienungshilfenzugriff und versuche es erneut.",
+  "detoxStartError": "Die Blockierung konnte nicht gestartet werden. Prüfe den Blockierungszugriff und versuche es erneut.",
   "@detoxStartError": {
     "description": "Behebbarer Fehler beim Sitzungsstart."
   },
-  "detoxAddAction": "Zur Detox-Liste hinzufügen",
+  "detoxAddAction": "Zu den zu blockierenden Apps hinzufügen",
   "@detoxAddAction": {
     "description": "Aktion zum Hinzufügen eines App-Pakets zur Detox-Liste."
   },
-  "detoxRemoveAction": "Aus Detox-Liste entfernen",
+  "detoxRemoveAction": "Aus den zu blockierenden Apps entfernen",
   "@detoxRemoveAction": {
     "description": "Aktion zum Entfernen eines App-Pakets aus der Detox-Liste."
   },
-  "detoxBlockedUntil": "Diese App ist bis {endTime} blockiert.",
+  "detoxBlockedUntil": "{appName} ist bis {endTime} nicht verfügbar.",
   "@detoxBlockedUntil": {
-    "description": "Meldung bei einem blockierten direkten App-Start.",
+    "description": "Localized product copy for detoxBlockedUntil.",
     "placeholders": {
+      "appName": {
+        "type": "String",
+        "example": "Instagram"
+      },
       "endTime": {
         "type": "String",
-        "example": "16:30"
+        "example": "15:42"
       }
     }
   },
@@ -240,7 +244,7 @@
   "@detoxDisclosureControlTitle": {
     "description": "Überschrift zu rückgängig machbaren Nutzerkontrollen."
   },
-  "detoxDisclosureControlBody": "Du kannst jederzeit eine Sitzung beenden, den Zugriff deaktivieren, eine andere Start-App wählen oder Phone Detox deinstallieren.",
+  "detoxDisclosureControlBody": "Du kannst jederzeit eine Blockierung beenden, den Zugriff deaktivieren, eine andere Start-App wählen oder Phone Detox deinstallieren.",
   "@detoxDisclosureControlBody": {
     "description": "Erklärung der Kontroll- und Wiederherstellungswege."
   },
@@ -252,11 +256,11 @@
   "@continueAction": {
     "description": "Aktion nach bestätigter Zugriffserklärung."
   },
-  "detoxActiveTitle": "Detox-Sitzung aktiv",
+  "detoxActiveTitle": "Apps blockiert",
   "@detoxActiveTitle": {
     "description": "Titel der aktiven Detox-Sitzung."
   },
-  "detoxEndsAt": "Endet um {endTime}",
+  "detoxEndsAt": "Bis {endTime}",
   "@detoxEndsAt": {
     "description": "Lokale Endzeit der aktiven Sitzung.",
     "placeholders": {
@@ -266,7 +270,7 @@
       }
     }
   },
-  "detoxBlockedAppsCount": "{count, plural, =1{1 blockierte App} other{{count} blockierte Apps}}",
+  "detoxBlockedAppsCount": "{count, plural, =1{1 App ist derzeit blockiert} other{{count} Apps sind derzeit blockiert}}",
   "@detoxBlockedAppsCount": {
     "description": "Anzahl blockierter Apps in der aktiven Sitzung.",
     "placeholders": {
@@ -276,7 +280,7 @@
       }
     }
   },
-  "detoxEnforcementDisabledWarning": "Die Sitzung ist noch aktiv, aber die Blockierung greift nicht, weil der Bedienungshilfenzugriff deaktiviert ist.",
+  "detoxEnforcementDisabledWarning": "Die Blockierung ist noch aktiv, wird aber nicht durchgesetzt, weil der Bedienungshilfenzugriff deaktiviert ist.",
   "@detoxEnforcementDisabledWarning": {
     "description": "Warnung bei einer nicht durchgesetzten aktiven Sitzung."
   },
@@ -284,19 +288,19 @@
   "@detoxOpenAccessibilitySettings": {
     "description": "Aktion zum Öffnen der Android-Bedienungshilfen."
   },
-  "detoxEndSessionAction": "Sitzung beenden",
+  "detoxEndSessionAction": "Blockierung vorzeitig beenden",
   "@detoxEndSessionAction": {
     "description": "Aktion zum Öffnen des bewussten Beendens."
   },
-  "detoxEndSessionTitle": "Diese Sitzung beenden?",
+  "detoxEndSessionTitle": "Blockierung vorzeitig beenden?",
   "@detoxEndSessionTitle": {
     "description": "Titel des Dialogs zum bewussten Beenden."
   },
-  "detoxEndSessionBody": "Halte die Schaltfläche 3 Sekunden lang gedrückt, um die Sitzung zu beenden.",
+  "detoxEndSessionBody": "Die ausgewählten Apps sind sofort wieder verfügbar. Halte die Schaltfläche 3 Sekunden lang gedrückt, um zu bestätigen.",
   "@detoxEndSessionBody": {
     "description": "Anweisung zum bewussten Beenden."
   },
-  "detoxHoldToEnd": "Zum Beenden halten",
+  "detoxHoldToEnd": "Zum Beenden der Blockierung halten",
   "@detoxHoldToEnd": {
     "description": "Beschriftung der Drei-Sekunden-Halteschaltfläche."
   },
@@ -308,15 +312,15 @@
   "@detoxEmergencyExitTitle": {
     "description": "Titel der Notausstieg-Bestätigung."
   },
-  "detoxEmergencyExitBody": "Dadurch wird die Sitzung sofort beendet und die Blockierung aufgehoben.",
+  "detoxEmergencyExitBody": "Mache die ausgewählten Apps sofort wieder verfügbar.",
   "@detoxEmergencyExitBody": {
     "description": "Folge des bestätigten Notausstiegs."
   },
-  "detoxEmergencyExitConfirm": "Jetzt beenden",
+  "detoxEmergencyExitConfirm": "Apps verfügbar machen",
   "@detoxEmergencyExitConfirm": {
     "description": "Bestätigungsaktion des Notausstiegs."
   },
-  "detoxSessionComplete": "Detox-Sitzung abgeschlossen.",
+  "detoxSessionComplete": "Die Blockierung ist beendet.",
   "@detoxSessionComplete": {
     "description": "Meldung nach natürlichem Sitzungsende."
   },
@@ -428,19 +432,19 @@
   "@jailBreakConfirmAction": {
     "description": "Bestätigungsaktion zum Verlassen des Phone-Detox-Startmodus."
   },
-  "jailBreakActiveDialogTitle": "Detox beenden und Phone Detox verlassen?",
+  "jailBreakActiveDialogTitle": "Blockierung beenden und Phone Detox verlassen?",
   "@jailBreakActiveDialogTitle": {
     "description": "Bestätigungstitel, wenn eine aktive Sitzung beendet wird."
   },
-  "jailBreakActiveDialogBody": "Durch Ausbrechen wird die aktive Detox-Sitzung sofort beendet, die App-Blockierung aufgehoben und die Android-Einstellung für Start-Apps geöffnet.",
+  "jailBreakActiveDialogBody": "Der Notausstieg beendet die aktive Blockierung sofort, macht die ausgewählten Apps verfügbar und öffnet die Android-Einstellungen für Start-Apps.",
   "@jailBreakActiveDialogBody": {
     "description": "Folgen des Ausbrechens während einer aktiven Sitzung."
   },
-  "jailBreakActiveConfirmAction": "Sitzung beenden und ausbrechen",
+  "jailBreakActiveConfirmAction": "Blockierung beenden und ausbrechen",
   "@jailBreakActiveConfirmAction": {
     "description": "Aktion zum Beenden der Sitzung und Öffnen der Start-App-Einstellungen."
   },
-  "jailBreakEndingSession": "Aktive Detox-Sitzung wird beendet…",
+  "jailBreakEndingSession": "Aktive Blockierung wird beendet…",
   "@jailBreakEndingSession": {
     "description": "Fortschrittsmeldung während der Sitzungsbereinigung."
   },
@@ -480,7 +484,7 @@
   "@jailBreakFailureBody": {
     "description": "Behebbarer Fehler bei der Prüfung der Start-App-Rolle."
   },
-  "jailBreakActiveCleanupFailureBody": "Phone Detox konnte die aktive Blockierungssitzung nicht vollständig entfernen.",
+  "jailBreakActiveCleanupFailureBody": "Phone Detox konnte die aktive Blockierung nicht vollständig entfernen.",
   "@jailBreakActiveCleanupFailureBody": {
     "description": "Fehler beim Bereinigen einer aktiven Detox-Sitzung."
   },
@@ -500,7 +504,7 @@
   "@jailBreakOpenAccessibilityAction": {
     "description": "Wiederherstellungsaktion zur manuellen Steuerung des Bedienungshilfenzugriffs."
   },
-  "jailBreakAccessibilityStillEnabled": "Die aktive Blockierungssitzung wird beendet. Der Bedienungshilfenzugriff von Phone Detox kann aktiviert bleiben, blockiert ohne aktive Detox-Sitzung aber keine Apps.",
+  "jailBreakAccessibilityStillEnabled": "Die aktive Blockierung wird beendet. Der Bedienungshilfenzugriff von Phone Detox kann aktiviert bleiben, blockiert ohne aktive Blockierung aber keine Apps.",
   "@jailBreakAccessibilityStillEnabled": {
     "description": "Erklärung, dass der Bedienungshilfenzugriff ohne aktive Sitzung nicht blockiert."
   },
@@ -604,7 +608,7 @@
   "@mindfulSettingsTitle": {
     "description": "German localization for mindfulSettingsTitle."
   },
-  "mindfulSettingsDescription": "„Bewusstes Öffnen“ fügt vor dem Start ausgewählter Apps eine Pause ein.\n\nEs begrenzt derzeit nicht die Nutzungsdauer und zeigt nach 15 Minuten keine Erinnerung an.",
+  "mindfulSettingsDescription": "Pausiere, bevor sich eine App öffnet.\n\nBewusstes Öffnen begrenzt nicht die Zeit innerhalb der App.",
   "@mindfulSettingsDescription": {
     "description": "Erklärt, dass Bewusstes Öffnen den App-Start verzögert und die Nutzungsdauer nicht überwacht."
   },
@@ -675,6 +679,260 @@
       "count": {
         "type": "int",
         "example": "5"
+      }
+    }
+  },
+  "detoxChooseAppsStepTitle": "1. Apps auswählen",
+  "@detoxChooseAppsStepTitle": {
+    "description": "Localized product copy for detoxChooseAppsStepTitle."
+  },
+  "detoxChooseAppsStepDescription": "Ausgewählte Apps sind vollständig nicht verfügbar, solange die Blockierung aktiv ist.",
+  "@detoxChooseAppsStepDescription": {
+    "description": "Localized product copy for detoxChooseAppsStepDescription."
+  },
+  "detoxNoAppsSelectedDescription": "Wähle mindestens eine zu blockierende App aus.",
+  "@detoxNoAppsSelectedDescription": {
+    "description": "Localized product copy for detoxNoAppsSelectedDescription."
+  },
+  "detoxChooseAppsAction": "Apps auswählen",
+  "@detoxChooseAppsAction": {
+    "description": "Localized product copy for detoxChooseAppsAction."
+  },
+  "detoxChangeSelectionAction": "Auswahl ändern",
+  "@detoxChangeSelectionAction": {
+    "description": "Localized product copy for detoxChangeSelectionAction."
+  },
+  "detoxDurationStepTitle": "2. Blockieren für",
+  "@detoxDurationStepTitle": {
+    "description": "Localized product copy for detoxDurationStepTitle."
+  },
+  "detoxDurationStepDescription": "Der Countdown beginnt, wenn du „Blockierung starten“ drückst.",
+  "@detoxDurationStepDescription": {
+    "description": "Localized product copy for detoxDurationStepDescription."
+  },
+  "detoxDurationMinutes": "{minutes, plural, =1{1 Minute} other{{minutes} Minuten}}",
+  "@detoxDurationMinutes": {
+    "description": "Localized product copy for detoxDurationMinutes.",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "detoxDurationHours": "{hours, plural, =1{1 Stunde} other{{hours} Stunden}}",
+  "@detoxDurationHours": {
+    "description": "Localized product copy for detoxDurationHours.",
+    "placeholders": {
+      "hours": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "detoxCustomDurationOption": "Eigene Dauer",
+  "@detoxCustomDurationOption": {
+    "description": "Localized product copy for detoxCustomDurationOption."
+  },
+  "detoxCustomDurationSupportingText": "Zwischen 5 Minuten und 8 Stunden",
+  "@detoxCustomDurationSupportingText": {
+    "description": "Localized product copy for detoxCustomDurationSupportingText."
+  },
+  "detoxBlockingAccessStepTitle": "3. Blockierungszugriff",
+  "@detoxBlockingAccessStepTitle": {
+    "description": "Localized product copy for detoxBlockingAccessStepTitle."
+  },
+  "detoxBlockingAccessReady": "Strikte Blockierung ist bereit",
+  "@detoxBlockingAccessReady": {
+    "description": "Localized product copy for detoxBlockingAccessReady."
+  },
+  "detoxBlockingAccessReadyDescription": "Phone Detox kann Versuche erkennen, ausgewählte Apps zu öffnen, und dich zum Startbildschirm zurückbringen.",
+  "@detoxBlockingAccessReadyDescription": {
+    "description": "Localized product copy for detoxBlockingAccessReadyDescription."
+  },
+  "detoxBlockingAccessDisabled": "Strikte Blockierung ist nicht aktiviert",
+  "@detoxBlockingAccessDisabled": {
+    "description": "Localized product copy for detoxBlockingAccessDisabled."
+  },
+  "detoxBlockingAccessDisabledDescription": "Aktiviere den Bedienungshilfenzugriff, damit Phone Detox die Blockierung außerhalb des Launchers durchsetzen kann.",
+  "@detoxBlockingAccessDisabledDescription": {
+    "description": "Localized product copy for detoxBlockingAccessDisabledDescription."
+  },
+  "detoxReviewBlockingAccessAction": "Zugriff prüfen und aktivieren",
+  "@detoxReviewBlockingAccessAction": {
+    "description": "Localized product copy for detoxReviewBlockingAccessAction."
+  },
+  "detoxWhatWillHappenTitle": "Was wird passieren?",
+  "@detoxWhatWillHappenTitle": {
+    "description": "Localized product copy for detoxWhatWillHappenTitle."
+  },
+  "detoxWhatWillHappenEmpty": "Wähle mindestens eine App aus, um genau zu sehen, was blockiert wird.",
+  "@detoxWhatWillHappenEmpty": {
+    "description": "Localized product copy for detoxWhatWillHappenEmpty."
+  },
+  "detoxWhatWillHappenSummary": "{count, plural, =1{{appName} wird für {duration} blockiert.} other{{count} ausgewählte Apps werden für {duration} blockiert.}}",
+  "@detoxWhatWillHappenSummary": {
+    "description": "Localized product copy for detoxWhatWillHappenSummary.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      },
+      "appName": {
+        "type": "String",
+        "example": "Instagram"
+      },
+      "duration": {
+        "type": "String",
+        "example": "30 minutes"
+      }
+    }
+  },
+  "detoxWhatWillHappenAvailability": "Du kannst sie nicht öffnen, bis die Blockierung endet oder du sie bewusst beendest.",
+  "@detoxWhatWillHappenAvailability": {
+    "description": "Localized product copy for detoxWhatWillHappenAvailability."
+  },
+  "detoxNotUsageAllowance": "Dies gibt dir nicht {duration} Nutzungszeit innerhalb einer App.",
+  "@detoxNotUsageAllowance": {
+    "description": "Localized product copy for detoxNotUsageAllowance.",
+    "placeholders": {
+      "duration": {
+        "type": "String",
+        "example": "30 minutes"
+      }
+    }
+  },
+  "detoxChooseAppsToContinue": "Apps auswählen, um fortzufahren",
+  "@detoxChooseAppsToContinue": {
+    "description": "Localized product copy for detoxChooseAppsToContinue."
+  },
+  "detoxDynamicStartAction": "{count, plural, =1{{appName} für {duration} blockieren} other{{count} Apps für {duration} blockieren}}}",
+  "@detoxDynamicStartAction": {
+    "description": "Localized product copy for detoxDynamicStartAction.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      },
+      "appName": {
+        "type": "String",
+        "example": "Instagram"
+      },
+      "duration": {
+        "type": "String",
+        "example": "30 minutes"
+      }
+    }
+  },
+  "detoxBlockerNoApps": "Wähle mindestens eine zu blockierende App aus.",
+  "@detoxBlockerNoApps": {
+    "description": "Localized product copy for detoxBlockerNoApps."
+  },
+  "detoxBlockerInvalidDuration": "Gib eine gültige Blockierungsdauer ein.",
+  "@detoxBlockerInvalidDuration": {
+    "description": "Localized product copy for detoxBlockerInvalidDuration."
+  },
+  "detoxBlockerDisclosure": "Prüfe, wie der Blockierungszugriff verwendet wird.",
+  "@detoxBlockerDisclosure": {
+    "description": "Localized product copy for detoxBlockerDisclosure."
+  },
+  "detoxBlockerAccessibility": "Aktiviere den Zugriff für strikte Blockierung.",
+  "@detoxBlockerAccessibility": {
+    "description": "Localized product copy for detoxBlockerAccessibility."
+  },
+  "detoxBlockerAlreadyActive": "Eine Blockierung ist bereits aktiv.",
+  "@detoxBlockerAlreadyActive": {
+    "description": "Localized product copy for detoxBlockerAlreadyActive."
+  },
+  "detoxBlockerControllerError": "Blockierungseinstellungen konnten nicht geladen werden. Versuche es erneut.",
+  "@detoxBlockerControllerError": {
+    "description": "Localized product copy for detoxBlockerControllerError."
+  },
+  "detoxSelectionDone": "{count, plural, =0{Fertig — keine Apps ausgewählt} =1{Fertig — 1 ausgewählt} other{Fertig — {count} ausgewählt}}",
+  "@detoxSelectionDone": {
+    "description": "Localized product copy for detoxSelectionDone.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "detoxMindfulOpeningConfigured": "Bewusstes Öffnen konfiguriert",
+  "@detoxMindfulOpeningConfigured": {
+    "description": "Localized product copy for detoxMindfulOpeningConfigured."
+  },
+  "detoxBlockEndsIn": "Blockierung endet in",
+  "@detoxBlockEndsIn": {
+    "description": "Localized product copy for detoxBlockEndsIn."
+  },
+  "detoxCountdownSemantics": "Blockierung endet in {remainingTime}",
+  "@detoxCountdownSemantics": {
+    "description": "Localized product copy for detoxCountdownSemantics.",
+    "placeholders": {
+      "remainingTime": {
+        "type": "String",
+        "example": "04:37"
+      }
+    }
+  },
+  "detoxBlockedAppsHeading": "Blockierte Apps",
+  "@detoxBlockedAppsHeading": {
+    "description": "Localized product copy for detoxBlockedAppsHeading."
+  },
+  "detoxBlockedAppExplanation": "Sie ist Teil deiner aktiven Blockierung.",
+  "@detoxBlockedAppExplanation": {
+    "description": "Localized product copy for detoxBlockedAppExplanation."
+  },
+  "detoxViewActiveBlock": "Aktive Blockierung anzeigen",
+  "@detoxViewActiveBlock": {
+    "description": "Localized product copy for detoxViewActiveBlock."
+  },
+  "settingsHowItWorksTitle": "So funktioniert Phone Detox",
+  "@settingsHowItWorksTitle": {
+    "description": "Localized product copy for settingsHowItWorksTitle."
+  },
+  "settingsMindfulDefinition": "Pausiere, bevor ausgewählte Apps geöffnet werden.",
+  "@settingsMindfulDefinition": {
+    "description": "Localized product copy for settingsMindfulDefinition."
+  },
+  "settingsMindfulDisabled": "Deaktiviert",
+  "@settingsMindfulDisabled": {
+    "description": "Localized product copy for settingsMindfulDisabled."
+  },
+  "settingsMindfulNoApps": "Keine Apps konfiguriert",
+  "@settingsMindfulNoApps": {
+    "description": "Localized product copy for settingsMindfulNoApps."
+  },
+  "settingsMindfulEnabledCount": "{count, plural, =1{Für 1 App aktiviert} other{Für {count} Apps aktiviert}}",
+  "@settingsMindfulEnabledCount": {
+    "description": "Localized product copy for settingsMindfulEnabledCount.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "settingsTemporaryBlockDefinition": "Mache ausgewählte Apps für einen gewählten Zeitraum vollständig nicht verfügbar.",
+  "@settingsTemporaryBlockDefinition": {
+    "description": "Localized product copy for settingsTemporaryBlockDefinition."
+  },
+  "settingsTemporaryBlockInactive": "Keine aktive Blockierung",
+  "@settingsTemporaryBlockInactive": {
+    "description": "Localized product copy for settingsTemporaryBlockInactive."
+  },
+  "settingsTemporaryBlockActive": "{count, plural, =1{1 App bis {endTime} blockiert} other{{count} Apps bis {endTime} blockiert}}",
+  "@settingsTemporaryBlockActive": {
+    "description": "Localized product copy for settingsTemporaryBlockActive.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      },
+      "endTime": {
+        "type": "String",
+        "example": "15:42"
       }
     }
   }

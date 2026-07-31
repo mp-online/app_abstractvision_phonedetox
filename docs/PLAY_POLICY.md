@@ -7,3 +7,8 @@ Disclosure version 2 explains that the service may observe the foreground packag
 External interception runs only while Phone Detox resolves as Home. Otherwise stale requests are cleared and apps are allowed. Processing is local; package inventory and foreground packages are neither logged nor transmitted. There is no account, analytics, tracking, crash SDK, network client, advertising, or backend.
 
 Do not add broad package visibility, Usage Access, notification access, VPN, device administration, overlays, exact alarms, foreground services, boot receivers, background launches, polling, OEM autostart/battery exemptions, uninstall prevention, Settings obstruction, Accessibility-disable prevention, or Home-role reclaim without a separate approved design and policy review.
+## Terminology and future Usage Limit
+
+User-facing copy describes current Accessibility enforcement as making selected apps unavailable for a fixed block interval. It does not describe a usage allowance or claim to force-stop applications. Mindful Opening is described only as a pause before entry.
+
+Usage Limit is approved for later design but is not currently available. PR-005.2 adds no usage tracking or special access. Any PR-006 implementation requires a separate disclosure and policy review while preserving package-only, local processing and all recovery paths.

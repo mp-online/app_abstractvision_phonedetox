@@ -19,3 +19,8 @@ flutter build apk --debug
 ```
 
 Manual Pixel, Samsung, Android 10, external-intent, reboot/process-death, accessibility, and Jail Break QA must not be claimed without execution evidence.
+## Product modes
+
+Phone Detox has two implemented interventions. **Mindful Opening** pauses before selected apps open. **Block apps now** makes selected apps completely unavailable for a chosen fixed period. The block countdown begins when the user presses Start blocking; it is not allowed usage time inside an app.
+
+A separate per-app **Usage Limit** is approved for PR-006 but is not implemented or advertised as available. It will be opt-in, off by default, and suggest 15 minutes only after enabling. See `docs/PRODUCT_MODES.md`.

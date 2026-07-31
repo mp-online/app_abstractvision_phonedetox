@@ -204,4 +204,89 @@ void main() {
       expect(preferences.packages, {'one.app'});
     },
   );
+
+  test('start blocker priority exposes one actionable reason', () {
+    final now = DateTime.now().toUtc();
+    final active = DetoxSession(
+      id: 'active',
+      startedAt: now,
+      endsAt: now.add(const Duration(minutes: 5)),
+      blockedPackageNames: const {'example.app'},
+    );
+    expect(
+      DetoxState(
+        status: DetoxStatus.ready,
+        selectedDurationMinutes: 0,
+      ).startBlocker,
+      DetoxStartBlocker.noAppsSelected,
+    );
+    expect(
+      DetoxState(
+        status: DetoxStatus.ready,
+        blockedPackageNames: const {'example.app'},
+        selectedDurationMinutes: 0,
+      ).startBlocker,
+      DetoxStartBlocker.invalidDuration,
+    );
+    expect(
+      DetoxState(
+        status: DetoxStatus.ready,
+        blockedPackageNames: const {'example.app'},
+      ).startBlocker,
+      DetoxStartBlocker.disclosureRequired,
+    );
+    expect(
+      DetoxState(
+        status: DetoxStatus.ready,
+        blockedPackageNames: const {'example.app'},
+        acceptedDisclosureVersion: 1,
+      ).startBlocker,
+      DetoxStartBlocker.accessibilityDisabled,
+    );
+    expect(
+      DetoxState(
+        status: DetoxStatus.ready,
+        blockedPackageNames: const {'example.app'},
+        acceptedDisclosureVersion: 1,
+        accessibilityStatus: AccessibilityStatus.enabled,
+      ).startBlocker,
+      isNull,
+    );
+    expect(
+      DetoxState(
+        status: DetoxStatus.activeAndEnforced,
+        blockedPackageNames: const {'example.app'},
+        acceptedDisclosureVersion: 1,
+        accessibilityStatus: AccessibilityStatus.enabled,
+        activeSession: active,
+      ).startBlocker,
+      DetoxStartBlocker.alreadyActive,
+    );
+    expect(
+      DetoxState(
+        status: DetoxStatus.error,
+        blockedPackageNames: const {'example.app'},
+        acceptedDisclosureVersion: 1,
+        accessibilityStatus: AccessibilityStatus.enabled,
+      ).startBlocker,
+      DetoxStartBlocker.controllerError,
+    );
+  });
+
+  test('five-minute block preserves packages and duration', () async {
+    preferences
+      ..packages = {'one.app', 'two.app'}
+      ..disclosure = 1;
+    await refresh();
+    await container
+        .read(detoxControllerProvider.notifier)
+        .setCustomDurationMinutes(5);
+    await container.read(detoxControllerProvider.notifier).startSession();
+    final session = repository.nativeSession!;
+    expect(session.blockedPackageNames, {'one.app', 'two.app'});
+    expect(
+      session.endsAt.difference(session.startedAt),
+      const Duration(minutes: 5),
+    );
+  });
 }

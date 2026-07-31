@@ -64,8 +64,15 @@ class _DetoxActiveScreenState extends ConsumerState<DetoxActiveScreen> {
       body: ListView(
         padding: const EdgeInsets.all(24),
         children: [
+          Text(
+            l10n.detoxBlockEndsIn,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          const SizedBox(height: 8),
           Semantics(
             liveRegion: true,
+            label: l10n.detoxCountdownSemantics(remainingText),
             child: Text(
               remainingText,
               textAlign: TextAlign.center,
@@ -97,6 +104,11 @@ class _DetoxActiveScreenState extends ConsumerState<DetoxActiveScreen> {
             ),
           Text(
             l10n.detoxBlockedAppsCount(session.blockedPackageNames.length),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 24),
+          Text(
+            l10n.detoxBlockedAppsHeading,
             style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(height: 8),

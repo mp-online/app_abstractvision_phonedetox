@@ -19,11 +19,44 @@ class SettingsScreen extends ConsumerWidget {
     final jailBreak = ref.watch(jailBreakControllerProvider);
     final mindful = ref.watch(mindfulOpeningControllerProvider);
     final detox = ref.watch(detoxControllerProvider);
+    final activeBlock = detox.activeSession;
+    final mindfulModeStatus = !mindful.enabled
+        ? l10n.settingsMindfulDisabled
+        : mindful.rules.isEmpty
+        ? l10n.settingsMindfulNoApps
+        : l10n.settingsMindfulEnabledCount(mindful.rules.length);
+    final temporaryBlockStatus = activeBlock == null || !activeBlock.isActive
+        ? l10n.settingsTemporaryBlockInactive
+        : l10n.settingsTemporaryBlockActive(
+            activeBlock.blockedPackageNames.length,
+            MaterialLocalizations.of(context).formatTimeOfDay(
+              TimeOfDay.fromDateTime(activeBlock.endsAt.toLocal()),
+            ),
+          );
     return Scaffold(
       appBar: AppBar(title: Text(l10n.settingsTitle)),
       body: ListView(
         padding: const EdgeInsets.all(24),
         children: [
+          Text(
+            l10n.settingsHowItWorksTitle,
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          const SizedBox(height: 8),
+          _ModeExplanationCard(
+            icon: Icons.hourglass_bottom_rounded,
+            title: l10n.mindfulSettingsTitle,
+            description: l10n.settingsMindfulDefinition,
+            status: mindfulModeStatus,
+          ),
+          const SizedBox(height: 8),
+          _ModeExplanationCard(
+            icon: Icons.block,
+            title: l10n.detoxTitle,
+            description: l10n.settingsTemporaryBlockDefinition,
+            status: temporaryBlockStatus,
+          ),
+          const SizedBox(height: 32),
           Text(
             l10n.mindfulSettingsTitle,
             style: Theme.of(context).textTheme.titleLarge,
@@ -114,4 +147,44 @@ class SettingsScreen extends ConsumerWidget {
       ),
     );
   }
+}
+
+class _ModeExplanationCard extends StatelessWidget {
+  const _ModeExplanationCard({
+    required this.icon,
+    required this.title,
+    required this.description,
+    required this.status,
+  });
+
+  final IconData icon;
+  final String title;
+  final String description;
+  final String status;
+
+  @override
+  Widget build(BuildContext context) => Card.outlined(
+    child: Padding(
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style: Theme.of(context).textTheme.titleMedium),
+                const SizedBox(height: 4),
+                Text(description),
+                const SizedBox(height: 8),
+                Text(status, style: Theme.of(context).textTheme.labelLarge),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
 }

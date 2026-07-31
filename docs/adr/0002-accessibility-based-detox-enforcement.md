@@ -31,3 +31,8 @@ Phone Detox, System UI, Settings, enabled input methods, permission/package inst
 ## Google Play implications
 
 Accessibility access is sensitive special access. Before opening Android settings, the app presents a separate prominent disclosure and requires affirmative, versioned consent. Store listing and Play Console declarations must accurately describe app-blocking use, data handling, and user controls. Phone Detox does not declare itself an accessibility tool and does not set `isAccessibilityTool=true`.
+## Terminology clarification
+
+The implemented session is a **temporary block**, not allowed usage time. Its fixed countdown begins when the user confirms Start blocking, and selected packages remain unavailable until the stored end timestamp or deliberate early exit. Product-facing copy therefore uses **Block apps now** while persistence and native model names remain stable.
+
+A future per-opening Usage Limit is a separate PR-006 mechanism. Android cannot reliably force-stop another application; future expiry will return Home and apply an explicit reopening consequence. PR-005.2 does not change this ADR's enforcement path.

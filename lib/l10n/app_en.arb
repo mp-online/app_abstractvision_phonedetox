@@ -94,19 +94,19 @@
   "@restoreAction": {
     "description": "Action that restores a hidden app to the launcher list."
   },
-  "detoxTooltip": "Open Detox",
+  "detoxTooltip": "Open Block apps now",
   "@detoxTooltip": {
     "description": "Tooltip for the launcher button that opens Detox."
   },
-  "detoxTitle": "Detox",
+  "detoxTitle": "Block apps now",
   "@detoxTitle": {
     "description": "Title of the Detox setup screen."
   },
-  "detoxLoading": "Loading Detox settings…",
+  "detoxLoading": "Loading blocking settings…",
   "@detoxLoading": {
     "description": "Message shown while Detox state is loading."
   },
-  "detoxLoadError": "Detox settings could not be loaded. Try again.",
+  "detoxLoadError": "Blocking settings could not be loaded. Try again.",
   "@detoxLoadError": {
     "description": "Recoverable Detox loading error."
   },
@@ -114,7 +114,7 @@
   "@detoxManageAppsTitle": {
     "description": "Title of the Detox app selection screen."
   },
-  "detoxManageAppsDescription": "These packages will be blocked during a session.",
+  "detoxManageAppsDescription": "These apps will be unavailable during an active block.",
   "@detoxManageAppsDescription": {
     "description": "Explanation of the selected Detox package list."
   },
@@ -132,11 +132,11 @@
       }
     }
   },
-  "detoxEmptyList": "Choose at least one distracting app.",
+  "detoxEmptyList": "Choose at least one app to block.",
   "@detoxEmptyList": {
     "description": "Guidance when the Detox list is empty."
   },
-  "detoxDurationTitle": "Session duration",
+  "detoxDurationTitle": "Block selected apps for",
   "@detoxDurationTitle": {
     "description": "Heading for Detox duration selection."
   },
@@ -150,53 +150,57 @@
       }
     }
   },
-  "detoxCustomDurationLabel": "Custom duration (5–480 minutes)",
+  "detoxCustomDurationLabel": "Custom block duration",
   "@detoxCustomDurationLabel": {
     "description": "Label for custom Detox duration input."
   },
-  "detoxCustomDurationError": "Enter a value from 5 to 480.",
+  "detoxCustomDurationError": "Enter a duration between 5 minutes and 8 hours.",
   "@detoxCustomDurationError": {
     "description": "Validation error for custom Detox duration."
   },
-  "detoxAccessibilityExplanation": "Strict blocking requires Accessibility access. It is only used to observe the visible app package during an active session.",
+  "detoxAccessibilityExplanation": "Phone Detox can detect attempts to open selected apps and return you Home.",
   "@detoxAccessibilityExplanation": {
     "description": "Explanation of why Detox needs Accessibility special access."
   },
-  "detoxAccessibilityEnabled": "Accessibility access enabled",
+  "detoxAccessibilityEnabled": "Strict blocking is ready",
   "@detoxAccessibilityEnabled": {
     "description": "Enabled Accessibility status."
   },
-  "detoxAccessibilityDisabled": "Accessibility access disabled",
+  "detoxAccessibilityDisabled": "Strict blocking is not enabled",
   "@detoxAccessibilityDisabled": {
     "description": "Disabled Accessibility status."
   },
-  "detoxAccessibilityUnavailable": "Accessibility access unavailable",
+  "detoxAccessibilityUnavailable": "Strict blocking is unavailable",
   "@detoxAccessibilityUnavailable": {
     "description": "Unavailable Accessibility status."
   },
-  "detoxStartAction": "Start session",
+  "detoxStartAction": "Start blocking",
   "@detoxStartAction": {
     "description": "Action that starts a Detox session."
   },
-  "detoxStartError": "The session could not be started. Check Accessibility access and try again.",
+  "detoxStartError": "Blocking could not be started. Check blocking access and try again.",
   "@detoxStartError": {
     "description": "Recoverable error after Detox session start fails."
   },
-  "detoxAddAction": "Add to detox list",
+  "detoxAddAction": "Add to apps to block",
   "@detoxAddAction": {
     "description": "Action that adds an app package to the Detox list."
   },
-  "detoxRemoveAction": "Remove from detox list",
+  "detoxRemoveAction": "Remove from apps to block",
   "@detoxRemoveAction": {
     "description": "Action that removes an app package from the Detox list."
   },
-  "detoxBlockedUntil": "This app is blocked until {endTime}.",
+  "detoxBlockedUntil": "{appName} is unavailable until {endTime}.",
   "@detoxBlockedUntil": {
-    "description": "Message shown when direct launching is blocked.",
+    "description": "Localized product copy for detoxBlockedUntil.",
     "placeholders": {
+      "appName": {
+        "type": "String",
+        "example": "Instagram"
+      },
       "endTime": {
         "type": "String",
-        "example": "4:30 PM"
+        "example": "15:42"
       }
     }
   },
@@ -240,7 +244,7 @@
   "@detoxDisclosureControlTitle": {
     "description": "Heading for reversible user controls."
   },
-  "detoxDisclosureControlBody": "You can end a session, disable Accessibility access, choose another Home app, or uninstall Phone Detox at any time.",
+  "detoxDisclosureControlBody": "You can end a block, disable Accessibility access, choose another Home app, or uninstall Phone Detox at any time.",
   "@detoxDisclosureControlBody": {
     "description": "Disclosure of user recovery controls."
   },
@@ -252,11 +256,11 @@
   "@continueAction": {
     "description": "Action that continues after affirmative disclosure consent."
   },
-  "detoxActiveTitle": "Detox session active",
+  "detoxActiveTitle": "Apps blocked",
   "@detoxActiveTitle": {
     "description": "Title of the active Detox session screen."
   },
-  "detoxEndsAt": "Ends at {endTime}",
+  "detoxEndsAt": "Until {endTime}",
   "@detoxEndsAt": {
     "description": "Local end time for the active session.",
     "placeholders": {
@@ -266,7 +270,7 @@
       }
     }
   },
-  "detoxBlockedAppsCount": "{count, plural, =1{1 blocked app} other{{count} blocked apps}}",
+  "detoxBlockedAppsCount": "{count, plural, =1{1 app is currently blocked} other{{count} apps are currently blocked}}",
   "@detoxBlockedAppsCount": {
     "description": "Count of apps blocked by the active session.",
     "placeholders": {
@@ -276,7 +280,7 @@
       }
     }
   },
-  "detoxEnforcementDisabledWarning": "The session is still active, but blocking is not enforced because Accessibility access is disabled.",
+  "detoxEnforcementDisabledWarning": "The block is still active, but blocking is not enforced because Accessibility access is disabled.",
   "@detoxEnforcementDisabledWarning": {
     "description": "Warning when an active session is not enforced."
   },
@@ -284,19 +288,19 @@
   "@detoxOpenAccessibilitySettings": {
     "description": "Action opening Android Accessibility settings."
   },
-  "detoxEndSessionAction": "End session",
+  "detoxEndSessionAction": "End block early",
   "@detoxEndSessionAction": {
     "description": "Action opening the deliberate end-session flow."
   },
-  "detoxEndSessionTitle": "End this session?",
+  "detoxEndSessionTitle": "End the block early?",
   "@detoxEndSessionTitle": {
     "description": "Title of the deliberate end-session dialog."
   },
-  "detoxEndSessionBody": "Hold the button for 3 seconds to end the session.",
+  "detoxEndSessionBody": "The selected apps will become available immediately. Hold the button for 3 seconds to confirm.",
   "@detoxEndSessionBody": {
     "description": "Instruction for deliberate session ending."
   },
-  "detoxHoldToEnd": "Hold to end",
+  "detoxHoldToEnd": "Hold to end block",
   "@detoxHoldToEnd": {
     "description": "Label for the 3-second hold button."
   },
@@ -308,15 +312,15 @@
   "@detoxEmergencyExitTitle": {
     "description": "Title of the emergency exit confirmation."
   },
-  "detoxEmergencyExitBody": "This immediately ends the session and removes blocking.",
+  "detoxEmergencyExitBody": "Immediately make the selected apps available again.",
   "@detoxEmergencyExitBody": {
     "description": "Consequence explained by emergency exit confirmation."
   },
-  "detoxEmergencyExitConfirm": "End now",
+  "detoxEmergencyExitConfirm": "Make apps available",
   "@detoxEmergencyExitConfirm": {
     "description": "Confirmation action for emergency exit."
   },
-  "detoxSessionComplete": "Detox session complete.",
+  "detoxSessionComplete": "The block has ended.",
   "@detoxSessionComplete": {
     "description": "Message shown after a session naturally expires."
   },
@@ -428,19 +432,19 @@
   "@jailBreakConfirmAction": {
     "description": "Confirmation action for leaving Phone Detox Home mode."
   },
-  "jailBreakActiveDialogTitle": "End Detox and leave Phone Detox?",
+  "jailBreakActiveDialogTitle": "End the block and leave Phone Detox?",
   "@jailBreakActiveDialogTitle": {
     "description": "Confirmation title when Jail Break will end an active session."
   },
-  "jailBreakActiveDialogBody": "Jail Break will immediately end the active Detox session, remove app blocking, and open Android's Home app settings.",
+  "jailBreakActiveDialogBody": "Jail Break immediately ends the active block, makes the selected apps available, and opens Android Home-app settings.",
   "@jailBreakActiveDialogBody": {
     "description": "Active-session Jail Break consequences."
   },
-  "jailBreakActiveConfirmAction": "End session and Jail Break",
+  "jailBreakActiveConfirmAction": "End block and Jail Break",
   "@jailBreakActiveConfirmAction": {
     "description": "Confirmation action that ends a session and opens Home settings."
   },
-  "jailBreakEndingSession": "Ending the active Detox session…",
+  "jailBreakEndingSession": "Ending active block…",
   "@jailBreakEndingSession": {
     "description": "Progress message during active-session cleanup."
   },
@@ -480,7 +484,7 @@
   "@jailBreakFailureBody": {
     "description": "Recoverable Home-role verification failure."
   },
-  "jailBreakActiveCleanupFailureBody": "Phone Detox could not fully remove the active blocking session.",
+  "jailBreakActiveCleanupFailureBody": "Phone Detox could not fully remove the active block.",
   "@jailBreakActiveCleanupFailureBody": {
     "description": "Failure shown when active Detox cleanup fails."
   },
@@ -500,7 +504,7 @@
   "@jailBreakOpenAccessibilityAction": {
     "description": "Recovery action opening Accessibility settings for manual control."
   },
-  "jailBreakAccessibilityStillEnabled": "The active blocking session will end. Phone Detox Accessibility access may remain enabled, but it will not block applications without an active Detox session.",
+  "jailBreakAccessibilityStillEnabled": "The active block is ended. Phone Detox Accessibility access may remain enabled, but it blocks no apps without an active block.",
   "@jailBreakAccessibilityStillEnabled": {
     "description": "Explanation that Accessibility access remains enabled without active blocking."
   },
@@ -600,11 +604,11 @@
   "@mindfulConfiguredSemantics": {
     "description": "mindfulConfiguredSemantics."
   },
-  "mindfulSettingsTitle": "Mindful opening",
+  "mindfulSettingsTitle": "Mindful Opening",
   "@mindfulSettingsTitle": {
     "description": "mindfulSettingsTitle."
   },
-  "mindfulSettingsDescription": "Mindful Opening adds a pause before selected apps open.\n\nIt does not currently limit how long you remain in an app or show reminders after 15 minutes.",
+  "mindfulSettingsDescription": "Pause before an app opens.\n\nMindful Opening does not limit time spent inside the app.",
   "@mindfulSettingsDescription": {
     "description": "Explains that Mindful Opening adds app-entry friction and does not monitor in-app duration."
   },
@@ -675,6 +679,260 @@
       "count": {
         "type": "int",
         "example": "5"
+      }
+    }
+  },
+  "detoxChooseAppsStepTitle": "1. Choose apps",
+  "@detoxChooseAppsStepTitle": {
+    "description": "Localized product copy for detoxChooseAppsStepTitle."
+  },
+  "detoxChooseAppsStepDescription": "Selected apps will be completely unavailable while the block is active.",
+  "@detoxChooseAppsStepDescription": {
+    "description": "Localized product copy for detoxChooseAppsStepDescription."
+  },
+  "detoxNoAppsSelectedDescription": "Choose at least one app to block.",
+  "@detoxNoAppsSelectedDescription": {
+    "description": "Localized product copy for detoxNoAppsSelectedDescription."
+  },
+  "detoxChooseAppsAction": "Choose apps",
+  "@detoxChooseAppsAction": {
+    "description": "Localized product copy for detoxChooseAppsAction."
+  },
+  "detoxChangeSelectionAction": "Change selection",
+  "@detoxChangeSelectionAction": {
+    "description": "Localized product copy for detoxChangeSelectionAction."
+  },
+  "detoxDurationStepTitle": "2. Block them for",
+  "@detoxDurationStepTitle": {
+    "description": "Localized product copy for detoxDurationStepTitle."
+  },
+  "detoxDurationStepDescription": "The countdown starts when you press Start blocking.",
+  "@detoxDurationStepDescription": {
+    "description": "Localized product copy for detoxDurationStepDescription."
+  },
+  "detoxDurationMinutes": "{minutes, plural, =1{1 minute} other{{minutes} minutes}}",
+  "@detoxDurationMinutes": {
+    "description": "Localized product copy for detoxDurationMinutes.",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "detoxDurationHours": "{hours, plural, =1{1 hour} other{{hours} hours}}",
+  "@detoxDurationHours": {
+    "description": "Localized product copy for detoxDurationHours.",
+    "placeholders": {
+      "hours": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "detoxCustomDurationOption": "Custom",
+  "@detoxCustomDurationOption": {
+    "description": "Localized product copy for detoxCustomDurationOption."
+  },
+  "detoxCustomDurationSupportingText": "Between 5 minutes and 8 hours",
+  "@detoxCustomDurationSupportingText": {
+    "description": "Localized product copy for detoxCustomDurationSupportingText."
+  },
+  "detoxBlockingAccessStepTitle": "3. Blocking access",
+  "@detoxBlockingAccessStepTitle": {
+    "description": "Localized product copy for detoxBlockingAccessStepTitle."
+  },
+  "detoxBlockingAccessReady": "Strict blocking is ready",
+  "@detoxBlockingAccessReady": {
+    "description": "Localized product copy for detoxBlockingAccessReady."
+  },
+  "detoxBlockingAccessReadyDescription": "Phone Detox can detect attempts to open selected apps and return you Home.",
+  "@detoxBlockingAccessReadyDescription": {
+    "description": "Localized product copy for detoxBlockingAccessReadyDescription."
+  },
+  "detoxBlockingAccessDisabled": "Strict blocking is not enabled",
+  "@detoxBlockingAccessDisabled": {
+    "description": "Localized product copy for detoxBlockingAccessDisabled."
+  },
+  "detoxBlockingAccessDisabledDescription": "Enable Accessibility access so Phone Detox can enforce the block outside the launcher.",
+  "@detoxBlockingAccessDisabledDescription": {
+    "description": "Localized product copy for detoxBlockingAccessDisabledDescription."
+  },
+  "detoxReviewBlockingAccessAction": "Review and enable access",
+  "@detoxReviewBlockingAccessAction": {
+    "description": "Localized product copy for detoxReviewBlockingAccessAction."
+  },
+  "detoxWhatWillHappenTitle": "What will happen?",
+  "@detoxWhatWillHappenTitle": {
+    "description": "Localized product copy for detoxWhatWillHappenTitle."
+  },
+  "detoxWhatWillHappenEmpty": "Choose at least one app to see exactly what will be blocked.",
+  "@detoxWhatWillHappenEmpty": {
+    "description": "Localized product copy for detoxWhatWillHappenEmpty."
+  },
+  "detoxWhatWillHappenSummary": "{count, plural, =1{{appName} will be blocked for {duration}.} other{{count} selected apps will be blocked for {duration}.}}",
+  "@detoxWhatWillHappenSummary": {
+    "description": "Localized product copy for detoxWhatWillHappenSummary.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      },
+      "appName": {
+        "type": "String",
+        "example": "Instagram"
+      },
+      "duration": {
+        "type": "String",
+        "example": "30 minutes"
+      }
+    }
+  },
+  "detoxWhatWillHappenAvailability": "You will not be able to open them until the block ends or you deliberately end the block.",
+  "@detoxWhatWillHappenAvailability": {
+    "description": "Localized product copy for detoxWhatWillHappenAvailability."
+  },
+  "detoxNotUsageAllowance": "This does not give you {duration} of usage inside an app.",
+  "@detoxNotUsageAllowance": {
+    "description": "Localized product copy for detoxNotUsageAllowance.",
+    "placeholders": {
+      "duration": {
+        "type": "String",
+        "example": "30 minutes"
+      }
+    }
+  },
+  "detoxChooseAppsToContinue": "Choose apps to continue",
+  "@detoxChooseAppsToContinue": {
+    "description": "Localized product copy for detoxChooseAppsToContinue."
+  },
+  "detoxDynamicStartAction": "{count, plural, =1{Block {appName} for {duration}} other{Block {count} apps for {duration}}}",
+  "@detoxDynamicStartAction": {
+    "description": "Localized product copy for detoxDynamicStartAction.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      },
+      "appName": {
+        "type": "String",
+        "example": "Instagram"
+      },
+      "duration": {
+        "type": "String",
+        "example": "30 minutes"
+      }
+    }
+  },
+  "detoxBlockerNoApps": "Choose at least one app to block.",
+  "@detoxBlockerNoApps": {
+    "description": "Localized product copy for detoxBlockerNoApps."
+  },
+  "detoxBlockerInvalidDuration": "Enter a valid blocking duration.",
+  "@detoxBlockerInvalidDuration": {
+    "description": "Localized product copy for detoxBlockerInvalidDuration."
+  },
+  "detoxBlockerDisclosure": "Review how blocking access is used.",
+  "@detoxBlockerDisclosure": {
+    "description": "Localized product copy for detoxBlockerDisclosure."
+  },
+  "detoxBlockerAccessibility": "Enable strict blocking access.",
+  "@detoxBlockerAccessibility": {
+    "description": "Localized product copy for detoxBlockerAccessibility."
+  },
+  "detoxBlockerAlreadyActive": "A block is already active.",
+  "@detoxBlockerAlreadyActive": {
+    "description": "Localized product copy for detoxBlockerAlreadyActive."
+  },
+  "detoxBlockerControllerError": "Blocking settings could not be loaded. Try again.",
+  "@detoxBlockerControllerError": {
+    "description": "Localized product copy for detoxBlockerControllerError."
+  },
+  "detoxSelectionDone": "{count, plural, =0{Done — no apps selected} =1{Done — 1 selected} other{Done — {count} selected}}",
+  "@detoxSelectionDone": {
+    "description": "Localized product copy for detoxSelectionDone.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "detoxMindfulOpeningConfigured": "Mindful Opening configured",
+  "@detoxMindfulOpeningConfigured": {
+    "description": "Localized product copy for detoxMindfulOpeningConfigured."
+  },
+  "detoxBlockEndsIn": "Block ends in",
+  "@detoxBlockEndsIn": {
+    "description": "Localized product copy for detoxBlockEndsIn."
+  },
+  "detoxCountdownSemantics": "Block ends in {remainingTime}",
+  "@detoxCountdownSemantics": {
+    "description": "Localized product copy for detoxCountdownSemantics.",
+    "placeholders": {
+      "remainingTime": {
+        "type": "String",
+        "example": "04:37"
+      }
+    }
+  },
+  "detoxBlockedAppsHeading": "Blocked apps",
+  "@detoxBlockedAppsHeading": {
+    "description": "Localized product copy for detoxBlockedAppsHeading."
+  },
+  "detoxBlockedAppExplanation": "It is included in your active block.",
+  "@detoxBlockedAppExplanation": {
+    "description": "Localized product copy for detoxBlockedAppExplanation."
+  },
+  "detoxViewActiveBlock": "View active block",
+  "@detoxViewActiveBlock": {
+    "description": "Localized product copy for detoxViewActiveBlock."
+  },
+  "settingsHowItWorksTitle": "How Phone Detox works",
+  "@settingsHowItWorksTitle": {
+    "description": "Localized product copy for settingsHowItWorksTitle."
+  },
+  "settingsMindfulDefinition": "Pause before selected apps open.",
+  "@settingsMindfulDefinition": {
+    "description": "Localized product copy for settingsMindfulDefinition."
+  },
+  "settingsMindfulDisabled": "Disabled",
+  "@settingsMindfulDisabled": {
+    "description": "Localized product copy for settingsMindfulDisabled."
+  },
+  "settingsMindfulNoApps": "No apps configured",
+  "@settingsMindfulNoApps": {
+    "description": "Localized product copy for settingsMindfulNoApps."
+  },
+  "settingsMindfulEnabledCount": "{count, plural, =1{Enabled for 1 app} other{Enabled for {count} apps}}",
+  "@settingsMindfulEnabledCount": {
+    "description": "Localized product copy for settingsMindfulEnabledCount.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "settingsTemporaryBlockDefinition": "Make selected apps completely unavailable for a chosen period.",
+  "@settingsTemporaryBlockDefinition": {
+    "description": "Localized product copy for settingsTemporaryBlockDefinition."
+  },
+  "settingsTemporaryBlockInactive": "No active block",
+  "@settingsTemporaryBlockInactive": {
+    "description": "Localized product copy for settingsTemporaryBlockInactive."
+  },
+  "settingsTemporaryBlockActive": "{count, plural, =1{1 app blocked until {endTime}} other{{count} apps blocked until {endTime}}}",
+  "@settingsTemporaryBlockActive": {
+    "description": "Localized product copy for settingsTemporaryBlockActive.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      },
+      "endTime": {
+        "type": "String",
+        "example": "15:42"
       }
     }
   }

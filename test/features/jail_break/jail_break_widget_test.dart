@@ -243,12 +243,12 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('launcher_jail_break_button')));
     await tester.pumpAndSettle();
-    expect(find.text('End Detox and leave Phone Detox?'), findsOneWidget);
+    expect(find.text('End the block and leave Phone Detox?'), findsOneWidget);
     expect(
-      find.textContaining('immediately end the active Detox session'),
+      find.textContaining('immediately ends the active block'),
       findsOneWidget,
     );
-    await tester.tap(find.text('End session and Jail Break'));
+    await tester.tap(find.text('End block and Jail Break'));
     await tester.pumpAndSettle();
     expect(find.textContaining('could not fully remove'), findsOneWidget);
     expect(find.text('Open Home settings anyway'), findsOneWidget);

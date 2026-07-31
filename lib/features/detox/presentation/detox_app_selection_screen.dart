@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../launcher/domain/launchable_app.dart';
 import '../../launcher/presentation/launcher_controller.dart';
+import '../../mindful_opening/presentation/mindful_opening_controller.dart';
 import 'detox_controller.dart';
 
 class DetoxAppSelectionScreen extends ConsumerStatefulWidget {
@@ -24,6 +25,7 @@ class _DetoxAppSelectionScreenState
   Widget build(BuildContext context) {
     final launcher = ref.watch(launcherControllerProvider);
     final detox = ref.watch(detoxControllerProvider);
+    final mindful = ref.watch(mindfulOpeningControllerProvider);
     final appsByPackage = <String, LaunchableApp>{};
     for (final app in launcher.apps) {
       appsByPackage.putIfAbsent(app.packageName, () => app);
@@ -47,17 +49,33 @@ class _DetoxAppSelectionScreenState
       body: apps.isEmpty
           ? Center(child: Text(l10n.detoxNoAppsAvailable))
           : ListView.builder(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              itemCount: apps.length,
+              padding: const EdgeInsets.only(top: 8, bottom: 96),
+              itemCount: apps.length + 1,
               itemBuilder: (context, index) {
-                final app = apps[index];
+                if (index == 0) {
+                  return Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+                    child: Text(l10n.detoxManageAppsDescription),
+                  );
+                }
+                final app = apps[index - 1];
                 final selected = detox.blockedPackageNames.contains(
+                  app.packageName,
+                );
+                final hasMindfulRule = mindful.rules.containsKey(
                   app.packageName,
                 );
                 return CheckboxListTile(
                   value: selected,
                   title: Text(app.label),
-                  subtitle: Text(app.packageName),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(app.packageName),
+                      if (hasMindfulRule)
+                        Text(l10n.detoxMindfulOpeningConfigured),
+                    ],
+                  ),
                   secondary: Icon(selected ? Icons.block : Icons.apps),
                   onChanged: (_) => ref
                       .read(detoxControllerProvider.notifier)
@@ -65,6 +83,15 @@ class _DetoxAppSelectionScreenState
                 );
               },
             ),
+      bottomNavigationBar: SafeArea(
+        minimum: const EdgeInsets.all(16),
+        child: FilledButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text(
+            l10n.detoxSelectionDone(detox.blockedPackageNames.length),
+          ),
+        ),
+      ),
     );
   }
 }

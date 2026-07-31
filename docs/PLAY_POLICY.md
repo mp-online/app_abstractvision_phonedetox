@@ -1,15 +1,19 @@
 # Google Play policy constraints
 
-## PR-001
+## Current capability
 
-PR-001 requests no runtime permission or sensitive special access. Installed launchable activities are discovered through an intent-scoped `MAIN` plus `LAUNCHER` query. `QUERY_ALL_PACKAGES` is prohibited. Inventory stays in memory and is never logged or transmitted.
+Phone Detox is a Home launcher with an optional Accessibility Service for user-selected, timed app blocking. Before Android Accessibility Settings opens, a separate prominent disclosure explains the observed foreground package, blocking behavior, excluded information, on-device processing, and reversible controls. Affirmative acceptance is persisted as disclosure version 1; access is rechecked after resume.
 
-## Sensitive capabilities
+The service is not presented as an accessibility tool and does not set `isAccessibilityTool=true`. It listens only for window-state/window-change events, cannot retrieve window content, and uses only package names. It does not inspect text, nodes, passwords, messages, browser content, notifications, images, contacts, or files.
 
-Accessibility Service, notification access, usage access, VPN, device administration, overlays, and exact alarms require an approved feature design and a dedicated policy note before implementation.
+## Data handling
 
-An Accessibility Service must have a separate prominent in-app disclosure and affirmative consent before Android access is requested. Phone Detox must not claim `isAccessibilityTool=true`, prevent uninstall, obstruct settings, or prevent access from being disabled.
+Launchable-app inventory and foreground package information remain on device and are never logged or transmitted. There is no account, analytics, tracking, crash-reporting SDK, network client, or backend. Package discovery remains an intent-scoped `MAIN` + `LAUNCHER` query; `QUERY_ALL_PACKAGES` is prohibited.
 
-## User control
+## Prohibited expansion
 
-The user can always select another Home app, disable granted access, or uninstall Phone Detox. No feature may interfere with those recovery paths.
+Do not add Usage Access, notification access, VPN, device administration, overlays, exact alarms, foreground services, boot receivers, background polling, uninstall prevention, Settings obstruction, or Accessibility-disable prevention without a separate approved feature design and policy review.
+
+## User control and Play review
+
+Users can end any session, use an immediate emergency exit, disable Accessibility access, choose another Home app, or uninstall Phone Detox. Play Console Accessibility declarations, the store listing, and reviewer instructions must accurately describe the app-blocking use case and disclosure flow before release.

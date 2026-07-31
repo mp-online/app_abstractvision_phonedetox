@@ -158,7 +158,7 @@ abstract class AppLocalizations {
   /// **'Apps could not be loaded. Android settings and navigation remain available.'**
   String get loadAppsError;
 
-  /// Button label for retrying installed app discovery.
+  /// Button label for retrying a failed operation.
   ///
   /// In en, this message translates to:
   /// **'Retry'**
@@ -229,6 +229,300 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Restore'**
   String get restoreAction;
+
+  /// Tooltip for the launcher button that opens Detox.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Detox'**
+  String get detoxTooltip;
+
+  /// Title of the Detox setup screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Detox'**
+  String get detoxTitle;
+
+  /// Message shown while Detox state is loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Detox settings…'**
+  String get detoxLoading;
+
+  /// Recoverable Detox loading error.
+  ///
+  /// In en, this message translates to:
+  /// **'Detox settings could not be loaded. Try again.'**
+  String get detoxLoadError;
+
+  /// Title of the Detox app selection screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Apps to block'**
+  String get detoxManageAppsTitle;
+
+  /// Explanation of the selected Detox package list.
+  ///
+  /// In en, this message translates to:
+  /// **'These packages will be blocked during a session.'**
+  String get detoxManageAppsDescription;
+
+  /// Empty state for Detox app selection.
+  ///
+  /// In en, this message translates to:
+  /// **'No launchable apps are available.'**
+  String get detoxNoAppsAvailable;
+
+  /// Count of packages selected for Detox.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No apps selected} =1{1 app selected} other{{count} apps selected}}'**
+  String detoxSelectedApps(int count);
+
+  /// Guidance when the Detox list is empty.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose at least one distracting app.'**
+  String get detoxEmptyList;
+
+  /// Heading for Detox duration selection.
+  ///
+  /// In en, this message translates to:
+  /// **'Session duration'**
+  String get detoxDurationTitle;
+
+  /// A Detox duration in minutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} minutes'**
+  String detoxMinutes(int minutes);
+
+  /// Label for custom Detox duration input.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom duration (5–480 minutes)'**
+  String get detoxCustomDurationLabel;
+
+  /// Validation error for custom Detox duration.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a value from 5 to 480.'**
+  String get detoxCustomDurationError;
+
+  /// Explanation of why Detox needs Accessibility special access.
+  ///
+  /// In en, this message translates to:
+  /// **'Strict blocking requires Accessibility access. It is only used to observe the visible app package during an active session.'**
+  String get detoxAccessibilityExplanation;
+
+  /// Enabled Accessibility status.
+  ///
+  /// In en, this message translates to:
+  /// **'Accessibility access enabled'**
+  String get detoxAccessibilityEnabled;
+
+  /// Disabled Accessibility status.
+  ///
+  /// In en, this message translates to:
+  /// **'Accessibility access disabled'**
+  String get detoxAccessibilityDisabled;
+
+  /// Unavailable Accessibility status.
+  ///
+  /// In en, this message translates to:
+  /// **'Accessibility access unavailable'**
+  String get detoxAccessibilityUnavailable;
+
+  /// Action that starts a Detox session.
+  ///
+  /// In en, this message translates to:
+  /// **'Start session'**
+  String get detoxStartAction;
+
+  /// Recoverable error after Detox session start fails.
+  ///
+  /// In en, this message translates to:
+  /// **'The session could not be started. Check Accessibility access and try again.'**
+  String get detoxStartError;
+
+  /// Action that adds an app package to the Detox list.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to detox list'**
+  String get detoxAddAction;
+
+  /// Action that removes an app package from the Detox list.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from detox list'**
+  String get detoxRemoveAction;
+
+  /// Message shown when direct launching is blocked.
+  ///
+  /// In en, this message translates to:
+  /// **'This app is blocked until {endTime}.'**
+  String detoxBlockedUntil(String endTime);
+
+  /// Title of the prominent Accessibility disclosure.
+  ///
+  /// In en, this message translates to:
+  /// **'How Accessibility access is used'**
+  String get detoxDisclosureTitle;
+
+  /// Heading describing observed Accessibility information.
+  ///
+  /// In en, this message translates to:
+  /// **'What access is used'**
+  String get detoxDisclosureWhatTitle;
+
+  /// Disclosure of the foreground package observation.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Detox observes which application package is currently visible while its Accessibility Service is enabled.'**
+  String get detoxDisclosureWhatBody;
+
+  /// Heading explaining the purpose of Accessibility access.
+  ///
+  /// In en, this message translates to:
+  /// **'Why it is used'**
+  String get detoxDisclosureWhyTitle;
+
+  /// Disclosure of blocking behavior.
+  ///
+  /// In en, this message translates to:
+  /// **'During an active session, this detects an app you selected for blocking and immediately returns you to the Home screen.'**
+  String get detoxDisclosureWhyBody;
+
+  /// Heading for information excluded from Accessibility processing.
+  ///
+  /// In en, this message translates to:
+  /// **'What is not accessed'**
+  String get detoxDisclosureNotAccessedTitle;
+
+  /// Disclosure of data that is never accessed.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Detox does not read passwords, typed text, messages, screen or browser content, notifications, images, contacts, files, or Accessibility node trees.'**
+  String get detoxDisclosureNotAccessedBody;
+
+  /// Heading for local data handling disclosure.
+  ///
+  /// In en, this message translates to:
+  /// **'Data handling'**
+  String get detoxDisclosureDataTitle;
+
+  /// Disclosure that processing stays local.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing happens only on this device. Foreground packages and installed-app information are never transmitted. There is no analytics or tracking.'**
+  String get detoxDisclosureDataBody;
+
+  /// Heading for reversible user controls.
+  ///
+  /// In en, this message translates to:
+  /// **'You remain in control'**
+  String get detoxDisclosureControlTitle;
+
+  /// Disclosure of user recovery controls.
+  ///
+  /// In en, this message translates to:
+  /// **'You can end a session, disable Accessibility access, choose another Home app, or uninstall Phone Detox at any time.'**
+  String get detoxDisclosureControlBody;
+
+  /// Affirmative consent checkbox for the Accessibility disclosure.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand how Accessibility access is used.'**
+  String get detoxDisclosureConsent;
+
+  /// Action that continues after affirmative disclosure consent.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueAction;
+
+  /// Title of the active Detox session screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Detox session active'**
+  String get detoxActiveTitle;
+
+  /// Local end time for the active session.
+  ///
+  /// In en, this message translates to:
+  /// **'Ends at {endTime}'**
+  String detoxEndsAt(String endTime);
+
+  /// Count of apps blocked by the active session.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 blocked app} other{{count} blocked apps}}'**
+  String detoxBlockedAppsCount(int count);
+
+  /// Warning when an active session is not enforced.
+  ///
+  /// In en, this message translates to:
+  /// **'The session is still active, but blocking is not enforced because Accessibility access is disabled.'**
+  String get detoxEnforcementDisabledWarning;
+
+  /// Action opening Android Accessibility settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Accessibility settings'**
+  String get detoxOpenAccessibilitySettings;
+
+  /// Action opening the deliberate end-session flow.
+  ///
+  /// In en, this message translates to:
+  /// **'End session'**
+  String get detoxEndSessionAction;
+
+  /// Title of the deliberate end-session dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'End this session?'**
+  String get detoxEndSessionTitle;
+
+  /// Instruction for deliberate session ending.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold the button for 3 seconds to end the session.'**
+  String get detoxEndSessionBody;
+
+  /// Label for the 3-second hold button.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold to end'**
+  String get detoxHoldToEnd;
+
+  /// Accessible immediate session exit action.
+  ///
+  /// In en, this message translates to:
+  /// **'Emergency exit'**
+  String get detoxEmergencyExitAction;
+
+  /// Title of the emergency exit confirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Use emergency exit?'**
+  String get detoxEmergencyExitTitle;
+
+  /// Consequence explained by emergency exit confirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'This immediately ends the session and removes blocking.'**
+  String get detoxEmergencyExitBody;
+
+  /// Confirmation action for emergency exit.
+  ///
+  /// In en, this message translates to:
+  /// **'End now'**
+  String get detoxEmergencyExitConfirm;
+
+  /// Message shown after a session naturally expires.
+  ///
+  /// In en, this message translates to:
+  /// **'Detox session complete.'**
+  String get detoxSessionComplete;
 }
 
 class _AppLocalizationsDelegate

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Phone Detox</string>
+    <string name="accessibility_service_name">Phone Detox App-Blockierung</string>
+    <string name="accessibility_service_description">Kehrt zur Startseite zurück, wenn eine für eine aktive Detox-Sitzung ausgewählte App sichtbar wird.</string>
 </resources>

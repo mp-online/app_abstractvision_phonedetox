@@ -12,7 +12,6 @@ class LauncherState {
     this.favouriteIds = const {},
     this.hiddenIds = const {},
     this.searchQuery = '',
-    this.isDefaultLauncher = false,
     this.error,
   });
 
@@ -21,7 +20,6 @@ class LauncherState {
   final Set<String> favouriteIds;
   final Set<String> hiddenIds;
   final String searchQuery;
-  final bool isDefaultLauncher;
   final Object? error;
 
   List<LaunchableApp> get visibleApps {
@@ -60,7 +58,6 @@ class LauncherState {
     Set<String>? favouriteIds,
     Set<String>? hiddenIds,
     String? searchQuery,
-    bool? isDefaultLauncher,
     Object? error,
     bool clearError = false,
   }) {
@@ -70,7 +67,6 @@ class LauncherState {
       favouriteIds: favouriteIds ?? this.favouriteIds,
       hiddenIds: hiddenIds ?? this.hiddenIds,
       searchQuery: searchQuery ?? this.searchQuery,
-      isDefaultLauncher: isDefaultLauncher ?? this.isDefaultLauncher,
       error: clearError ? null : error ?? this.error,
     );
   }

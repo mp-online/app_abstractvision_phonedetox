@@ -13,6 +13,8 @@ class PhoneDetoxAccessibilityService : AccessibilityService() {
     private var lastEventAtEpochMs: Long = 0
 
     override fun onServiceConnected() {
+        // Android owns service recreation; this clears an expired reboot snapshot.
+        sessionStore.getActive()
         super.onServiceConnected()
         sessionStore = DetoxSessionStore(this)
         decisionEngine = DetoxDecisionEngine(packageName)

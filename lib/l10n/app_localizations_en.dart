@@ -261,4 +261,80 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get detoxSessionComplete => 'Detox session complete.';
+
+  @override
+  String get startupLoading => 'Preparing your Home screen…';
+
+  @override
+  String get startupActivationTitle => 'Make Phone Detox your Home screen';
+
+  @override
+  String get startupActivationExplanation =>
+      'Phone Detox replaces your normal launcher and becomes the screen Android opens when you press Home.';
+
+  @override
+  String get startupAndroidConfirmationExplanation =>
+      'Android requires you to approve this change. Choose Phone Detox on the system screen that opens.';
+
+  @override
+  String get startupReversibleChoiceExplanation =>
+      'Your choice remains until you select another Home app. You can reverse it at any time in Android Settings.';
+
+  @override
+  String get startupChooseHomeAction => 'Choose Phone Detox as Home';
+
+  @override
+  String get startupOpenHomeSettingsAction => 'Open Home settings';
+
+  @override
+  String get startupWaitingForAndroid => 'Waiting for Android confirmation…';
+
+  @override
+  String get startupAccessGranted => 'Phone Detox is now your Home screen.';
+
+  @override
+  String get startupSelectionCancelled =>
+      'Selection cancelled. Phone Detox cannot become your Home screen until you approve it.';
+
+  @override
+  String get startupAnotherLauncherSelected =>
+      'Another launcher is still selected. Try again when you are ready.';
+
+  @override
+  String get startupSettingsOpened =>
+      'Choose Phone Detox in Android Home settings, then return here.';
+
+  @override
+  String get startupHomeRoleUnavailableTitle => 'Home screen setup unavailable';
+
+  @override
+  String get startupHomeRoleUnavailable =>
+      'Android did not provide a supported Home-app selection screen. Open Settings and choose the default Home app manually.';
+
+  @override
+  String get startupRoleLostTitle => 'Phone Detox is no longer your Home app';
+
+  @override
+  String get startupRoleLostExplanation =>
+      'Android currently uses another Home app. Restore Phone Detox to resume Home-button and launcher behavior.';
+
+  @override
+  String get startupRestoreHomeAction => 'Restore Phone Detox as Home';
+
+  @override
+  String get startupFailureTitle => 'Phone Detox could not start';
+
+  @override
+  String get startupFailureMessage =>
+      'The Home-screen status could not be checked. Try again or use Android Settings to confirm your Home app.';
+
+  @override
+  String get startupStrictBlockingTitle => 'Enable strict app blocking';
+
+  @override
+  String get startupStrictBlockingExplanation =>
+      'Optional Accessibility access can return you Home when a selected blocked app opens during a Detox session.';
+
+  @override
+  String get startupStrictBlockingAction => 'Set up strict blocking';
 }

@@ -2,34 +2,46 @@
 
 Phone Detox is a Flutter-owned Android Home launcher. Kotlin is a narrow adapter for platform APIs and the event-driven enforcement service.
 
+## Root startup
+
+```text
+PhoneDetoxApp -> StartupGate -> loading
+                              -> activation required / role lost
+                              -> unavailable / recoverable error
+                              -> LauncherScreen
+```
+
+`StartupController` is the single application lifecycle reconciler. On cold start and resume it queries Android's real Home-role status. When held, it refreshes Detox recovery and launchable apps before exposing the launcher. Concurrent feature refreshes are coalesced. A 10-second initialization timeout becomes a retryable error; it never assumes a role.
+
+`startup.hasSeenLauncherExplanation` and `startup.hasCompletedLauncherActivation` describe prior UX only. Android role state always wins.
+
 ## Boundaries
 
 ```text
 Flutter screen -> Riverpod controller -> typed repository -> MethodChannel adapter
                                                      -> Kotlin platform handler
 
+Home Activity Result -> request coordinator -> role recheck -> pending Flutter result
 Accessibility event -> native session store -> decision engine -> GLOBAL_ACTION_HOME
 ```
 
-Dart owns UI, navigation, localization, package selection, consent, durations, product state, session reconciliation, direct-launch decisions, and Flutter preferences. Kotlin owns launchable-app discovery, explicit launching, Home-role integration, Accessibility status/settings, the minimal native enforcement snapshot, and `AccessibilityService` event handling.
+Dart owns UI, navigation, localization, startup/product state, consent, sessions, and Flutter preferences. Kotlin owns Home-role integration, package discovery, explicit launching, Accessibility status/settings, the minimal native enforcement snapshot, and service event handling.
 
-Widgets and controllers never access `MethodChannel`. Native payloads contain only primitive versionable values and are validated at both boundaries.
+Widgets and controllers never access `MethodChannel`. Native payloads are primitive, versionable, and validated at the Dart boundary.
 
 ## Channels
 
-- `com.abstractvision.phonedetox/launcher`: app discovery, Home role, explicit launch, app details.
-- `com.abstractvision.phonedetox/detox`: Accessibility status/settings and native session start, stop, and retrieval.
+- `com.abstractvision.phonedetox/launcher`: app discovery, typed Home-role status/request/settings, explicit launch, app details.
+- `com.abstractvision.phonedetox/detox`: Accessibility status/settings and native session start, stop, retrieval.
 
-## Identity and persistence
+## Android Home integration
 
-Launcher identity remains component-based (`packageName/activityName`). Detox identity is package-based because Accessibility events reliably expose package names; multiple components therefore deduplicate to one blocked package.
+Android 10+ uses `RoleManager.isRoleAvailable/isRoleHeld`. Older versions resolve `ACTION_MAIN` + `CATEGORY_HOME` with `MATCH_DEFAULT_ONLY`. `MainActivity` uses the Activity Result-capable Flutter host, registers early, and delegates all decisions. Only one request can hold a channel callback; activity destruction completes and clears it safely.
 
-Flutter `SharedPreferencesAsync` stores `detox.blockedPackageNames`, `detox.defaultDurationMinutes`, `detox.accessibilityDisclosureVersion`, and `detox.activeSession`. Android private `SharedPreferences` named `phone_detox_native_session` stores only session ID, UTC epoch start/end, and blocked packages. Native state is authoritative for enforcement recovery; Flutter repairs its product state from native state and clears expired snapshots.
+No boot receiver or background launch exists. Android resolves the selected Home application after Home navigation and restart/unlock.
 
-## Accessibility data boundary
+## Persistence and Accessibility
 
-The service listens only for `TYPE_WINDOW_STATE_CHANGED` and `TYPE_WINDOWS_CHANGED`, reads only `event.packageName`, and cannot retrieve window content. It never reads sources, nodes, text, content descriptions, notifications, or user content. Processing is local and no inventory or foreground-package data is transmitted.
+Flutter `SharedPreferencesAsync` stores launcher, Detox, and informational startup keys in separate repositories. Android private preferences store only the minimal Detox enforcement snapshot. The service reads package names only, clears expiry on connection/event reconciliation, and never starts Flutter.
 
-## Recovery and safety
-
-Exemptions are centralized in `DetoxDecisionEngine`: Phone Detox, System UI, Settings, enabled input methods, permission/package installer surfaces, phone/emergency UI, setup, and recovery surfaces. No overlay, Usage Access, foreground service, boot receiver, polling, exact alarm, device admin, VPN, or broad package visibility is used.
+Home role and Accessibility are independent. Accessibility is optional, prominently disclosed, and never opened by startup activation.

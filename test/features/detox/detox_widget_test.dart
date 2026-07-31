@@ -62,6 +62,28 @@ class WidgetDetoxPreferences implements DetoxPreferencesRepository {
   Future<void> setDefaultDurationMinutes(int minutes) async {}
 }
 
+class _DetoxTestHost extends ConsumerStatefulWidget {
+  const _DetoxTestHost({required this.child});
+
+  final Widget child;
+
+  @override
+  ConsumerState<_DetoxTestHost> createState() => _DetoxTestHostState();
+}
+
+class _DetoxTestHostState extends ConsumerState<_DetoxTestHost> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(detoxControllerProvider.notifier).refresh();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
+}
+
 Widget app({
   required Widget home,
   required WidgetDetoxRepository repository,
@@ -88,7 +110,7 @@ Widget app({
       ).copyWith(textScaler: TextScaler.linear(textScale)),
       child: child!,
     ),
-    home: home,
+    home: _DetoxTestHost(child: home),
   ),
 );
 

@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../settings/data/shared_preferences_launcher_repository.dart';
@@ -27,31 +25,42 @@ final launcherControllerProvider =
 class LauncherController extends Notifier<LauncherState> {
   late final LauncherRepository _launcherRepository;
   late final LauncherPreferencesRepository _preferencesRepository;
+  Future<void>? _refreshInFlight;
   int _refreshVersion = 0;
 
   @override
   LauncherState build() {
     _launcherRepository = ref.watch(launcherRepositoryProvider);
     _preferencesRepository = ref.watch(launcherPreferencesRepositoryProvider);
-    unawaited(Future<void>.delayed(Duration.zero, refresh));
     return const LauncherState();
   }
 
-  Future<void> refresh() async {
+  Future<void> refresh() {
+    final inFlight = _refreshInFlight;
+    if (inFlight != null) return inFlight;
+    final operation = _performRefresh();
+    _refreshInFlight = operation;
+    return operation.whenComplete(() {
+      if (identical(_refreshInFlight, operation)) {
+        _refreshInFlight = null;
+      }
+    });
+  }
+
+  Future<void> _performRefresh() async {
     final version = ++_refreshVersion;
     state = state.copyWith(status: LauncherStatus.loading, clearError: true);
     try {
       final results = await Future.wait<Object>([
         _launcherRepository.getLaunchableApps(),
-        _launcherRepository.isDefaultLauncher(),
         _preferencesRepository.getFavouriteIds(),
         _preferencesRepository.getHiddenIds(),
       ]);
       if (version != _refreshVersion) return;
       final apps = results[0] as List<LaunchableApp>;
       final knownIds = apps.map((app) => app.id).toSet();
-      final favourites = (results[2] as Set<String>).intersection(knownIds);
-      final hidden = (results[3] as Set<String>).intersection(knownIds);
+      final favourites = (results[1] as Set<String>).intersection(knownIds);
+      final hidden = (results[2] as Set<String>).intersection(knownIds);
       await Future.wait([
         _preferencesRepository.setFavouriteIds(favourites),
         _preferencesRepository.setHiddenIds(hidden),
@@ -62,7 +71,6 @@ class LauncherController extends Notifier<LauncherState> {
         apps: List.unmodifiable(apps),
         favouriteIds: Set.unmodifiable(favourites),
         hiddenIds: Set.unmodifiable(hidden),
-        isDefaultLauncher: results[1] as bool,
         clearError: true,
       );
     } catch (error) {
@@ -112,10 +120,5 @@ class LauncherController extends Notifier<LauncherState> {
     }
     await _launcherRepository.launchApp(app);
     return const LaunchAllowed();
-  }
-
-  Future<void> requestDefaultLauncher() async {
-    await _launcherRepository.requestDefaultLauncher();
-    await refresh();
   }
 }

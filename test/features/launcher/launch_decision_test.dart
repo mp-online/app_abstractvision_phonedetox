@@ -5,6 +5,8 @@ import 'package:phone_detox/features/detox/domain/detox_preferences_repository.d
 import 'package:phone_detox/features/detox/domain/detox_repository.dart';
 import 'package:phone_detox/features/detox/domain/detox_session.dart';
 import 'package:phone_detox/features/detox/presentation/detox_controller.dart';
+import 'package:phone_detox/features/launcher/domain/home_role_request_result.dart';
+import 'package:phone_detox/features/launcher/domain/home_role_status.dart';
 import 'package:phone_detox/features/launcher/domain/launch_decision.dart';
 import 'package:phone_detox/features/launcher/domain/launchable_app.dart';
 import 'package:phone_detox/features/launcher/domain/launcher_repository.dart';
@@ -30,13 +32,16 @@ class DecisionLauncherRepository implements LauncherRepository {
     allowedApp,
   ];
   @override
-  Future<bool> isDefaultLauncher() async => true;
+  Future<HomeRoleStatus> getHomeRoleStatus() async => HomeRoleStatus.held;
   @override
   Future<void> launchApp(LaunchableApp app) async => launches++;
   @override
   Future<void> openAppDetails(String packageName) async {}
   @override
-  Future<void> requestDefaultLauncher() async {}
+  Future<void> openHomeSettings() async {}
+  @override
+  Future<HomeRoleRequestResult> requestHomeRole() async =>
+      HomeRoleRequestResult.alreadyHeld;
 }
 
 class DecisionLauncherPreferences implements LauncherPreferencesRepository {
@@ -109,7 +114,8 @@ void main() {
     );
     container.read(launcherControllerProvider);
     container.read(detoxControllerProvider);
-    await Future<void>.delayed(Duration.zero);
+    await container.read(launcherControllerProvider.notifier).refresh();
+    await container.read(detoxControllerProvider.notifier).refresh();
   });
 
   tearDown(() => container.dispose());

@@ -523,6 +523,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Detox session complete.'**
   String get detoxSessionComplete;
+
+  /// Message shown while startup state is resolved.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing your Home screen…'**
+  String get startupLoading;
+
+  /// Title of the first-run Home-role activation screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Make Phone Detox your Home screen'**
+  String get startupActivationTitle;
+
+  /// Explanation of Phone Detox acting as the Android Home launcher.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Detox replaces your normal launcher and becomes the screen Android opens when you press Home.'**
+  String get startupActivationExplanation;
+
+  /// Explanation that Android requires explicit Home-role confirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Android requires you to approve this change. Choose Phone Detox on the system screen that opens.'**
+  String get startupAndroidConfirmationExplanation;
+
+  /// Explanation that the Home-app selection remains reversible.
+  ///
+  /// In en, this message translates to:
+  /// **'Your choice remains until you select another Home app. You can reverse it at any time in Android Settings.'**
+  String get startupReversibleChoiceExplanation;
+
+  /// Primary action requesting the Android Home role.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Phone Detox as Home'**
+  String get startupChooseHomeAction;
+
+  /// Action opening Android default Home-app settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Home settings'**
+  String get startupOpenHomeSettingsAction;
+
+  /// Status shown while the Android Home-role screen is open.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for Android confirmation…'**
+  String get startupWaitingForAndroid;
+
+  /// Status shown after Home-role access is granted.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Detox is now your Home screen.'**
+  String get startupAccessGranted;
+
+  /// Non-error status shown when Home-role selection is cancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Selection cancelled. Phone Detox cannot become your Home screen until you approve it.'**
+  String get startupSelectionCancelled;
+
+  /// Non-error status shown when another launcher remains selected.
+  ///
+  /// In en, this message translates to:
+  /// **'Another launcher is still selected. Try again when you are ready.'**
+  String get startupAnotherLauncherSelected;
+
+  /// Guidance after the Home settings fallback was opened.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Phone Detox in Android Home settings, then return here.'**
+  String get startupSettingsOpened;
+
+  /// Title for an unavailable Android Home-role capability.
+  ///
+  /// In en, this message translates to:
+  /// **'Home screen setup unavailable'**
+  String get startupHomeRoleUnavailableTitle;
+
+  /// Recoverable explanation when Home-role selection is unavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Android did not provide a supported Home-app selection screen. Open Settings and choose the default Home app manually.'**
+  String get startupHomeRoleUnavailable;
+
+  /// Title shown when a previously held Home role has been revoked.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Detox is no longer your Home app'**
+  String get startupRoleLostTitle;
+
+  /// Explanation of Home-role revocation and recovery.
+  ///
+  /// In en, this message translates to:
+  /// **'Android currently uses another Home app. Restore Phone Detox to resume Home-button and launcher behavior.'**
+  String get startupRoleLostExplanation;
+
+  /// Action requesting restoration of the Android Home role.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Phone Detox as Home'**
+  String get startupRestoreHomeAction;
+
+  /// Title for a recoverable startup failure.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Detox could not start'**
+  String get startupFailureTitle;
+
+  /// Recoverable startup failure message.
+  ///
+  /// In en, this message translates to:
+  /// **'The Home-screen status could not be checked. Try again or use Android Settings to confirm your Home app.'**
+  String get startupFailureMessage;
+
+  /// Title of the optional strict-blocking launcher card.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable strict app blocking'**
+  String get startupStrictBlockingTitle;
+
+  /// Explanation that strict blocking is optional and separate from Home activation.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional Accessibility access can return you Home when a selected blocked app opens during a Detox session.'**
+  String get startupStrictBlockingExplanation;
+
+  /// Action opening the existing Detox setup and disclosure flow.
+  ///
+  /// In en, this message translates to:
+  /// **'Set up strict blocking'**
+  String get startupStrictBlockingAction;
 }
 
 class _AppLocalizationsDelegate

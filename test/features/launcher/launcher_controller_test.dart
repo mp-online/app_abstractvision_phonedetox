@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:phone_detox/features/launcher/domain/home_role_request_result.dart';
+import 'package:phone_detox/features/launcher/domain/home_role_status.dart';
 import 'package:phone_detox/features/launcher/domain/launchable_app.dart';
 import 'package:phone_detox/features/launcher/domain/launcher_repository.dart';
 import 'package:phone_detox/features/launcher/presentation/launcher_controller.dart';
@@ -14,14 +16,13 @@ const app = LaunchableApp(
 
 class FakeLauncherRepository implements LauncherRepository {
   List<LaunchableApp> apps = const [app];
-  bool defaultLauncher = false;
   int launchCount = 0;
 
   @override
   Future<List<LaunchableApp>> getLaunchableApps() async => apps;
 
   @override
-  Future<bool> isDefaultLauncher() async => defaultLauncher;
+  Future<HomeRoleStatus> getHomeRoleStatus() async => HomeRoleStatus.held;
 
   @override
   Future<void> launchApp(LaunchableApp app) async => launchCount++;
@@ -30,7 +31,11 @@ class FakeLauncherRepository implements LauncherRepository {
   Future<void> openAppDetails(String packageName) async {}
 
   @override
-  Future<void> requestDefaultLauncher() async => defaultLauncher = true;
+  Future<void> openHomeSettings() async {}
+
+  @override
+  Future<HomeRoleRequestResult> requestHomeRole() async =>
+      HomeRoleRequestResult.alreadyHeld;
 }
 
 class FakePreferencesRepository implements LauncherPreferencesRepository {
@@ -69,7 +74,7 @@ void main() {
       ],
     );
     container.read(launcherControllerProvider);
-    await Future<void>.delayed(Duration.zero);
+    await container.read(launcherControllerProvider.notifier).refresh();
     await container.read(launcherControllerProvider.notifier).refresh();
   });
 
@@ -101,15 +106,4 @@ void main() {
       ]);
     },
   );
-
-  test('requesting Home role refreshes default-launcher state', () async {
-    await container
-        .read(launcherControllerProvider.notifier)
-        .requestDefaultLauncher();
-
-    expect(
-      container.read(launcherControllerProvider).isDefaultLauncher,
-      isTrue,
-    );
-  });
 }

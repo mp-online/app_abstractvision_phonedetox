@@ -74,7 +74,7 @@ void main() {
       ],
     );
     container.read(detoxControllerProvider);
-    await Future<void>.delayed(Duration.zero);
+    await container.read(detoxControllerProvider.notifier).refresh();
   });
 
   tearDown(() => container.dispose());

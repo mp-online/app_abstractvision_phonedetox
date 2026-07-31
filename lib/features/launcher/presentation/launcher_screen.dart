@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/widgets/clock_header.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../settings/presentation/settings_screen.dart';
+import '../../detox/domain/accessibility_status.dart';
 import '../../detox/presentation/detox_controller.dart';
 import '../../detox/presentation/detox_screen.dart';
 import '../domain/launch_decision.dart';
@@ -18,31 +19,11 @@ class LauncherScreen extends ConsumerStatefulWidget {
   ConsumerState<LauncherScreen> createState() => _LauncherScreenState();
 }
 
-class _LauncherScreenState extends ConsumerState<LauncherScreen>
-    with WidgetsBindingObserver {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      ref.read(launcherControllerProvider.notifier).refresh();
-      ref.read(detoxControllerProvider.notifier).refresh();
-    }
-  }
-
+class _LauncherScreenState extends ConsumerState<LauncherScreen> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(launcherControllerProvider);
+    final detox = ref.watch(detoxControllerProvider);
     final l10n = AppLocalizations.of(context);
     return Scaffold(
       body: SafeArea(
@@ -76,13 +57,16 @@ class _LauncherScreenState extends ConsumerState<LauncherScreen>
                 ],
               ),
               const SizedBox(height: 24),
-              if (!state.isDefaultLauncher)
-                _DefaultLauncherCard(
-                  onPressed: () => ref
-                      .read(launcherControllerProvider.notifier)
-                      .requestDefaultLauncher(),
+              if (detox.accessibilityStatus != AccessibilityStatus.enabled) ...[
+                _StrictBlockingCard(
+                  onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => const DetoxScreen(),
+                    ),
+                  ),
                 ),
-              if (!state.isDefaultLauncher) const SizedBox(height: 16),
+                const SizedBox(height: 16),
+              ],
               TextField(
                 decoration: InputDecoration(
                   labelText: l10n.searchLabel,
@@ -104,10 +88,10 @@ class _LauncherScreenState extends ConsumerState<LauncherScreen>
   }
 }
 
-class _DefaultLauncherCard extends StatelessWidget {
-  const _DefaultLauncherCard({required this.onPressed});
+class _StrictBlockingCard extends StatelessWidget {
+  const _StrictBlockingCard({required this.onPressed});
 
-  final Future<void> Function() onPressed;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -119,17 +103,17 @@ class _DefaultLauncherCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              l10n.makeDefaultTitle,
+              l10n.startupStrictBlockingTitle,
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 4),
-            Text(l10n.makeDefaultBody),
+            Text(l10n.startupStrictBlockingExplanation),
             const SizedBox(height: 8),
             Align(
               alignment: AlignmentDirectional.centerEnd,
-              child: FilledButton(
+              child: OutlinedButton(
                 onPressed: onPressed,
-                child: Text(l10n.makeDefaultAction),
+                child: Text(l10n.startupStrictBlockingAction),
               ),
             ),
           ],

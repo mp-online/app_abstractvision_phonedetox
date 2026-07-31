@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../data/platform_detox_repository.dart';
@@ -22,6 +20,7 @@ final detoxControllerProvider = NotifierProvider<DetoxController, DetoxState>(
 
 class DetoxController extends Notifier<DetoxState> {
   late final DetoxRepository _repository;
+  Future<void>? _refreshInFlight;
   late final DetoxPreferencesRepository _preferences;
   int _refreshVersion = 0;
 
@@ -29,11 +28,22 @@ class DetoxController extends Notifier<DetoxState> {
   DetoxState build() {
     _repository = ref.watch(detoxRepositoryProvider);
     _preferences = ref.watch(detoxPreferencesRepositoryProvider);
-    unawaited(Future<void>.delayed(Duration.zero, refresh));
     return DetoxState();
   }
 
-  Future<void> refresh() async {
+  Future<void> refresh() {
+    final inFlight = _refreshInFlight;
+    if (inFlight != null) return inFlight;
+    final operation = _performRefresh();
+    _refreshInFlight = operation;
+    return operation.whenComplete(() {
+      if (identical(_refreshInFlight, operation)) {
+        _refreshInFlight = null;
+      }
+    });
+  }
+
+  Future<void> _performRefresh() async {
     final version = ++_refreshVersion;
     state = state.copyWith(status: DetoxStatus.loading, clearError: true);
     try {

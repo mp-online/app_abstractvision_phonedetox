@@ -1,5 +1,7 @@
 import 'package:flutter/services.dart';
 
+import '../domain/home_role_request_result.dart';
+import '../domain/home_role_status.dart';
 import '../domain/launchable_app.dart';
 import '../domain/launcher_repository.dart';
 
@@ -45,12 +47,19 @@ class PlatformLauncherRepository implements LauncherRepository {
   }
 
   @override
-  Future<bool> isDefaultLauncher() async =>
-      await _channel.invokeMethod<bool>('isDefaultLauncher') ?? false;
+  Future<HomeRoleStatus> getHomeRoleStatus() async => HomeRoleStatus.fromNative(
+    await _channel.invokeMethod<Object?>('getHomeRoleStatus'),
+  );
 
   @override
-  Future<void> requestDefaultLauncher() =>
-      _channel.invokeMethod<void>('requestDefaultLauncher');
+  Future<HomeRoleRequestResult> requestHomeRole() async =>
+      HomeRoleRequestResult.fromNative(
+        await _channel.invokeMethod<Object?>('requestHomeRole'),
+      );
+
+  @override
+  Future<void> openHomeSettings() =>
+      _channel.invokeMethod<void>('openHomeSettings');
 
   @override
   Future<void> launchApp(LaunchableApp app) =>

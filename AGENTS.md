@@ -133,3 +133,16 @@ A change is complete only when:
 - tests cover product rules
 - Android behavior was manually verified when applicable
 - documentation reflects any new platform capability
+
+## Active PR-003 startup constraints
+
+- Android's current Home-role state is authoritative; persisted onboarding flags are informational only.
+- First run and role-revocation recovery belong to the root Flutter startup coordinator.
+- Home-role requests must use Activity Result completion and recheck the role before reporting success.
+- Only one native Home-role request may be pending.
+- Centralize cold-start/resume reconciliation; do not add overlapping screen lifecycle observers.
+- Home activation and optional Accessibility setup must remain separate explicit user actions.
+- Do not add a boot receiver, boot permission, background activity launch, foreground service, polling, alarms, OEM autostart settings, or battery exemption.
+- Reboot readiness means Android resolves the selected Home app after restart and unlock.
+- Do not claim Pixel, Samsung, older-Android, Home-button, reboot, revocation, or Detox device QA without actual execution evidence.
+- See `docs/adr/0003-home-role-activation-and-startup.md` for the accepted decision.

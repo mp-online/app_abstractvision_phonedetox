@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../core/theme/app_theme.dart';
-import '../features/launcher/presentation/launcher_screen.dart';
+import '../features/startup/presentation/startup_gate.dart';
 import '../l10n/app_localizations.dart';
 
 class PhoneDetoxApp extends StatelessWidget {
@@ -23,7 +23,7 @@ class PhoneDetoxApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const LauncherScreen(),
+      home: const StartupGate(),
     );
   }
 }

@@ -1,7 +1,6 @@
 package com.abstractvision.phonedetox.launcher
 
 import android.app.Activity
-import android.app.role.RoleManager
 import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -16,15 +15,28 @@ import java.util.concurrent.Executors
 class LauncherPlatformHandler(
     private val activity: Activity,
     messenger: BinaryMessenger,
+    launchHomeRoleRequest: (Intent) -> Unit,
+    homeRoleGateway: HomeRoleGateway = AndroidHomeRoleGateway(activity),
 ) {
     private val inventoryExecutor = Executors.newSingleThreadExecutor()
+    private val homeRoleCoordinator = HomeRoleRequestCoordinator(
+        homeRoleGateway,
+        launchHomeRoleRequest,
+    )
 
     init {
         MethodChannel(messenger, CHANNEL_NAME).setMethodCallHandler { call, result ->
             when (call.method) {
                 "getLaunchableApps" -> getLaunchableApps(result)
-                "isDefaultLauncher" -> result.success(isDefaultLauncher())
-                "requestDefaultLauncher" -> handle(result) { requestDefaultLauncher() }
+                "getHomeRoleStatus" -> handleValue(result) {
+                    homeRoleGateway.getStatus().wireValue
+                }
+                "requestHomeRole" -> requestHomeRole(result)
+                "openHomeSettings" -> handle(result, "home_settings_unavailable") {
+                    if (!homeRoleGateway.openHomeSettings()) {
+                        throw HomeSettingsUnavailable()
+                    }
+                }
                 "launchApp" -> handle(result) { launchApp(call) }
                 "openAppDetails" -> handle(result) { openAppDetails(call) }
                 else -> result.notImplemented()
@@ -32,7 +44,30 @@ class LauncherPlatformHandler(
         }
     }
 
-    fun close() = inventoryExecutor.shutdown()
+    fun onHomeRoleActivityResult(resultCode: Int) {
+        homeRoleCoordinator.onActivityResult(resultCode)
+    }
+
+    fun close() {
+        homeRoleCoordinator.close()
+        inventoryExecutor.shutdown()
+    }
+
+    private fun requestHomeRole(result: MethodChannel.Result) {
+        homeRoleCoordinator.request { requestResult ->
+            requestResult.fold(
+                onSuccess = { result.success(it.wireValue) },
+                onFailure = {
+                    val code = if (it is HomeRoleRequestCoordinator.RequestInProgressException) {
+                        "home_role_request_in_progress"
+                    } else {
+                        "home_role_request_failed"
+                    }
+                    result.error(code, it.message, null)
+                },
+            )
+        }
+    }
 
     private fun getLaunchableApps(result: MethodChannel.Result) {
         inventoryExecutor.execute {
@@ -67,33 +102,6 @@ class LauncherPlatformHandler(
         }
     }
 
-    private fun isDefaultLauncher(): Boolean {
-        val intent = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
-        val resolved = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            activity.packageManager.resolveActivity(
-                intent,
-                PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY.toLong()),
-            )
-        } else {
-            @Suppress("DEPRECATION")
-            activity.packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
-        }
-        return resolved?.activityInfo?.packageName == activity.packageName
-    }
-
-    private fun requestDefaultLauncher() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            val roleManager = activity.getSystemService(RoleManager::class.java)
-            if (roleManager.isRoleAvailable(RoleManager.ROLE_HOME) &&
-                !roleManager.isRoleHeld(RoleManager.ROLE_HOME)
-            ) {
-                activity.startActivity(roleManager.createRequestRoleIntent(RoleManager.ROLE_HOME))
-                return
-            }
-        }
-        activity.startActivity(Intent(Settings.ACTION_HOME_SETTINGS))
-    }
-
     private fun launchApp(call: MethodCall) {
         val packageName = requiredStringArgument(call, "packageName")
         val activityName = requiredStringArgument(call, "activityName")
@@ -111,7 +119,10 @@ class LauncherPlatformHandler(
     private fun openAppDetails(call: MethodCall) {
         val packageName = requiredStringArgument(call, "packageName")
         activity.startActivity(
-            Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", packageName, null)),
+            Intent(
+                Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                Uri.fromParts("package", packageName, null),
+            ),
         )
     }
 
@@ -121,7 +132,11 @@ class LauncherPlatformHandler(
         return value
     }
 
-    private fun handle(result: MethodChannel.Result, action: () -> Unit) {
+    private fun handle(
+        result: MethodChannel.Result,
+        fallbackCode: String = "native_failure",
+        action: () -> Unit,
+    ) {
         try {
             action()
             result.success(null)
@@ -132,12 +147,21 @@ class LauncherPlatformHandler(
         } catch (error: SecurityException) {
             result.error("security_exception", error.message, null)
         } catch (error: Exception) {
+            result.error(fallbackCode, error.message, null)
+        }
+    }
+
+    private fun handleValue(result: MethodChannel.Result, action: () -> String) {
+        try {
+            result.success(action())
+        } catch (error: Exception) {
             result.error("native_failure", error.message, null)
         }
     }
 
     private class InvalidArguments(message: String) : IllegalArgumentException(message)
     private class ActivityNotFound(message: String) : IllegalStateException(message)
+    private class HomeSettingsUnavailable : IllegalStateException("No Android Home settings screen is available.")
 
     companion object {
         private const val CHANNEL_NAME = "com.abstractvision.phonedetox/launcher"

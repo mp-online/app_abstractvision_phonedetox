@@ -265,4 +265,85 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get detoxSessionComplete => 'Detox-Sitzung abgeschlossen.';
+
+  @override
+  String get startupLoading => 'Dein Startbildschirm wird vorbereitet…';
+
+  @override
+  String get startupActivationTitle =>
+      'Phone Detox als Startbildschirm festlegen';
+
+  @override
+  String get startupActivationExplanation =>
+      'Phone Detox ersetzt deinen normalen Launcher und wird geöffnet, wenn du die Home-Taste verwendest.';
+
+  @override
+  String get startupAndroidConfirmationExplanation =>
+      'Android benötigt deine Bestätigung. Wähle Phone Detox auf dem folgenden Systembildschirm aus.';
+
+  @override
+  String get startupReversibleChoiceExplanation =>
+      'Deine Auswahl bleibt bestehen, bis du eine andere Start-App wählst. Du kannst sie jederzeit in den Android-Einstellungen ändern.';
+
+  @override
+  String get startupChooseHomeAction => 'Phone Detox als Start-App wählen';
+
+  @override
+  String get startupOpenHomeSettingsAction => 'Start-App-Einstellungen öffnen';
+
+  @override
+  String get startupWaitingForAndroid => 'Warten auf die Android-Bestätigung…';
+
+  @override
+  String get startupAccessGranted =>
+      'Phone Detox ist jetzt dein Startbildschirm.';
+
+  @override
+  String get startupSelectionCancelled =>
+      'Auswahl abgebrochen. Phone Detox kann erst nach deiner Bestätigung zum Startbildschirm werden.';
+
+  @override
+  String get startupAnotherLauncherSelected =>
+      'Eine andere Start-App ist weiterhin ausgewählt. Versuche es erneut, wenn du bereit bist.';
+
+  @override
+  String get startupSettingsOpened =>
+      'Wähle Phone Detox in den Android-Start-App-Einstellungen und kehre dann hierher zurück.';
+
+  @override
+  String get startupHomeRoleUnavailableTitle =>
+      'Startbildschirm-Einrichtung nicht verfügbar';
+
+  @override
+  String get startupHomeRoleUnavailable =>
+      'Android stellt keinen unterstützten Auswahlbildschirm bereit. Öffne die Einstellungen und wähle die Standard-Start-App manuell.';
+
+  @override
+  String get startupRoleLostTitle =>
+      'Phone Detox ist nicht mehr deine Start-App';
+
+  @override
+  String get startupRoleLostExplanation =>
+      'Android verwendet derzeit eine andere Start-App. Stelle Phone Detox wieder her, um Home-Taste und Launcher weiter zu verwenden.';
+
+  @override
+  String get startupRestoreHomeAction =>
+      'Phone Detox als Start-App wiederherstellen';
+
+  @override
+  String get startupFailureTitle => 'Phone Detox konnte nicht gestartet werden';
+
+  @override
+  String get startupFailureMessage =>
+      'Der Start-App-Status konnte nicht geprüft werden. Versuche es erneut oder bestätige die Start-App in den Android-Einstellungen.';
+
+  @override
+  String get startupStrictBlockingTitle => 'Strikte App-Blockierung aktivieren';
+
+  @override
+  String get startupStrictBlockingExplanation =>
+      'Optionaler Bedienungshilfenzugriff kann dich während einer Detox-Sitzung zurück zum Startbildschirm bringen, wenn eine ausgewählte blockierte App geöffnet wird.';
+
+  @override
+  String get startupStrictBlockingAction => 'Strikte Blockierung einrichten';
 }

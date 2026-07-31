@@ -4,6 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/widgets/clock_header.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../settings/presentation/settings_screen.dart';
+import '../../detox/presentation/detox_controller.dart';
+import '../../detox/presentation/detox_screen.dart';
+import '../domain/launch_decision.dart';
 import '../domain/launchable_app.dart';
 import 'launcher_controller.dart';
 import 'launcher_state.dart';
@@ -33,6 +36,7 @@ class _LauncherScreenState extends ConsumerState<LauncherScreen>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       ref.read(launcherControllerProvider.notifier).refresh();
+      ref.read(detoxControllerProvider.notifier).refresh();
     }
   }
 
@@ -51,6 +55,15 @@ class _LauncherScreenState extends ConsumerState<LauncherScreen>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Expanded(child: ClockHeader()),
+                  IconButton(
+                    tooltip: l10n.detoxTooltip,
+                    icon: const Icon(Icons.timer_outlined),
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => const DetoxScreen(),
+                      ),
+                    ),
+                  ),
                   IconButton(
                     tooltip: l10n.settingsTooltip,
                     icon: const Icon(Icons.settings_outlined),
@@ -189,6 +202,8 @@ class _AppTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(launcherControllerProvider);
+    final detox = ref.watch(detoxControllerProvider);
+    final isBlocked = detox.blockedPackageNames.contains(app.packageName);
     return ListTile(
       title: Text(app.label, maxLines: 1, overflow: TextOverflow.ellipsis),
       subtitle: Text(
@@ -196,12 +211,28 @@ class _AppTile extends ConsumerWidget {
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
-      trailing: state.favouriteIds.contains(app.id)
+      trailing: isBlocked
+          ? const Icon(Icons.block, size: 18)
+          : state.favouriteIds.contains(app.id)
           ? const Icon(Icons.star, size: 18)
           : null,
       onTap: () async {
         try {
-          await ref.read(launcherControllerProvider.notifier).launch(app);
+          final decision = await ref
+              .read(launcherControllerProvider.notifier)
+              .launch(app);
+          if (decision is LaunchBlocked && context.mounted) {
+            final endTime = MaterialLocalizations.of(context).formatTimeOfDay(
+              TimeOfDay.fromDateTime(decision.blockedUntil.toLocal()),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  AppLocalizations.of(context).detoxBlockedUntil(endTime),
+                ),
+              ),
+            );
+          }
         } catch (_) {
           if (context.mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -222,6 +253,10 @@ class _AppTile extends ConsumerWidget {
         .read(launcherControllerProvider)
         .favouriteIds
         .contains(app.id);
+    final isBlocked = ref
+        .read(detoxControllerProvider)
+        .blockedPackageNames
+        .contains(app.packageName);
     await showModalBottomSheet<void>(
       context: context,
       builder: (context) => SafeArea(
@@ -239,6 +274,20 @@ class _AppTile extends ConsumerWidget {
                 ref
                     .read(launcherControllerProvider.notifier)
                     .toggleFavourite(app);
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                isBlocked ? Icons.remove_circle_outline : Icons.block,
+              ),
+              title: Text(
+                isBlocked ? l10n.detoxRemoveAction : l10n.detoxAddAction,
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                ref
+                    .read(detoxControllerProvider.notifier)
+                    .toggleBlockedPackage(app.packageName);
               },
             ),
             ListTile(

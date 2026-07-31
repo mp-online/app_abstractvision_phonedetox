@@ -1,38 +1,37 @@
 # File Index
 
-## Handoff
+## Handoff and policy
 
-- `CODEX_HANDOFF.md` — ordered execution instructions for Codex.
-- `PR_DESCRIPTION.md` — paste-ready PR scope, acceptance criteria, QA, risks, and rollback.
-- `AGENTS.md` — persistent repository rules for future coding agents.
-- `README.md` — developer bootstrap and current behaviour.
+- `PR_DESCRIPTION.md` — PR-002 scope, verified acceptance status, QA matrix, and restrictions.
+- `CODEX_HANDOFF.md` — verification and manual-device handoff.
+- `AGENTS.md` — persistent repository constraints.
+- `docs/ARCHITECTURE.md` — Flutter/Kotlin ownership, channels, persistence, and enforcement flow.
+- `docs/PLAY_POLICY.md` — Accessibility disclosure, data limits, prohibited expansion, and Play work.
+- `docs/ROADMAP.md` — PR-002 active milestone and later work.
+- `docs/adr/0001-flutter-kotlin-boundary.md` — platform-boundary decision.
+- `docs/adr/0002-accessibility-based-detox-enforcement.md` — enforcement and policy decision.
 
-## Product and engineering documentation
+## Flutter source
 
-- `docs/PRODUCT.md` — product promise, target user, principles, and commercial baseline.
-- `docs/ARCHITECTURE.md` — Flutter/Kotlin boundary and persistence rules.
-- `docs/ROADMAP.md` — sequential PR plan through blocking, insights, notifications, and billing.
-- `docs/PLAY_POLICY.md` — sensitive-capability constraints and disclosure requirements.
-- `docs/adr/0001-flutter-kotlin-boundary.md` — architecture decision record.
+- `lib/features/launcher/` — component discovery, launcher state/UI, package-aware launch decisions.
+- `lib/features/settings/` — launcher preferences and hidden-app settings.
+- `lib/features/detox/domain/` — immutable session, typed repositories, Accessibility status.
+- `lib/features/detox/data/` — MethodChannel and `SharedPreferencesAsync` adapters.
+- `lib/features/detox/presentation/` — setup, package selection, disclosure, active countdown, exit flows, controller/state.
+- `lib/l10n/` — generated English/German localization sourced from ARB files with metadata.
 
-## Implemented Flutter source
+## Android source
 
-- `lib/main.dart` — ProviderScope bootstrap.
-- `lib/app/phone_detox_app.dart` — localized Material application.
-- `lib/core/theme/app_theme.dart` — monochrome system theme.
-- `lib/core/widgets/clock_header.dart` — localized time/date header.
-- `lib/features/launcher/` — app model, platform repository, state, controller, screen, tiles.
-- `lib/features/settings/` — asynchronous local preferences and settings screen.
-- `lib/l10n/` — English/German ARB resources with metadata.
-
-## Implemented Android source
-
-- `android/app/src/main/AndroidManifest.xml` — Launcher/Home registration and narrow app visibility.
-- `android/app/src/main/kotlin/com/abstractvision/phonedetox/MainActivity.kt` — first-party platform bridge.
-- `android/app/src/main/res/values*/strings.xml` — Android app label resources.
+- `MainActivity.kt` — thin channel registration owner.
+- `launcher/LauncherPlatformHandler.kt` — launcher-specific Android adapter.
+- `detox/DetoxPlatformHandler.kt` — Detox channel and Accessibility status/settings.
+- `detox/DetoxSessionSnapshot.kt` and `DetoxSessionStore.kt` — validated native enforcement persistence.
+- `detox/DetoxDecisionEngine.kt` — pure block/allow/expiry decision and safe exemptions.
+- `detox/PhoneDetoxAccessibilityService.kt` — package-only event enforcement.
+- `res/xml/phone_detox_accessibility_service.xml` — minimal Accessibility event configuration.
 
 ## Tests
 
-- `test/features/launcher/launcher_state_test.dart`
-- `test/features/launcher/launcher_controller_test.dart`
-- `test/widget_test.dart`
+- `test/features/detox/` — session, controller, and Detox widget coverage.
+- `test/features/launcher/` — sorting, filtering, persistence transitions, and launch decisions.
+- `android/app/src/test/.../detox/` — decision engine and snapshot validation.

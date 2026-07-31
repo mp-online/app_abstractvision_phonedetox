@@ -4,7 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../settings/data/shared_preferences_launcher_repository.dart';
 import '../../settings/domain/launcher_preferences_repository.dart';
+import '../../detox/presentation/detox_controller.dart';
+import '../../detox/presentation/detox_state.dart';
 import '../data/platform_launcher_repository.dart';
+import '../domain/launch_decision.dart';
 import '../domain/launchable_app.dart';
 import '../domain/launcher_repository.dart';
 import 'launcher_state.dart';
@@ -98,7 +101,18 @@ class LauncherController extends Notifier<LauncherState> {
     await _preferencesRepository.setHiddenIds(hidden);
   }
 
-  Future<void> launch(LaunchableApp app) => _launcherRepository.launchApp(app);
+  Future<LaunchDecision> launch(LaunchableApp app) async {
+    final detox = ref.read(detoxControllerProvider);
+    final session = detox.activeSession;
+    if (detox.status == DetoxStatus.activeAndEnforced &&
+        session != null &&
+        session.isActive &&
+        session.blockedPackageNames.contains(app.packageName)) {
+      return LaunchBlocked(blockedUntil: session.endsAt);
+    }
+    await _launcherRepository.launchApp(app);
+    return const LaunchAllowed();
+  }
 
   Future<void> requestDefaultLauncher() async {
     await _launcherRepository.requestDefaultLauncher();

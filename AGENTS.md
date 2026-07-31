@@ -6,6 +6,8 @@ Build an Android-first, privacy-first screen-time reduction product. Flutter own
 
 The first product is a functional replacement Home launcher, not a mock UI.
 
+The active milestone includes optional, prominently disclosed Accessibility-based blocking for user-selected timed sessions. The service observes package names only, cannot retrieve window content, and must preserve all user recovery paths.
+
 ## Read first
 
 Before modifying code, read:
@@ -56,6 +58,8 @@ Before modifying code, read:
 - Do not add notification access, usage access, VPN, device-admin, overlay, or exact-alarm capabilities without an approved feature design and policy note.
 - Never collect or transmit installed-app inventory.
 - Do not use Accessibility APIs to prevent uninstalling, changing settings, or disabling Phone Detox.
+- Keep Accessibility event handling package-name-only. Never access event sources, node trees, text, content descriptions, notifications, or user content.
+- Keep all safe package exemptions centralized in the Detox decision engine.
 
 ## Flutter conventions
 

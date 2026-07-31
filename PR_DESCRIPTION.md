@@ -1,138 +1,83 @@
-# PR-001 â€” Android Launcher Foundation
+# PR-002 — Active Detox Sessions and Android App Blocking
 
 ## Summary
 
-Create the first functional Phone Detox product slice: an Android replacement launcher implemented primarily in Flutter with a narrow Kotlin platform bridge.
+Implement the first real, fully local Phone Detox enforcement flow. Users select app packages, choose a 5–480 minute session, accept a prominent versioned disclosure, enable Phone Detox Accessibility access, and start a session. A blocked foreground package triggers `GLOBAL_ACTION_HOME`; direct launches from Phone Detox are rejected in Dart without a launch/return flash.
 
-This PR intentionally avoids high-risk Android capabilities. It does not add Accessibility Service, notification access, usage access, broad package visibility, analytics, accounts, backend communication, or billing.
+Flutter owns product state and UI. Kotlin owns only Android platform access and the minimal process-independent enforcement snapshot.
 
-## Why
+## Privacy and architecture
 
-Phone Detox needs a product core before adding behavioural-control features. The Home launcher is the natural base because it changes the user's default entry point into the phone without needing invasive permissions.
+- Launcher entries retain component identity; Detox selection deduplicates to package identity.
+- Flutter preferences store selected packages, default duration, disclosure version, and product session.
+- Android private preferences store only session ID, UTC epoch start/end, and blocked package names.
+- Native state is authoritative during recovery; Flutter repairs stale product state and both sides clear expiry.
+- The Accessibility Service listens only for window-state/window-change events and reads only `event.packageName`.
+- It cannot retrieve window content and never accesses nodes, text, passwords, messages, browser content, notifications, images, contacts, or files.
+- Phone Detox, System UI, Settings, enabled input methods, permission/package installer surfaces, phone/emergency UI, setup, and recovery surfaces are exempt centrally.
 
-## User value
+## New special access
 
-After this PR, a user can:
+Adds an optional `AccessibilityService` bound with the system-only `BIND_ACCESSIBILITY_SERVICE` permission. This is special access enabled by the user in Android Settings, not a runtime permission requested by the app. The service is not marked `isAccessibilityTool=true`.
 
-1. Install and open Phone Detox.
-2. Select it as the Android default Home app.
-3. See installed launchable apps as a calm text list.
-4. Search and open an app.
-5. Pin useful apps as favourites.
-6. Hide distracting apps from the primary list.
-7. Restore hidden apps from Settings.
-
-## Scope
-
-### Flutter
-
-- Material 3 light/dark application shell.
-- Riverpod state and repository wiring.
-- Searchable launcher screen.
-- Clock/date header.
-- Default-launcher prompt.
-- Favourite-first sorting.
-- Hidden-app management.
-- Local persistence through `shared_preferences`.
-- English and German localization with ARB metadata.
-- Unit and widget tests.
-
-### Android/Kotlin
-
-- Register `MainActivity` as both a normal app and eligible Home activity.
-- Query activities matching `ACTION_MAIN` + `CATEGORY_LAUNCHER`.
-- Return app ID, label, package name, and activity name to Dart.
-- Launch an app through an explicit component intent.
-- Detect whether Phone Detox is the current Home app.
-- Request `RoleManager.ROLE_HOME` on Android 10+ with Settings fallback.
-- Open the Android app-details page.
-
-## Explicit non-goals
-
-- No app blocking.
-- No opening delay or session timer.
-- No Accessibility Service.
-- No notification filtering.
-- No usage statistics.
-- No Screen Time dashboard.
-- No subscriptions or lifetime purchase.
-- No cloud sync, login, backend, telemetry, crash reporting, or remote configuration.
-- No iOS, macOS, web, Windows, or Linux target.
-- No app icons inside the launcher list.
+No Usage Access, `QUERY_ALL_PACKAGES`, overlay, device admin, VPN, notification listener, exact alarm, foreground service, boot receiver, background polling, network communication, analytics, account, backend, Drift, billing, schedule, or uninstall prevention is added.
 
 ## Dependency decision
 
-Runtime baseline:
+No runtime dependency was added. JUnit 4.13.2 is added only to the Android unit-test configuration for the pure native decision and snapshot tests.
 
-- Flutter 3.35+ / Dart 3.9+ and Android minSdk 24 because `shared_preferences` 2.5.5 requires that baseline.
-- `intl: any` so Flutter localizations selects its SDK-pinned compatible version.
+## Automated acceptance status
 
-Keep:
-
-- `flutter_riverpod`: application state and replaceable repositories.
-- `shared_preferences`: small, non-critical local sets for favourite/hidden app IDs, using the newer asynchronous API.
-- `flutter_localizations`: generated localization support.
-
-Remove for this milestone:
-
-- `cupertino_icons`: no iOS/Cupertino UI.
-- `drift`, `drift_flutter`, `drift_dev`, `sqlite3_flutter_libs`, `path`, `path_provider`: no relational or event data yet.
-- `flutter_markdown_plus`, `markdown`: no rich legal/help documents yet.
-- `build_runner`: no code generation in this milestone.
-- `flutter_launcher_icons`: add when the final visual identity and source icon exist.
-
-## Permission decision
-
-Use a narrow `<queries>` declaration for launchable activities. Do not request `QUERY_ALL_PACKAGES`.
-
-The app requests no runtime permission in this PR.
-
-## Acceptance criteria
-
-- [x] App builds on the team's supported Flutter stable version.
-- [ ] Phone Detox appears in Android's Home-app selection.
-- [ ] Pressing Home opens Phone Detox after selection.
-- [x] Normal installed apps appear in alphabetical order.
-- [ ] Phone Detox does not list itself.
-- [ ] Tapping an entry launches the exact discovered activity.
-- [x] Search matches app label and package name without case sensitivity.
-- [x] Favourites sort above non-favourites.
-- [x] Hidden apps disappear and can be restored.
-- [ ] Preferences survive process death and device restart.
-- [ ] Resuming Phone Detox refreshes app and Home-role state.
-- [x] No `QUERY_ALL_PACKAGES`, Accessibility Service, usage access, or notification access exists in the manifest.
+- [x] Package selection is persisted locally and component duplicates deduplicate by package.
+- [x] Hidden state and blocked state remain independent.
+- [x] Unknown selected packages are removed during reconciliation.
+- [x] Preset and validated custom durations from 5–480 minutes are supported.
+- [x] Prominent Accessibility disclosure gates Android Settings behind affirmative consent version 1.
+- [x] Accessibility status is rechecked on resume.
+- [x] Session start requires selected packages, valid duration, consent, and enabled access.
+- [x] Native start failure rolls back Flutter persistence.
+- [x] Native state restores Flutter state and expired state clears on both sides.
+- [x] Active and active-but-not-enforced states are distinct.
+- [x] Direct launcher taps return a typed blocked decision during enforced sessions.
+- [x] Countdown derives from the persisted end time rather than stored ticks.
+- [x] Deliberate 3-second hold exit and immediate confirmed emergency exit are present.
+- [x] English and German ARB entries include metadata.
+- [x] Native decision logic covers no session, expiry, blocked/allowed, own app, System UI, Settings, input methods, and blank packages.
+- [x] `dart format --set-exit-if-changed lib test` passes.
 - [x] `flutter analyze --no-pub` passes.
 - [x] `flutter test --no-pub` passes.
+- [x] Kotlin unit tests pass.
 - [x] Debug APK builds.
 
-## Manual QA matrix
+## Manual Android QA — not yet completed
 
-### Devices
+- [ ] Pixel device/emulator on Android 15+.
+- [ ] Samsung device on current One UI.
+- [ ] Android 10 coverage.
+- [ ] Android 13 coverage.
+- [ ] Android 15+ coverage.
+- [ ] Home-role selection and repeated Home navigation.
+- [ ] Disclosure appears before Android Accessibility Settings and cancellation remains disabled in-app.
+- [ ] Blocked launch from Phone Detox is prevented without flashing the target app.
+- [ ] Blocked launch through Recents returns Home.
+- [ ] Blocked notification/deep-link launch returns Home.
+- [ ] Allowed apps, Settings, Accessibility Settings, permission dialogs, keyboard, phone, and emergency surfaces remain usable.
+- [ ] Enforcement survives Flutter activity/process destruction.
+- [ ] Enforcement resumes after device restart while the session is valid.
+- [ ] Expiry restores blocked apps.
+- [ ] Disabling access during a session produces the honest warning; re-enabling resumes enforcement.
+- [ ] Deliberate end and emergency exit both stop native and Flutter state.
+- [ ] Another Home app can be selected and Phone Detox can be uninstalled.
+- [ ] Large-text and TalkBack device QA.
 
-- Pixel / Android 15 or newer.
-- Samsung Galaxy / current One UI.
-- One older supported Android version.
+## Google Play work before release
 
-### Scenarios
+Complete the Accessibility API declaration, store-listing disclosure, and reviewer instructions. Describe the core app-blocking purpose, package-only on-device processing, prominent consent flow, data exclusions, and reversible controls. Provide disclosure screenshots/video if requested.
 
-1. First launch before default-role selection.
-2. Accept Home role and press Home repeatedly.
-3. Reject/cancel Home role selection.
-4. Search using mixed case.
-5. Launch Settings, browser, phone, messages, camera, and a third-party app.
-6. Favourite, restart, verify persistence.
-7. Hide, restart, verify persistence, restore.
-8. Install/uninstall another app while Phone Detox is backgrounded, then resume.
-9. Rotate device and change system theme.
-10. Increase Android font scale and verify no essential control becomes unreachable.
+## Known limitations
 
-## Risks
-
-- OEM launchers may provide slightly different Home-role flows.
-- Some packages expose multiple launcher activities; the current ID is component-based so entries remain deterministic.
-- A launcher can become a critical device surface. Crashes and blank states must always offer recovery through Android navigation/Settings.
-- App inventory is sensitive user data; it must remain on-device and should not be logged or transmitted.
+Automated tests cannot prove OEM Home behavior, event delivery, reboot recreation, input-method quirks, or Samsung/Pixel safety. Those items remain explicitly unverified until the manual matrix above is executed.
 
 ## Rollback
 
-The user can select another default Home app through Android Settings or uninstall Phone Detox. This PR must never interfere with either action.
+The user can end a session, use Emergency exit, disable the service, select another Home app, or uninstall Phone Detox. The app never obstructs these paths.

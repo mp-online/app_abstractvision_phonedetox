@@ -1,0 +1,257 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../core/widgets/clock_header.dart';
+import '../../../l10n/app_localizations.dart';
+import '../../settings/presentation/settings_screen.dart';
+import '../domain/launchable_app.dart';
+import 'launcher_controller.dart';
+import 'launcher_state.dart';
+
+class LauncherScreen extends ConsumerStatefulWidget {
+  const LauncherScreen({super.key});
+
+  @override
+  ConsumerState<LauncherScreen> createState() => _LauncherScreenState();
+}
+
+class _LauncherScreenState extends ConsumerState<LauncherScreen>
+    with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      ref.read(launcherControllerProvider.notifier).refresh();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final state = ref.watch(launcherControllerProvider);
+    final l10n = AppLocalizations.of(context);
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Expanded(child: ClockHeader()),
+                  IconButton(
+                    tooltip: l10n.settingsTooltip,
+                    icon: const Icon(Icons.settings_outlined),
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => const SettingsScreen(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              if (!state.isDefaultLauncher)
+                _DefaultLauncherCard(
+                  onPressed: () => ref
+                      .read(launcherControllerProvider.notifier)
+                      .requestDefaultLauncher(),
+                ),
+              if (!state.isDefaultLauncher) const SizedBox(height: 16),
+              TextField(
+                decoration: InputDecoration(
+                  labelText: l10n.searchLabel,
+                  hintText: l10n.searchHint,
+                  prefixIcon: const Icon(Icons.search),
+                ),
+                textInputAction: TextInputAction.search,
+                onChanged: ref
+                    .read(launcherControllerProvider.notifier)
+                    .setSearchQuery,
+              ),
+              const SizedBox(height: 12),
+              Expanded(child: _LauncherBody(state: state)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _DefaultLauncherCard extends StatelessWidget {
+  const _DefaultLauncherCard({required this.onPressed});
+
+  final Future<void> Function() onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return Card.outlined(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              l10n.makeDefaultTitle,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: 4),
+            Text(l10n.makeDefaultBody),
+            const SizedBox(height: 8),
+            Align(
+              alignment: AlignmentDirectional.centerEnd,
+              child: FilledButton(
+                onPressed: onPressed,
+                child: Text(l10n.makeDefaultAction),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _LauncherBody extends ConsumerWidget {
+  const _LauncherBody({required this.state});
+
+  final LauncherState state;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    switch (state.status) {
+      case LauncherStatus.loading:
+        return Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox(height: 12),
+              Text(l10n.loadingApps),
+            ],
+          ),
+        );
+      case LauncherStatus.error:
+        return Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(l10n.loadAppsError, textAlign: TextAlign.center),
+              const SizedBox(height: 12),
+              OutlinedButton(
+                onPressed: ref
+                    .read(launcherControllerProvider.notifier)
+                    .refresh,
+                child: Text(l10n.retryAction),
+              ),
+            ],
+          ),
+        );
+      case LauncherStatus.success:
+        final apps = state.visibleApps;
+        if (apps.isEmpty) {
+          return Center(
+            child: Text(
+              state.apps.isEmpty ? l10n.noApps : l10n.noSearchResults,
+              textAlign: TextAlign.center,
+            ),
+          );
+        }
+        return ListView.separated(
+          itemCount: apps.length,
+          separatorBuilder: (_, _) => const Divider(height: 1),
+          itemBuilder: (context, index) => _AppTile(app: apps[index]),
+        );
+    }
+  }
+}
+
+class _AppTile extends ConsumerWidget {
+  const _AppTile({required this.app});
+
+  final LaunchableApp app;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(launcherControllerProvider);
+    return ListTile(
+      title: Text(app.label, maxLines: 1, overflow: TextOverflow.ellipsis),
+      subtitle: Text(
+        app.packageName,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
+      trailing: state.favouriteIds.contains(app.id)
+          ? const Icon(Icons.star, size: 18)
+          : null,
+      onTap: () async {
+        try {
+          await ref.read(launcherControllerProvider.notifier).launch(app);
+        } catch (_) {
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(AppLocalizations.of(context).launchFailed),
+              ),
+            );
+          }
+        }
+      },
+      onLongPress: () => _showActions(context, ref),
+    );
+  }
+
+  Future<void> _showActions(BuildContext context, WidgetRef ref) async {
+    final l10n = AppLocalizations.of(context);
+    final isFavourite = ref
+        .read(launcherControllerProvider)
+        .favouriteIds
+        .contains(app.id);
+    await showModalBottomSheet<void>(
+      context: context,
+      builder: (context) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(title: Text(l10n.appActionsTitle(app.label))),
+            ListTile(
+              leading: Icon(isFavourite ? Icons.star_border : Icons.star),
+              title: Text(
+                isFavourite ? l10n.unfavouriteAction : l10n.favouriteAction,
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                ref
+                    .read(launcherControllerProvider.notifier)
+                    .toggleFavourite(app);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.visibility_off_outlined),
+              title: Text(l10n.hideAction),
+              onTap: () {
+                Navigator.pop(context);
+                ref.read(launcherControllerProvider.notifier).hide(app);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

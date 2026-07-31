@@ -1,4 +1,4 @@
-# PR-001 — Android Launcher Foundation
+# PR-001 â€” Android Launcher Foundation
 
 ## Summary
 
@@ -89,21 +89,21 @@ The app requests no runtime permission in this PR.
 
 ## Acceptance criteria
 
-- [ ] App builds on the team's supported Flutter stable version.
+- [x] App builds on the team's supported Flutter stable version.
 - [ ] Phone Detox appears in Android's Home-app selection.
 - [ ] Pressing Home opens Phone Detox after selection.
-- [ ] Normal installed apps appear in alphabetical order.
+- [x] Normal installed apps appear in alphabetical order.
 - [ ] Phone Detox does not list itself.
 - [ ] Tapping an entry launches the exact discovered activity.
-- [ ] Search matches app label and package name without case sensitivity.
-- [ ] Favourites sort above non-favourites.
-- [ ] Hidden apps disappear and can be restored.
+- [x] Search matches app label and package name without case sensitivity.
+- [x] Favourites sort above non-favourites.
+- [x] Hidden apps disappear and can be restored.
 - [ ] Preferences survive process death and device restart.
 - [ ] Resuming Phone Detox refreshes app and Home-role state.
-- [ ] No `QUERY_ALL_PACKAGES`, Accessibility Service, usage access, or notification access exists in the manifest.
-- [ ] `flutter analyze --no-pub` passes.
-- [ ] `flutter test --no-pub` passes.
-- [ ] Debug APK builds.
+- [x] No `QUERY_ALL_PACKAGES`, Accessibility Service, usage access, or notification access exists in the manifest.
+- [x] `flutter analyze --no-pub` passes.
+- [x] `flutter test --no-pub` passes.
+- [x] Debug APK builds.
 
 ## Manual QA matrix
 

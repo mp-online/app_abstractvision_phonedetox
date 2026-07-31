@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../detox/presentation/detox_controller.dart';
 import '../../detox/presentation/detox_state.dart';
 import '../../mindful_opening/presentation/mindful_opening_controller.dart';
+import '../../usage_limit/presentation/usage_limit_controller.dart';
 import '../../settings/data/shared_preferences_launcher_repository.dart';
 import '../../settings/domain/launcher_preferences_repository.dart';
 import '../data/platform_launcher_repository.dart';
@@ -113,6 +114,14 @@ class LauncherController extends Notifier<LauncherState> {
         session.isActive &&
         session.blockedPackageNames.contains(app.packageName)) {
       return LaunchBlocked(blockedUntil: session.endsAt);
+    }
+    final usage = ref.read(usageLimitControllerProvider);
+    final reached = usage.reached;
+    if (reached != null && reached.packageName == app.packageName) {
+      ref
+          .read(usageLimitControllerProvider.notifier)
+          .showReachedLimit(app.packageName);
+      return LaunchUsageLimitReached(reached);
     }
     final request = await ref
         .read(mindfulOpeningControllerProvider.notifier)

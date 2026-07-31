@@ -12,6 +12,9 @@ import '../../mindful_opening/domain/mindful_package_policy.dart';
 import '../../mindful_opening/presentation/mindful_opening_controller.dart';
 import '../../mindful_opening/presentation/mindful_rule_editor_sheet.dart';
 import '../../settings/presentation/settings_screen.dart';
+import '../../usage_limit/domain/usage_limit_package_policy.dart';
+import '../../usage_limit/presentation/usage_limit_controller.dart';
+import '../../usage_limit/presentation/usage_limit_rule_editor_sheet.dart';
 import '../domain/launch_decision.dart';
 import '../domain/launchable_app.dart';
 import 'launcher_controller.dart';
@@ -190,9 +193,12 @@ class _AppTile extends ConsumerWidget {
     final launcher = ref.watch(launcherControllerProvider);
     final detox = ref.watch(detoxControllerProvider);
     final mindful = ref.watch(mindfulOpeningControllerProvider);
+    final usage = ref.watch(usageLimitControllerProvider);
     final isBlocked = detox.blockedPackageNames.contains(app.packageName);
     final isMindful =
         mindful.enabled && mindful.rules.containsKey(app.packageName);
+    final usageRule = usage.rules[app.packageName];
+    final isUsageReached = usage.reached?.packageName == app.packageName;
     final isFavourite = launcher.favouriteIds.contains(app.id);
     final l10n = AppLocalizations.of(context);
     final icons = <Widget>[
@@ -205,6 +211,16 @@ class _AppTile extends ConsumerWidget {
         Semantics(
           label: l10n.mindfulConfiguredSemantics,
           child: const Icon(Icons.hourglass_bottom_rounded, size: 18),
+        ),
+      if (usageRule != null)
+        Semantics(
+          label: isUsageReached
+              ? l10n.usageLimitReachedSemantics
+              : l10n.usageLimitConfiguredSemantics,
+          child: Icon(
+            isUsageReached ? Icons.timer_off_outlined : Icons.timelapse,
+            size: 18,
+          ),
         ),
       if (isFavourite)
         Semantics(
@@ -320,6 +336,15 @@ class _AppTile extends ConsumerWidget {
                 onTap: () {
                   Navigator.pop(sheetContext);
                   showMindfulRuleEditor(context, ref, app);
+                },
+              ),
+            if (UsageLimitPackagePolicy.isConfigurable(app.packageName))
+              ListTile(
+                leading: const Icon(Icons.timelapse),
+                title: Text(l10n.usageLimitAppAction),
+                onTap: () {
+                  Navigator.pop(sheetContext);
+                  showUsageLimitRuleEditor(context, ref, app);
                 },
               ),
             ListTile(

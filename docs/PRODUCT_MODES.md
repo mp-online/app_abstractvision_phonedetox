@@ -42,3 +42,9 @@ Usage Limit is a separate future mechanism planned for PR-006:
 No critical app is configured automatically. Dialer/emergency apps, authenticators, banking apps, navigation, keyboards, Android Settings, System UI, package installers, and Phone Detox itself must be excluded or prominently warned about.
 
 PR-006 must independently define and test foreground transitions, split-screen, picture-in-picture, screen lock and interactivity, calls, permission surfaces, custom tabs, process death, reboot, and rapid package transitions. The recommended first expiry consequence is to return Home and require Mindful Opening before reopening. Cooldowns, until-tomorrow blocks, and extensions are later options, not current behavior.
+
+## PR-006 Usage Limits
+
+Usage Limit is an optional per-app consequence for one continuous foreground visit. It is off globally by default, requires explicit per-app acknowledgement, and suggests 15 minutes only after enablement. Time-up returns Home and blocks reopening until the user chooses Stay out, Continue, or Change limit.
+
+Usage Limit is distinct from Mindful Opening (friction before entry) and Block apps now (complete unavailability between fixed timestamps). Strict blocks always win; a reached limit wins before Mindful Opening.

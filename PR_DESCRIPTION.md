@@ -31,3 +31,9 @@ Automated verification passed:
 - `flutter build apk --debug` (`build/app/outputs/flutter-apk/app-debug.apk`)
 
 Localization audit found complete metadata and English/German key parity. `git diff -- android` is empty. Device-only acceptance criteria remain unchecked because no device or emulator was used.
+
+## PR-006 Usage Limits
+
+Adds local, globally opt-in per-app limits for one continuous foreground visit. Rules default to a 15-minute suggestion with fixed 5/10/15/30/60-minute presets. The existing package-only Accessibility Service owns one best-effort interval, one reached lock, screen-off pausing, and a single Handler timeout. Flutter owns settings, labels, root Time-up routing, and Stay out / Continue / Change limit decisions.
+
+No runtime dependency or permission was added. Disclosure version 3 explains foreground package observation, interval timestamps and remaining time, and that no usage history is kept. See ADR 0007.

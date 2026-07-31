@@ -191,6 +191,33 @@ class MindfulOpeningController extends Notifier<MindfulOpeningState> {
     }
   }
 
+  Future<void> launchWithOneTimeAdmission(
+    LaunchableApp app, {
+    Future<void> Function()? beforeLaunch,
+  }) async {
+    await _repository.clearPendingLaunch();
+    try {
+      await _repository.grantAdmission(app.packageName);
+      if (beforeLaunch != null) await beforeLaunch();
+      await ref.read(launcherRepositoryProvider).launchApp(app);
+      state = state.copyWith(
+        status: MindfulOpeningStatus.admitted,
+        clearPendingRequest: true,
+        clearSelectedIntention: true,
+        customIntention: '',
+      );
+    } catch (_) {
+      await _repository.clearAdmission();
+      state = state.copyWith(
+        status: MindfulOpeningStatus.error,
+        clearPendingRequest: true,
+        clearSelectedIntention: true,
+        customIntention: '',
+      );
+      rethrow;
+    }
+  }
+
   Future<void> clearForJailBreak() async {
     await _repository.clearPendingLaunch();
     await _repository.clearAdmission();

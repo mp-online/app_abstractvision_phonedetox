@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../usage_limit/presentation/usage_limit_controller.dart';
+
 import '../data/platform_detox_repository.dart';
 import '../data/shared_preferences_detox_repository.dart';
 import '../domain/accessibility_status.dart';
@@ -19,7 +21,7 @@ final detoxControllerProvider = NotifierProvider<DetoxController, DetoxState>(
 );
 
 class DetoxController extends Notifier<DetoxState> {
-  static const accessibilityDisclosureVersion = 2;
+  static const accessibilityDisclosureVersion = 3;
   static const presetDurationMinutes = {15, 30, 60, 120};
   late final DetoxRepository _repository;
   Future<void>? _refreshInFlight;
@@ -153,6 +155,9 @@ class DetoxController extends Notifier<DetoxState> {
       endsAt: now.add(Duration(minutes: state.selectedDurationMinutes)),
       blockedPackageNames: state.blockedPackageNames,
     );
+    await ref
+        .read(usageLimitControllerProvider.notifier)
+        .clearRuntimeForBlockedPackages(session.blockedPackageNames);
     await _preferences.setActiveSession(session);
     try {
       await _repository.startSession(session);

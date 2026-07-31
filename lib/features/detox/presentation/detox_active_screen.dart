@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../../l10n/app_localizations.dart';
+import '../../launcher/presentation/launcher_controller.dart';
 import 'detox_controller.dart';
 import 'detox_state.dart';
 
@@ -51,6 +52,10 @@ class _DetoxActiveScreenState extends ConsumerState<DetoxActiveScreen> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(detoxControllerProvider);
+    final appsByPackage = {
+      for (final app in ref.watch(launcherControllerProvider).apps)
+        app.packageName: app,
+    };
     final session = state.activeSession;
     final l10n = AppLocalizations.of(context);
     if (session == null) return const SizedBox.shrink();
@@ -116,7 +121,10 @@ class _DetoxActiveScreenState extends ConsumerState<DetoxActiveScreen> {
             ListTile(
               contentPadding: EdgeInsets.zero,
               leading: const Icon(Icons.block),
-              title: Text(packageName),
+              title: Text(appsByPackage[packageName]?.label ?? packageName),
+              subtitle: appsByPackage.containsKey(packageName)
+                  ? Text(packageName)
+                  : null,
             ),
           const SizedBox(height: 16),
           OutlinedButton(

@@ -9,6 +9,7 @@ import '../../launcher/domain/home_role_request_result.dart';
 import '../../launcher/domain/home_role_status.dart';
 import '../../launcher/presentation/launcher_controller.dart';
 import '../../mindful_opening/presentation/mindful_opening_controller.dart';
+import '../../usage_limit/presentation/usage_limit_controller.dart';
 import '../data/shared_preferences_startup_repository.dart';
 import '../domain/home_role_loss_reason.dart';
 import '../domain/startup_preferences_repository.dart';
@@ -194,6 +195,15 @@ class StartupController extends Notifier<StartupState> {
           .read(mindfulOpeningControllerProvider.notifier)
           .refresh(availablePackages: packages);
       if (generation != _refreshGeneration) return;
+      await ref
+          .read(usageLimitControllerProvider.notifier)
+          .refresh(availablePackages: packages);
+      if (generation != _refreshGeneration) return;
+      if (ref.read(usageLimitControllerProvider).reached != null &&
+          ref.read(mindfulOpeningControllerProvider).pendingRequest != null) {
+        await ref.read(mindfulOpeningControllerProvider.notifier).goBack();
+      }
+      if (generation != _refreshGeneration) return;
       state = StartupState(
         status: StartupStatus.ready,
         homeRoleStatus: role,
@@ -202,6 +212,7 @@ class StartupController extends Notifier<StartupState> {
       );
       return;
     }
+    await ref.read(usageLimitControllerProvider.notifier).clearForRoleLoss();
     final jailBreak = ref.read(jailBreakControllerProvider);
     if (role == HomeRoleStatus.notHeld &&
         jailBreak.status == JailBreakStatus.completed) {

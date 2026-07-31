@@ -28,3 +28,9 @@ No process kill, boot receiver, background launch, foreground service, polling, 
 Mindful Opening is entry friction: a pause and optional transient intention before admission. Temporary Block is a fixed start/end interval during which selected packages are unavailable. The presentation name is **Block apps now**; the existing `DetoxSession` domain/native models remain unchanged.
 
 Usage Limit is reserved for PR-006 and has no runtime architecture yet. It will require an independent per-package foreground-interval model and lifecycle QA. It must not be inferred from Detox timestamps or Mindful admission, and its future expiry will return Home rather than claim to force-stop another process. See `PRODUCT_MODES.md` and ADR 0006.
+
+## PR-006 Usage Limits
+
+The lib/features/usage_limit feature owns Dart rules, preferences, controller state, launcher/settings UI, and the root Time-up gate. The native usage package owns validated primitive snapshots, native stores, the single-timeout runtime coordinator, and the usage method channel. PhoneDetoxAccessibilityService remains the sole package-only observer and composes precedence as strict Detox, reached lock, Mindful Opening, then usage timing.
+
+Only one interval and one reached lock are durable. Runtime timing uses monotonic elapsed time; wall-clock timestamps exist for recovery/display only. A dynamic screen receiver pauses on screen-off and is unregistered with the service.

@@ -389,7 +389,7 @@ abstract class AppLocalizations {
   /// Disclosure of blocking behavior.
   ///
   /// In en, this message translates to:
-  /// **'During an active Detox session it detects selected blocked apps. For configured apps, Phone Detox may also return you Home for the Mindful Opening pause.'**
+  /// **'During an active Detox session it detects selected blocked apps. It can also return you Home for Mindful Opening and, when you opt in per app, count one continuous foreground visit until its Usage Limit is reached.'**
   String get detoxDisclosureWhyBody;
 
   /// Heading for information excluded from Accessibility processing.
@@ -413,7 +413,7 @@ abstract class AppLocalizations {
   /// Disclosure that processing stays local.
   ///
   /// In en, this message translates to:
-  /// **'Processing happens only on this device. Foreground packages and installed-app information are never transmitted. There is no analytics or tracking.'**
+  /// **'Processing happens only on this device. Usage Limits store only configured rules, one current interval with remaining time and timestamps, and one reached lock. No usage history is kept. Foreground packages and installed-app information are never transmitted. There is no analytics or tracking.'**
   String get detoxDisclosureDataBody;
 
   /// Heading for reversible user controls.
@@ -1285,6 +1285,162 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, =1{1 app blocked until {endTime}} other{{count} apps blocked until {endTime}}}'**
   String settingsTemporaryBlockActive(int count, String endTime);
+
+  /// Title for per-app continuous foreground usage limits.
+  ///
+  /// In en, this message translates to:
+  /// **'Usage Limits'**
+  String get usageLimitTitle;
+
+  /// Explains continuous foreground usage-limit scope and excluded history.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional per-app limits for one continuous foreground visit. No daily totals or usage history are recorded.'**
+  String get usageLimitDescription;
+
+  /// Global opt-in switch label for Usage Limits.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Usage Limits'**
+  String get usageLimitEnabledTitle;
+
+  /// Status when Usage Limits are globally enabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Enabled'**
+  String get usageLimitEnabledStatus;
+
+  /// Status when Usage Limits are globally disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Off by default'**
+  String get usageLimitDisabledStatus;
+
+  /// Action opening per-app Usage Limit management.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage app limits'**
+  String get usageLimitManageApps;
+
+  /// Number of apps with a Usage Limit rule.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No apps configured} =1{1 app configured} other{{count} apps configured}}'**
+  String usageLimitConfiguredCount(int count);
+
+  /// Launcher app action for editing a Usage Limit.
+  ///
+  /// In en, this message translates to:
+  /// **'Usage limit'**
+  String get usageLimitAppAction;
+
+  /// Title of the per-app Usage Limit editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Usage limit for {appName}'**
+  String usageLimitEditorTitle(String appName);
+
+  /// Required warning explaining the time-up consequence.
+  ///
+  /// In en, this message translates to:
+  /// **'When time is up, Phone Detox returns Home and prevents reopening until you choose what to do. Android does not force-stop the app.'**
+  String get usageLimitWarning;
+
+  /// Explicit acknowledgement required before saving a Usage Limit.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand what happens when time is up.'**
+  String get usageLimitAcknowledge;
+
+  /// Per-app Usage Limit disabled status.
+  ///
+  /// In en, this message translates to:
+  /// **'Off'**
+  String get usageLimitOff;
+
+  /// Fixed Usage Limit preset in minutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min'**
+  String usageLimitMinutes(int minutes);
+
+  /// Confirms global enablement and saves the first rule.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable and save'**
+  String get usageLimitEnableAndSave;
+
+  /// Declines enabling Usage Limits.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get usageLimitNotNow;
+
+  /// Saves or removes a per-app Usage Limit rule.
+  ///
+  /// In en, this message translates to:
+  /// **'Save limit'**
+  String get usageLimitSave;
+
+  /// Title of the root Usage Limit reached gate.
+  ///
+  /// In en, this message translates to:
+  /// **'Time\'s up'**
+  String get usageLimitTimeUpTitle;
+
+  /// Explains which app reached its continuous-visit limit.
+  ///
+  /// In en, this message translates to:
+  /// **'Your continuous visit to {appName} reached its limit.'**
+  String usageLimitTimeUpBody(String appName);
+
+  /// Dismisses the time-up gate while keeping reopening blocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Stay out'**
+  String get usageLimitStayOut;
+
+  /// Clears the reached lock and starts one fresh continuous visit.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get usageLimitContinue;
+
+  /// Opens the reached app's Usage Limit editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Change limit'**
+  String get usageLimitChange;
+
+  /// Accessibility label for a reached Usage Limit launcher indicator.
+  ///
+  /// In en, this message translates to:
+  /// **'Usage limit reached'**
+  String get usageLimitReachedSemantics;
+
+  /// Accessibility label for a configured Usage Limit launcher indicator.
+  ///
+  /// In en, this message translates to:
+  /// **'Usage limit configured'**
+  String get usageLimitConfiguredSemantics;
+
+  /// Shown when disclosure version 3 has not been accepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Review and accept the updated Accessibility disclosure before enabling Usage Limits.'**
+  String get usageLimitDisclosureRequired;
+
+  /// First-rule confirmation explaining global opt-in and suggested default.
+  ///
+  /// In en, this message translates to:
+  /// **'Usage Limits are off. Enable them globally and save this app\'s 15-minute suggestion?'**
+  String get usageLimitEnablePrompt;
+
+  /// Empty state for Usage Limit app management.
+  ///
+  /// In en, this message translates to:
+  /// **'No configurable launchable apps are available.'**
+  String get usageLimitEmpty;
 }
 
 class _AppLocalizationsDelegate

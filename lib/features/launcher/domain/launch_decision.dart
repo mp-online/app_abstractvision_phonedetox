@@ -1,4 +1,5 @@
 import '../../mindful_opening/domain/mindful_launch_request.dart';
+import '../../usage_limit/domain/usage_limit_reached.dart';
 
 sealed class LaunchDecision {
   const LaunchDecision();
@@ -16,4 +17,9 @@ final class LaunchBlocked extends LaunchDecision {
 final class LaunchRequiresMindfulOpening extends LaunchDecision {
   const LaunchRequiresMindfulOpening(this.request);
   final MindfulLaunchRequest request;
+}
+
+final class LaunchUsageLimitReached extends LaunchDecision {
+  const LaunchUsageLimitReached(this.reached);
+  final UsageLimitReached reached;
 }

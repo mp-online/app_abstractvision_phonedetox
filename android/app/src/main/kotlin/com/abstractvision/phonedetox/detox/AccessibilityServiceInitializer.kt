@@ -8,11 +8,13 @@ internal object AccessibilityServiceInitializer {
         initializeMindfulAdmissionStore: () -> Unit,
         initializeDecisionDependencies: () -> Unit,
         reconcileAfterInitialization: () -> Unit,
+        initializeUsageLimitDependencies: () -> Unit = {},
     ) {
         initializeSessionStore()
         initializeMindfulRulesStore()
         initializeMindfulRequestStore()
         initializeMindfulAdmissionStore()
+        initializeUsageLimitDependencies()
         initializeDecisionDependencies()
         reconcileAfterInitialization()
     }

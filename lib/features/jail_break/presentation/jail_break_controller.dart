@@ -4,6 +4,7 @@ import '../../detox/presentation/detox_controller.dart';
 import '../../launcher/domain/home_role_status.dart';
 import '../../launcher/presentation/launcher_controller.dart';
 import '../../mindful_opening/presentation/mindful_opening_controller.dart';
+import '../../usage_limit/presentation/usage_limit_controller.dart';
 import '../domain/jail_break_result.dart';
 import '../domain/jail_break_state.dart';
 
@@ -58,6 +59,7 @@ class JailBreakController extends Notifier<JailBreakState> {
       await ref
           .read(mindfulOpeningControllerProvider.notifier)
           .clearForJailBreak();
+      await ref.read(usageLimitControllerProvider.notifier).clearForJailBreak();
     } catch (error) {
       _fail(JailBreakFailureKind.detoxCleanup, error);
       return;
@@ -81,6 +83,7 @@ class JailBreakController extends Notifier<JailBreakState> {
       await ref
           .read(mindfulOpeningControllerProvider.notifier)
           .clearForJailBreak();
+      await ref.read(usageLimitControllerProvider.notifier).clearForJailBreak();
       await _openHomeSettings();
     } catch (error) {
       _fail(JailBreakFailureKind.detoxCleanup, error);

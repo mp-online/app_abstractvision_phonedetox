@@ -8,6 +8,8 @@ import '../../jail_break/presentation/jail_break_controller.dart';
 import '../../launcher/presentation/launcher_screen.dart';
 import '../../mindful_opening/presentation/mindful_opening_controller.dart';
 import '../../mindful_opening/presentation/mindful_opening_screen.dart';
+import '../../usage_limit/presentation/usage_limit_controller.dart';
+import '../../usage_limit/presentation/usage_limit_reached_screen.dart';
 import '../domain/startup_status.dart';
 import 'launcher_activation_screen.dart';
 import 'launcher_role_lost_screen.dart';
@@ -60,6 +62,7 @@ class _StartupGateState extends ConsumerState<StartupGate>
     });
     final state = ref.watch(startupControllerProvider);
     final mindful = ref.watch(mindfulOpeningControllerProvider);
+    final usage = ref.watch(usageLimitControllerProvider);
     final controller = ref.read(startupControllerProvider.notifier);
     final jailBreak = ref.read(jailBreakControllerProvider.notifier);
     return switch (state.status) {
@@ -83,7 +86,9 @@ class _StartupGateState extends ConsumerState<StartupGate>
                 onOpenSettings: controller.openHomeSettings,
               ),
       StartupStatus.ready =>
-        mindful.pendingRequest != null
+        usage.reached != null && usage.showReachedGate
+            ? const UsageLimitReachedScreen()
+            : mindful.pendingRequest != null
             ? const MindfulOpeningScreen()
             : const LauncherScreen(),
       StartupStatus.roleLost => LauncherRoleLostScreen(

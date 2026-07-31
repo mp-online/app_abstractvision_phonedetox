@@ -16,6 +16,12 @@ import 'package:phone_detox/features/launcher/domain/launcher_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:phone_detox/features/launcher/presentation/launcher_controller.dart';
 import 'package:phone_detox/features/settings/domain/launcher_preferences_repository.dart';
+import 'package:phone_detox/features/usage_limit/domain/usage_limit_preferences_repository.dart';
+import 'package:phone_detox/features/usage_limit/domain/usage_limit_reached.dart';
+import 'package:phone_detox/features/usage_limit/domain/usage_limit_repository.dart';
+import 'package:phone_detox/features/usage_limit/domain/usage_limit_rule.dart';
+import 'package:phone_detox/features/usage_limit/domain/usage_limit_runtime.dart';
+import 'package:phone_detox/features/usage_limit/presentation/usage_limit_controller.dart';
 
 class WidgetLauncherRepository implements LauncherRepository {
   @override
@@ -129,6 +135,40 @@ class WidgetStartupPreferences implements StartupPreferencesRepository {
   Future<void> setHasSeenLauncherExplanation(bool value) async {}
 }
 
+class WidgetUsagePreferences implements UsageLimitPreferencesRepository {
+  @override
+  Future<bool> getEnabled() async => false;
+  @override
+  Future<Map<String, UsageLimitRule>> getRules() async => const {};
+  @override
+  Future<void> setEnabled(bool enabled) async {}
+  @override
+  Future<void> setRules(Map<String, UsageLimitRule> rules) async {}
+}
+
+class WidgetUsageRepository implements UsageLimitRepository {
+  @override
+  Future<void> clearAllEnforcement() async {}
+  @override
+  Future<void> clearReachedLimit() async {}
+  @override
+  Future<void> clearRuntime() async {}
+  @override
+  Future<void> continueUsage(String packageName) async {}
+  @override
+  Future<UsageLimitReached?> getReachedLimit() async => null;
+  @override
+  Future<UsageLimitRuntime?> getRuntime() async => null;
+  @override
+  Future<void> restoreReachedLimit(UsageLimitReached reached) async {}
+  @override
+  Future<void> synchronizeRules({
+    required bool enabled,
+    required int disclosureVersion,
+    required Iterable<UsageLimitRule> rules,
+  }) async {}
+}
+
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
@@ -150,6 +190,12 @@ void main() {
           ),
           startupPreferencesRepositoryProvider.overrideWithValue(
             WidgetStartupPreferences(),
+          ),
+          usageLimitPreferencesRepositoryProvider.overrideWithValue(
+            WidgetUsagePreferences(),
+          ),
+          usageLimitRepositoryProvider.overrideWithValue(
+            WidgetUsageRepository(),
           ),
         ],
         child: const PhoneDetoxApp(),
@@ -190,6 +236,12 @@ void main() {
           ),
           startupPreferencesRepositoryProvider.overrideWithValue(
             WidgetStartupPreferences(),
+          ),
+          usageLimitPreferencesRepositoryProvider.overrideWithValue(
+            WidgetUsagePreferences(),
+          ),
+          usageLimitRepositoryProvider.overrideWithValue(
+            WidgetUsageRepository(),
           ),
         ],
         child: const PhoneDetoxApp(),

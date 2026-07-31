@@ -4,6 +4,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.abstractvision.phonedetox.detox.DetoxPlatformHandler
 import com.abstractvision.phonedetox.launcher.LauncherPlatformHandler
 import com.abstractvision.phonedetox.mindful.MindfulPlatformHandler
+import com.abstractvision.phonedetox.usage.UsageLimitPlatformHandler
 import io.flutter.embedding.android.FlutterFragmentActivity
 import io.flutter.embedding.engine.FlutterEngine
 
@@ -25,6 +26,7 @@ class MainActivity : FlutterFragmentActivity() {
         )
         DetoxPlatformHandler(this, flutterEngine.dartExecutor.binaryMessenger)
         MindfulPlatformHandler(this, flutterEngine.dartExecutor.binaryMessenger)
+        UsageLimitPlatformHandler(this, flutterEngine.dartExecutor.binaryMessenger)
     }
 
     override fun onDestroy() {

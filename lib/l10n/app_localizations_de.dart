@@ -180,7 +180,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get detoxDisclosureWhyBody =>
-      'Während einer aktiven Detox-Sitzung werden blockierte Apps erkannt. Bei konfigurierten Apps kann Phone Detox dich außerdem für die gewählte bewusste Pause zum Startbildschirm zurückbringen.';
+      'Während einer aktiven Detox-Sitzung werden blockierte Apps erkannt. Phone Detox kann dich außerdem für Bewusstes Öffnen zum Startbildschirm zurückbringen und bei einer ausdrücklichen Aktivierung pro App einen zusammenhängenden Vordergrundaufenthalt bis zum Nutzungslimit zählen.';
 
   @override
   String get detoxDisclosureNotAccessedTitle => 'Worauf nicht zugegriffen wird';
@@ -194,7 +194,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get detoxDisclosureDataBody =>
-      'Die Verarbeitung erfolgt nur auf diesem Gerät. Sichtbare Pakete und installierte Apps werden nie übertragen. Es gibt keine Analyse oder Verfolgung.';
+      'Die Verarbeitung erfolgt nur auf diesem Gerät. Nutzungslimits speichern nur konfigurierte Regeln, ein aktuelles Intervall mit Restzeit und Zeitstempeln sowie eine erreichte Sperre. Es wird kein Nutzungsverlauf gespeichert. Sichtbare Pakete und installierte Apps werden nie übertragen. Es gibt keine Analyse oder Verfolgung.';
 
   @override
   String get detoxDisclosureControlTitle => 'Du behältst die Kontrolle';
@@ -791,4 +791,103 @@ class AppLocalizationsDe extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get usageLimitTitle => 'Nutzungslimits';
+
+  @override
+  String get usageLimitDescription =>
+      'Optionale Limits pro App für einen zusammenhängenden Aufenthalt im Vordergrund. Es werden keine Tagessummen oder Nutzungsverläufe gespeichert.';
+
+  @override
+  String get usageLimitEnabledTitle => 'Nutzungslimits aktivieren';
+
+  @override
+  String get usageLimitEnabledStatus => 'Aktiviert';
+
+  @override
+  String get usageLimitDisabledStatus => 'Standardmäßig aus';
+
+  @override
+  String get usageLimitManageApps => 'App-Limits verwalten';
+
+  @override
+  String usageLimitConfiguredCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Apps eingerichtet',
+      one: '1 App eingerichtet',
+      zero: 'Keine Apps eingerichtet',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get usageLimitAppAction => 'Nutzungslimit';
+
+  @override
+  String usageLimitEditorTitle(String appName) {
+    return 'Nutzungslimit für $appName';
+  }
+
+  @override
+  String get usageLimitWarning =>
+      'Wenn die Zeit abgelaufen ist, kehrt Phone Detox zum Startbildschirm zurück und verhindert ein erneutes Öffnen, bis du dich entscheidest. Android erzwingt kein Beenden der App.';
+
+  @override
+  String get usageLimitAcknowledge =>
+      'Ich verstehe, was passiert, wenn die Zeit abgelaufen ist.';
+
+  @override
+  String get usageLimitOff => 'Aus';
+
+  @override
+  String usageLimitMinutes(int minutes) {
+    return '$minutes Min.';
+  }
+
+  @override
+  String get usageLimitEnableAndSave => 'Aktivieren und speichern';
+
+  @override
+  String get usageLimitNotNow => 'Nicht jetzt';
+
+  @override
+  String get usageLimitSave => 'Limit speichern';
+
+  @override
+  String get usageLimitTimeUpTitle => 'Zeit abgelaufen';
+
+  @override
+  String usageLimitTimeUpBody(String appName) {
+    return 'Dein zusammenhängender Aufenthalt in $appName hat das Limit erreicht.';
+  }
+
+  @override
+  String get usageLimitStayOut => 'Draußen bleiben';
+
+  @override
+  String get usageLimitContinue => 'Weiter';
+
+  @override
+  String get usageLimitChange => 'Limit ändern';
+
+  @override
+  String get usageLimitReachedSemantics => 'Nutzungslimit erreicht';
+
+  @override
+  String get usageLimitConfiguredSemantics => 'Nutzungslimit eingerichtet';
+
+  @override
+  String get usageLimitDisclosureRequired =>
+      'Prüfe und akzeptiere die aktualisierte Erklärung zur Bedienungshilfe, bevor du Nutzungslimits aktivierst.';
+
+  @override
+  String get usageLimitEnablePrompt =>
+      'Nutzungslimits sind aus. Global aktivieren und den 15-Minuten-Vorschlag für diese App speichern?';
+
+  @override
+  String get usageLimitEmpty =>
+      'Keine konfigurierbaren startbaren Apps verfügbar.';
 }

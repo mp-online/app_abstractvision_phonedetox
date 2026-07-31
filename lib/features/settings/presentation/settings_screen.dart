@@ -9,6 +9,8 @@ import '../../jail_break/presentation/jail_break_dialog.dart';
 import '../../launcher/presentation/launcher_controller.dart';
 import '../../mindful_opening/presentation/mindful_apps_screen.dart';
 import '../../mindful_opening/presentation/mindful_opening_controller.dart';
+import '../../usage_limit/presentation/usage_limit_controller.dart';
+import '../../usage_limit/presentation/usage_limits_screen.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -18,6 +20,7 @@ class SettingsScreen extends ConsumerWidget {
     final hiddenApps = ref.watch(launcherControllerProvider).hiddenApps;
     final jailBreak = ref.watch(jailBreakControllerProvider);
     final mindful = ref.watch(mindfulOpeningControllerProvider);
+    final usage = ref.watch(usageLimitControllerProvider);
     final detox = ref.watch(detoxControllerProvider);
     final activeBlock = detox.activeSession;
     final mindfulModeStatus = !mindful.enabled
@@ -78,8 +81,7 @@ class SettingsScreen extends ConsumerWidget {
           ),
           Text(l10n.mindfulConfiguredCount(mindful.rules.length)),
           if (detox.accessibilityStatus != AccessibilityStatus.enabled ||
-              (detox.acceptedDisclosureVersion ?? 0) <
-                  DetoxController.accessibilityDisclosureVersion) ...[
+              (detox.acceptedDisclosureVersion ?? 0) < 2) ...[
             const SizedBox(height: 8),
             Text(l10n.mindfulPartialCoverageWarning),
           ],
@@ -93,6 +95,30 @@ class SettingsScreen extends ConsumerWidget {
                 ),
               ),
               child: Text(l10n.mindfulManageApps),
+            ),
+          ),
+          const SizedBox(height: 32),
+          Text(
+            l10n.usageLimitTitle,
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          const SizedBox(height: 8),
+          Text(l10n.usageLimitDescription),
+          Text(
+            usage.enabled
+                ? l10n.usageLimitConfiguredCount(usage.rules.length)
+                : l10n.usageLimitDisabledStatus,
+          ),
+          const SizedBox(height: 8),
+          Align(
+            alignment: AlignmentDirectional.centerStart,
+            child: OutlinedButton(
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) => const UsageLimitsScreen(),
+                ),
+              ),
+              child: Text(l10n.usageLimitManageApps),
             ),
           ),
           const SizedBox(height: 32),

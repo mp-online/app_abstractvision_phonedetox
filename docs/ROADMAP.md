@@ -16,3 +16,9 @@
 14. **PR-012 — €7.99 lifetime Google Play entitlement.**
 
 Website blocking remains an investigation. It is not committed until an implementation preserves the current privacy boundary.
+
+## PR-006 Usage Limits
+
+Implemented scope: global opt-in, per-app fixed presets, disclosure v3, continuous-foreground timing, screen-off pause, reached reopening lock, root Time-up choices, Settings/launcher management, Jail Break and strict-block cleanup, local persistence, and native/Dart tests.
+
+Deferred: daily budgets, cumulative totals, historical charts, cross-device sync, notifications, background timing guarantees, and custom durations.

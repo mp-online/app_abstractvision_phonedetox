@@ -12,3 +12,9 @@ Do not add broad package visibility, Usage Access, notification access, VPN, dev
 User-facing copy describes current Accessibility enforcement as making selected apps unavailable for a fixed block interval. It does not describe a usage allowance or claim to force-stop applications. Mindful Opening is described only as a pause before entry.
 
 Usage Limit is approved for later design but is not currently available. PR-005.2 adds no usage tracking or special access. Any PR-006 implementation requires a separate disclosure and policy review while preserving package-only, local processing and all recovery paths.
+
+## PR-006 Usage Limits
+
+Usage Limits reuse the prominently disclosed, package-name-only Accessibility Service. They do not inspect nodes, text, notifications, URLs, content, or original intents. Processing and configuration remain local. Native state is limited to configured rules, one interval, and one reached lock; no usage history is collected or transmitted.
+
+The feature does not use Usage Access, overlays, VPN, device administration, foreground services, alarms, WorkManager, wake locks, boot receivers, or background activity launch. It never prevents disabling Accessibility, changing Home, uninstalling, or using Jail Break.

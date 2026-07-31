@@ -178,7 +178,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get detoxDisclosureWhyBody =>
-      'During an active Detox session it detects selected blocked apps. For configured apps, Phone Detox may also return you Home for the Mindful Opening pause.';
+      'During an active Detox session it detects selected blocked apps. It can also return you Home for Mindful Opening and, when you opt in per app, count one continuous foreground visit until its Usage Limit is reached.';
 
   @override
   String get detoxDisclosureNotAccessedTitle => 'What is not accessed';
@@ -192,7 +192,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get detoxDisclosureDataBody =>
-      'Processing happens only on this device. Foreground packages and installed-app information are never transmitted. There is no analytics or tracking.';
+      'Processing happens only on this device. Usage Limits store only configured rules, one current interval with remaining time and timestamps, and one reached lock. No usage history is kept. Foreground packages and installed-app information are never transmitted. There is no analytics or tracking.';
 
   @override
   String get detoxDisclosureControlTitle => 'You remain in control';
@@ -770,4 +770,103 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get usageLimitTitle => 'Usage Limits';
+
+  @override
+  String get usageLimitDescription =>
+      'Optional per-app limits for one continuous foreground visit. No daily totals or usage history are recorded.';
+
+  @override
+  String get usageLimitEnabledTitle => 'Enable Usage Limits';
+
+  @override
+  String get usageLimitEnabledStatus => 'Enabled';
+
+  @override
+  String get usageLimitDisabledStatus => 'Off by default';
+
+  @override
+  String get usageLimitManageApps => 'Manage app limits';
+
+  @override
+  String usageLimitConfiguredCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count apps configured',
+      one: '1 app configured',
+      zero: 'No apps configured',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get usageLimitAppAction => 'Usage limit';
+
+  @override
+  String usageLimitEditorTitle(String appName) {
+    return 'Usage limit for $appName';
+  }
+
+  @override
+  String get usageLimitWarning =>
+      'When time is up, Phone Detox returns Home and prevents reopening until you choose what to do. Android does not force-stop the app.';
+
+  @override
+  String get usageLimitAcknowledge =>
+      'I understand what happens when time is up.';
+
+  @override
+  String get usageLimitOff => 'Off';
+
+  @override
+  String usageLimitMinutes(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get usageLimitEnableAndSave => 'Enable and save';
+
+  @override
+  String get usageLimitNotNow => 'Not now';
+
+  @override
+  String get usageLimitSave => 'Save limit';
+
+  @override
+  String get usageLimitTimeUpTitle => 'Time\'s up';
+
+  @override
+  String usageLimitTimeUpBody(String appName) {
+    return 'Your continuous visit to $appName reached its limit.';
+  }
+
+  @override
+  String get usageLimitStayOut => 'Stay out';
+
+  @override
+  String get usageLimitContinue => 'Continue';
+
+  @override
+  String get usageLimitChange => 'Change limit';
+
+  @override
+  String get usageLimitReachedSemantics => 'Usage limit reached';
+
+  @override
+  String get usageLimitConfiguredSemantics => 'Usage limit configured';
+
+  @override
+  String get usageLimitDisclosureRequired =>
+      'Review and accept the updated Accessibility disclosure before enabling Usage Limits.';
+
+  @override
+  String get usageLimitEnablePrompt =>
+      'Usage Limits are off. Enable them globally and save this app\'s 15-minute suggestion?';
+
+  @override
+  String get usageLimitEmpty =>
+      'No configurable launchable apps are available.';
 }

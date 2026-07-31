@@ -1,20 +1,12 @@
 # Phone Detox
 
-Phone Detox is a privacy-first Android replacement Home launcher built with Flutter and a narrow Kotlin platform adapter. First run explains the Home replacement, asks Android for explicit Home-role confirmation, and waits for the actual result before exposing the launcher.
+Phone Detox is a privacy-first Android replacement Home launcher built with Flutter and a narrow Kotlin adapter. It combines searchable app launching, strict timed Detox sessions, explicit Jail Break recovery, and per-app Mindful Opening pauses.
 
-An always-visible **Jail Break** action lets the user end active Detox enforcement and open Android's Home-app settings to select a previous launcher. Android owns that selection; Phone Detox never claims to remove its own Home role automatically. Intentional exit is distinguished from unexpected role loss and the same recovery flow is available from Settings.
+Mindful Opening supports 5/10/15/30-second pauses and an optional intention gate. Direct launcher taps work without Accessibility. After the version-two disclosure, the existing package-only Accessibility Service can also catch configured apps opened through Recents, notifications, links, assistants, or other apps while Phone Detox remains Home. Android does not expose the original external intent, so confirmation opens the app's primary launcher activity.
 
-Optional, prominently disclosed Accessibility access supports user-selected timed Detox sessions. Jail Break removes the active native and Flutter session but does not disable Accessibility access programmatically. With no active native session, the service performs no blocking. All configuration and enforcement state stays on device.
-
-The app has no account, advertising, analytics, tracking, network communication, broad package visibility, Usage Access, overlay, foreground service, boot receiver, background activity launch, device administration, Home-role auto-reclaim, or uninstall prevention.
-
-## Startup model
-
-Android's current Home-role state is authoritative. `StartupController` is the only lifecycle reconciler. Informational onboarding preferences never grant or preserve the role. After restart and unlock, Android resolves the selected Home application; Phone Detox does not use a boot receiver or artificial boot-time activity launch.
+All rules and temporary enforcement snapshots stay local. Intentions and behavioral history are never persisted. The app has no account, ads, analytics, tracking, network communication, broad package visibility, Usage Access, overlay, VPN, foreground service, boot receiver, or subscription.
 
 ## Development
-
-Requirements: Flutter 3.35 or newer, Dart 3.9 or newer, and an Android SDK.
 
 ```text
 flutter pub get
@@ -26,4 +18,4 @@ cd android && gradlew testDebugUnitTest
 flutter build apk --debug
 ```
 
-Install the debug APK and complete the Pixel, Samsung, older-Android, Home-button, reboot/unlock, role-revocation, Jail Break, and Detox regression matrix in `PR_DESCRIPTION.md`. Never mark device checks complete without actual device or emulator evidence.
+Manual Pixel, Samsung, Android 10, external-intent, reboot/process-death, accessibility, and Jail Break QA must not be claimed without execution evidence.

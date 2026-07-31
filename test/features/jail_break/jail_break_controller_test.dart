@@ -15,6 +15,9 @@ import 'package:phone_detox/features/launcher/domain/home_role_status.dart';
 import 'package:phone_detox/features/launcher/domain/launchable_app.dart';
 import 'package:phone_detox/features/launcher/domain/launcher_repository.dart';
 import 'package:phone_detox/features/launcher/presentation/launcher_controller.dart';
+import 'package:phone_detox/features/mindful_opening/presentation/mindful_opening_controller.dart';
+
+import '../../support/fake_mindful_repository.dart';
 
 class _LauncherRepository implements LauncherRepository {
   int settingsCount = 0;
@@ -105,6 +108,9 @@ void main() {
     container = ProviderContainer(
       overrides: [
         launcherRepositoryProvider.overrideWithValue(launcher),
+        mindfulOpeningRepositoryProvider.overrideWithValue(
+          FakeMindfulRepository(),
+        ),
         detoxRepositoryProvider.overrideWithValue(detox),
         detoxPreferencesRepositoryProvider.overrideWithValue(preferences),
       ],
@@ -157,6 +163,7 @@ void main() {
     expect(controller.beginConfirmation(), isFalse);
     final first = controller.confirm();
     final second = controller.confirm();
+    await Future<void>.delayed(Duration.zero);
     expect(launcher.settingsCount, 1);
     launcher.pendingSettings!.complete();
     await Future.wait([first, second]);

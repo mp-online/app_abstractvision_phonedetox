@@ -35,7 +35,7 @@ class DetoxState {
 
   bool get hasValidDuration =>
       selectedDurationMinutes >= 5 && selectedDurationMinutes <= 480;
-  bool get hasAcceptedDisclosure => acceptedDisclosureVersion == 1;
+  bool get hasAcceptedDisclosure => (acceptedDisclosureVersion ?? 0) >= 1;
   bool get canStart =>
       status == DetoxStatus.ready &&
       blockedPackageNames.isNotEmpty &&

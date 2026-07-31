@@ -6,6 +6,8 @@ import '../../jail_break/domain/jail_break_state.dart';
 import '../../jail_break/presentation/jail_break_completed_screen.dart';
 import '../../jail_break/presentation/jail_break_controller.dart';
 import '../../launcher/presentation/launcher_screen.dart';
+import '../../mindful_opening/presentation/mindful_opening_controller.dart';
+import '../../mindful_opening/presentation/mindful_opening_screen.dart';
 import '../domain/startup_status.dart';
 import 'launcher_activation_screen.dart';
 import 'launcher_role_lost_screen.dart';
@@ -13,7 +15,6 @@ import 'startup_controller.dart';
 
 class StartupGate extends ConsumerStatefulWidget {
   const StartupGate({super.key});
-
   @override
   ConsumerState<StartupGate> createState() => _StartupGateState();
 }
@@ -57,10 +58,10 @@ class _StartupGateState extends ConsumerState<StartupGate>
         });
       }
     });
-
     final state = ref.watch(startupControllerProvider);
+    final mindful = ref.watch(mindfulOpeningControllerProvider);
     final controller = ref.read(startupControllerProvider.notifier);
-    final jailBreakController = ref.read(jailBreakControllerProvider.notifier);
+    final jailBreak = ref.read(jailBreakControllerProvider.notifier);
     return switch (state.status) {
       StartupStatus.loading => const _LoadingScreen(),
       StartupStatus.activationRequired => LauncherActivationScreen(
@@ -81,19 +82,22 @@ class _StartupGateState extends ConsumerState<StartupGate>
                 onRequest: controller.requestHomeRole,
                 onOpenSettings: controller.openHomeSettings,
               ),
-      StartupStatus.ready => const LauncherScreen(),
+      StartupStatus.ready =>
+        mindful.pendingRequest != null
+            ? const MindfulOpeningScreen()
+            : const LauncherScreen(),
       StartupStatus.roleLost => LauncherRoleLostScreen(
         requesting: false,
         onRestore: controller.requestHomeRole,
         onOpenSettings: controller.openHomeSettings,
       ),
       StartupStatus.jailBreakCompleted => JailBreakCompletedScreen(
-        onOpenHome: jailBreakController.openCurrentHome,
+        onOpenHome: jailBreak.openCurrentHome,
         onUseAgain: controller.usePhoneDetoxAgain,
       ),
       StartupStatus.jailBreakFailure => _JailBreakFailureScreen(
         onRetry: controller.retryJailBreakRoleCheck,
-        onOpenSettings: jailBreakController.openHomeSettingsAnyway,
+        onOpenSettings: jailBreak.openHomeSettingsAnyway,
       ),
       StartupStatus.unavailable => _MessageScreen(
         icon: Icons.phonelink_erase_outlined,
@@ -115,7 +119,6 @@ class _StartupGateState extends ConsumerState<StartupGate>
 
 class _LoadingScreen extends StatelessWidget {
   const _LoadingScreen();
-
   @override
   Widget build(BuildContext context) => Scaffold(
     body: SafeArea(
@@ -144,10 +147,8 @@ class _JailBreakFailureScreen extends StatelessWidget {
     required this.onRetry,
     required this.onOpenSettings,
   });
-
   final VoidCallback onRetry;
   final VoidCallback onOpenSettings;
-
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
@@ -198,13 +199,11 @@ class _MessageScreen extends StatelessWidget {
     required this.action,
     required this.onAction,
   });
-
   final IconData icon;
   final String title;
   final String body;
   final String action;
   final VoidCallback onAction;
-
   @override
   Widget build(BuildContext context) => Scaffold(
     body: SafeArea(

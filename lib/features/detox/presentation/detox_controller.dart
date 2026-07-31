@@ -19,6 +19,7 @@ final detoxControllerProvider = NotifierProvider<DetoxController, DetoxState>(
 );
 
 class DetoxController extends Notifier<DetoxState> {
+  static const accessibilityDisclosureVersion = 2;
   late final DetoxRepository _repository;
   Future<void>? _refreshInFlight;
   late final DetoxPreferencesRepository _preferences;
@@ -32,14 +33,12 @@ class DetoxController extends Notifier<DetoxState> {
   }
 
   Future<void> refresh() {
-    final inFlight = _refreshInFlight;
-    if (inFlight != null) return inFlight;
+    final current = _refreshInFlight;
+    if (current != null) return current;
     final operation = _performRefresh();
     _refreshInFlight = operation;
     return operation.whenComplete(() {
-      if (identical(_refreshInFlight, operation)) {
-        _refreshInFlight = null;
-      }
+      if (identical(_refreshInFlight, operation)) _refreshInFlight = null;
     });
   }
 
@@ -114,14 +113,17 @@ class DetoxController extends Notifier<DetoxState> {
   }
 
   Future<void> acceptDisclosureAndOpenSettings() async {
-    await _preferences.setAccessibilityDisclosureVersion(1);
-    state = state.copyWith(acceptedDisclosureVersion: 1);
+    await _preferences.setAccessibilityDisclosureVersion(
+      accessibilityDisclosureVersion,
+    );
+    state = state.copyWith(
+      acceptedDisclosureVersion: accessibilityDisclosureVersion,
+    );
     await _repository.openAccessibilitySettings();
   }
 
   Future<void> openAccessibilitySettings() =>
       _repository.openAccessibilitySettings();
-
   Future<void> startSession() async {
     if (!state.canStart) {
       throw StateError('Detox session prerequisites are not satisfied.');

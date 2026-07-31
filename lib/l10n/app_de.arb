@@ -1,123 +1,673 @@
 {
   "@@locale": "de",
-  "appName": "Phone Detox", "@appName": {"description": "Der in Betriebssystem und App angezeigte Anwendungsname."},
-  "settingsTitle": "Einstellungen", "@settingsTitle": {"description": "Titel der Launcher-Einstellungen."},
-  "settingsTooltip": "Einstellungen öffnen", "@settingsTooltip": {"description": "Kurzinfo der Schaltfläche für Launcher-Einstellungen."},
-  "searchLabel": "Apps suchen", "@searchLabel": {"description": "Barrierefreie Beschriftung des App-Suchfelds."},
-  "searchHint": "Name oder Paket", "@searchHint": {"description": "Hinweis zu möglichen App-Suchbegriffen."},
-  "makeDefaultTitle": "Phone Detox als Start-App festlegen", "@makeDefaultTitle": {"description": "Überschrift zur Auswahl der Standard-Start-App."},
-  "makeDefaultBody": "Wähle Phone Detox aus, wenn Android nach der Start-App fragt. Dies lässt sich jederzeit in den Systemeinstellungen ändern.", "@makeDefaultBody": {"description": "Erklärung der rückgängig machbaren Start-App-Auswahl."},
-  "makeDefaultAction": "Start-App auswählen", "@makeDefaultAction": {"description": "Schaltfläche zur Android-Auswahl der Start-App."},
-  "loadingApps": "Apps werden geladen…", "@loadingApps": {"description": "Meldung beim Laden startbarer Apps."},
-  "loadAppsError": "Apps konnten nicht geladen werden. Android-Einstellungen und Navigation bleiben verfügbar.", "@loadAppsError": {"description": "Behebbarer Fehler bei der App-Suche."},
-  "retryAction": "Erneut versuchen", "@retryAction": {"description": "Schaltfläche zum Wiederholen eines fehlgeschlagenen Vorgangs."},
-  "noApps": "Keine startbaren Apps gefunden.", "@noApps": {"description": "Leerer Zustand ohne startbare Apps."},
-  "noSearchResults": "Keine Apps entsprechen der Suche.", "@noSearchResults": {"description": "Leerer Zustand ohne Suchtreffer."},
-  "appActionsTitle": "Aktionen für {appName}", "@appActionsTitle": {"description": "Überschrift des App-Aktionsmenüs.", "placeholders": {"appName": {"type": "String", "example": "Kamera"}}},
-  "favouriteAction": "Zu Favoriten hinzufügen", "@favouriteAction": {"description": "Aktion zum Hinzufügen eines Favoriten."},
-  "unfavouriteAction": "Aus Favoriten entfernen", "@unfavouriteAction": {"description": "Aktion zum Entfernen eines Favoriten."},
-  "hideAction": "Im Launcher ausblenden", "@hideAction": {"description": "Aktion zum Ausblenden einer App."},
-  "launchFailed": "Diese App konnte nicht geöffnet werden.", "@launchFailed": {"description": "Fehler beim Öffnen einer Android-App."},
-  "hiddenAppsTitle": "Ausgeblendete Apps", "@hiddenAppsTitle": {"description": "Überschrift der Verwaltung ausgeblendeter Apps."},
-  "hiddenAppsDescription": "Ausgeblendete Apps bleiben installiert und können hier jederzeit wiederhergestellt werden.", "@hiddenAppsDescription": {"description": "Erklärung des lokalen und rückgängig machbaren Ausblendens."},
-  "hiddenAppsEmpty": "Keine Apps sind ausgeblendet.", "@hiddenAppsEmpty": {"description": "Leerer Zustand für ausgeblendete Apps."},
-  "restoreAction": "Wiederherstellen", "@restoreAction": {"description": "Aktion zum Wiederherstellen einer App."},
-  "detoxTooltip": "Detox öffnen", "@detoxTooltip": {"description": "Kurzinfo der Detox-Schaltfläche im Launcher."},
-  "detoxTitle": "Detox", "@detoxTitle": {"description": "Titel der Detox-Einrichtung."},
-  "detoxLoading": "Detox-Einstellungen werden geladen…", "@detoxLoading": {"description": "Meldung beim Laden des Detox-Zustands."},
-  "detoxLoadError": "Detox-Einstellungen konnten nicht geladen werden. Versuche es erneut.", "@detoxLoadError": {"description": "Behebbarer Detox-Ladefehler."},
-  "detoxManageAppsTitle": "Zu blockierende Apps", "@detoxManageAppsTitle": {"description": "Titel der Detox-App-Auswahl."},
-  "detoxManageAppsDescription": "Diese Pakete werden während einer Sitzung blockiert.", "@detoxManageAppsDescription": {"description": "Erklärung der ausgewählten Detox-Pakete."},
-  "detoxNoAppsAvailable": "Keine startbaren Apps verfügbar.", "@detoxNoAppsAvailable": {"description": "Leerer Zustand der Detox-App-Auswahl."},
-  "detoxSelectedApps": "{count, plural, =0{Keine Apps ausgewählt} =1{1 App ausgewählt} other{{count} Apps ausgewählt}}", "@detoxSelectedApps": {"description": "Anzahl ausgewählter Detox-Pakete.", "placeholders": {"count": {"type": "int", "example": "3"}}},
-  "detoxEmptyList": "Wähle mindestens eine ablenkende App.", "@detoxEmptyList": {"description": "Hinweis bei leerer Detox-Liste."},
-  "detoxDurationTitle": "Sitzungsdauer", "@detoxDurationTitle": {"description": "Überschrift der Detox-Dauerauswahl."},
-  "detoxMinutes": "{minutes} Minuten", "@detoxMinutes": {"description": "Detox-Dauer in Minuten.", "placeholders": {"minutes": {"type": "int", "example": "30"}}},
-  "detoxCustomDurationLabel": "Eigene Dauer (5–480 Minuten)", "@detoxCustomDurationLabel": {"description": "Beschriftung der eigenen Detox-Dauer."},
-  "detoxCustomDurationError": "Gib einen Wert zwischen 5 und 480 ein.", "@detoxCustomDurationError": {"description": "Validierungsfehler der eigenen Detox-Dauer."},
-  "detoxAccessibilityExplanation": "Strikte Blockierung benötigt Bedienungshilfenzugriff. Er wird nur verwendet, um während einer aktiven Sitzung das sichtbare App-Paket zu erkennen.", "@detoxAccessibilityExplanation": {"description": "Erklärung des benötigten Bedienungshilfenzugriffs."},
-  "detoxAccessibilityEnabled": "Bedienungshilfenzugriff aktiviert", "@detoxAccessibilityEnabled": {"description": "Aktivierter Bedienungshilfenstatus."},
-  "detoxAccessibilityDisabled": "Bedienungshilfenzugriff deaktiviert", "@detoxAccessibilityDisabled": {"description": "Deaktivierter Bedienungshilfenstatus."},
-  "detoxAccessibilityUnavailable": "Bedienungshilfenzugriff nicht verfügbar", "@detoxAccessibilityUnavailable": {"description": "Nicht verfügbarer Bedienungshilfenstatus."},
-  "detoxStartAction": "Sitzung starten", "@detoxStartAction": {"description": "Aktion zum Starten einer Detox-Sitzung."},
-  "detoxStartError": "Die Sitzung konnte nicht gestartet werden. Prüfe den Bedienungshilfenzugriff und versuche es erneut.", "@detoxStartError": {"description": "Behebbarer Fehler beim Sitzungsstart."},
-  "detoxAddAction": "Zur Detox-Liste hinzufügen", "@detoxAddAction": {"description": "Aktion zum Hinzufügen eines App-Pakets zur Detox-Liste."},
-  "detoxRemoveAction": "Aus Detox-Liste entfernen", "@detoxRemoveAction": {"description": "Aktion zum Entfernen eines App-Pakets aus der Detox-Liste."},
-  "detoxBlockedUntil": "Diese App ist bis {endTime} blockiert.", "@detoxBlockedUntil": {"description": "Meldung bei einem blockierten direkten App-Start.", "placeholders": {"endTime": {"type": "String", "example": "16:30"}}},
-  "detoxDisclosureTitle": "Verwendung des Bedienungshilfenzugriffs", "@detoxDisclosureTitle": {"description": "Titel der hervorgehobenen Zugriffserklärung."},
-  "detoxDisclosureWhatTitle": "Welcher Zugriff verwendet wird", "@detoxDisclosureWhatTitle": {"description": "Überschrift zu beobachteten Zugriffsinformationen."},
-  "detoxDisclosureWhatBody": "Phone Detox erkennt, welches Anwendungspaket gerade sichtbar ist, solange sein Bedienungshilfendienst aktiviert ist.", "@detoxDisclosureWhatBody": {"description": "Erklärung der Erkennung sichtbarer App-Pakete."},
-  "detoxDisclosureWhyTitle": "Warum er verwendet wird", "@detoxDisclosureWhyTitle": {"description": "Überschrift zum Zweck des Zugriffs."},
-  "detoxDisclosureWhyBody": "Während einer aktiven Sitzung wird damit eine ausgewählte blockierte App erkannt und du wirst sofort zum Startbildschirm zurückgebracht.", "@detoxDisclosureWhyBody": {"description": "Erklärung des Blockierungsverhaltens."},
-  "detoxDisclosureNotAccessedTitle": "Worauf nicht zugegriffen wird", "@detoxDisclosureNotAccessedTitle": {"description": "Überschrift zu ausgeschlossenen Informationen."},
-  "detoxDisclosureNotAccessedBody": "Phone Detox liest keine Passwörter, Eingaben, Nachrichten, Bildschirm- oder Browserinhalte, Benachrichtigungen, Bilder, Kontakte, Dateien oder Bedienungshilfen-Knotenbäume.", "@detoxDisclosureNotAccessedBody": {"description": "Erklärung der niemals gelesenen Daten."},
-  "detoxDisclosureDataTitle": "Datenverarbeitung", "@detoxDisclosureDataTitle": {"description": "Überschrift zur lokalen Datenverarbeitung."},
-  "detoxDisclosureDataBody": "Die Verarbeitung erfolgt nur auf diesem Gerät. Sichtbare Pakete und installierte Apps werden nie übertragen. Es gibt keine Analyse oder Verfolgung.", "@detoxDisclosureDataBody": {"description": "Erklärung der ausschließlich lokalen Verarbeitung."},
-  "detoxDisclosureControlTitle": "Du behältst die Kontrolle", "@detoxDisclosureControlTitle": {"description": "Überschrift zu rückgängig machbaren Nutzerkontrollen."},
-  "detoxDisclosureControlBody": "Du kannst jederzeit eine Sitzung beenden, den Zugriff deaktivieren, eine andere Start-App wählen oder Phone Detox deinstallieren.", "@detoxDisclosureControlBody": {"description": "Erklärung der Kontroll- und Wiederherstellungswege."},
-  "detoxDisclosureConsent": "Ich verstehe, wie der Bedienungshilfenzugriff verwendet wird.", "@detoxDisclosureConsent": {"description": "Bestätigungsfeld für die Zugriffserklärung."},
-  "continueAction": "Weiter", "@continueAction": {"description": "Aktion nach bestätigter Zugriffserklärung."},
-  "detoxActiveTitle": "Detox-Sitzung aktiv", "@detoxActiveTitle": {"description": "Titel der aktiven Detox-Sitzung."},
-  "detoxEndsAt": "Endet um {endTime}", "@detoxEndsAt": {"description": "Lokale Endzeit der aktiven Sitzung.", "placeholders": {"endTime": {"type": "String", "example": "16:30"}}},
-  "detoxBlockedAppsCount": "{count, plural, =1{1 blockierte App} other{{count} blockierte Apps}}", "@detoxBlockedAppsCount": {"description": "Anzahl blockierter Apps in der aktiven Sitzung.", "placeholders": {"count": {"type": "int", "example": "3"}}},
-  "detoxEnforcementDisabledWarning": "Die Sitzung ist noch aktiv, aber die Blockierung greift nicht, weil der Bedienungshilfenzugriff deaktiviert ist.", "@detoxEnforcementDisabledWarning": {"description": "Warnung bei einer nicht durchgesetzten aktiven Sitzung."},
-  "detoxOpenAccessibilitySettings": "Bedienungshilfen-Einstellungen öffnen", "@detoxOpenAccessibilitySettings": {"description": "Aktion zum Öffnen der Android-Bedienungshilfen."},
-  "detoxEndSessionAction": "Sitzung beenden", "@detoxEndSessionAction": {"description": "Aktion zum Öffnen des bewussten Beendens."},
-  "detoxEndSessionTitle": "Diese Sitzung beenden?", "@detoxEndSessionTitle": {"description": "Titel des Dialogs zum bewussten Beenden."},
-  "detoxEndSessionBody": "Halte die Schaltfläche 3 Sekunden lang gedrückt, um die Sitzung zu beenden.", "@detoxEndSessionBody": {"description": "Anweisung zum bewussten Beenden."},
-  "detoxHoldToEnd": "Zum Beenden halten", "@detoxHoldToEnd": {"description": "Beschriftung der Drei-Sekunden-Halteschaltfläche."},
-  "detoxEmergencyExitAction": "Notausstieg", "@detoxEmergencyExitAction": {"description": "Barrierefreie Aktion zum sofortigen Beenden."},
-  "detoxEmergencyExitTitle": "Notausstieg verwenden?", "@detoxEmergencyExitTitle": {"description": "Titel der Notausstieg-Bestätigung."},
-  "detoxEmergencyExitBody": "Dadurch wird die Sitzung sofort beendet und die Blockierung aufgehoben.", "@detoxEmergencyExitBody": {"description": "Folge des bestätigten Notausstiegs."},
-  "detoxEmergencyExitConfirm": "Jetzt beenden", "@detoxEmergencyExitConfirm": {"description": "Bestätigungsaktion des Notausstiegs."},
-  "detoxSessionComplete": "Detox-Sitzung abgeschlossen.", "@detoxSessionComplete": {"description": "Meldung nach natürlichem Sitzungsende."},
-  "startupLoading": "Dein Startbildschirm wird vorbereitet…", "@startupLoading": {"description": "Meldung beim Ermitteln des Startzustands."},
-  "startupActivationTitle": "Phone Detox als Startbildschirm festlegen", "@startupActivationTitle": {"description": "Titel der erstmaligen Aktivierung als Start-App."},
-  "startupActivationExplanation": "Phone Detox ersetzt deinen normalen Launcher und wird geöffnet, wenn du die Home-Taste verwendest.", "@startupActivationExplanation": {"description": "Erklärung von Phone Detox als Android-Start-App."},
-  "startupAndroidConfirmationExplanation": "Android benötigt deine Bestätigung. Wähle Phone Detox auf dem folgenden Systembildschirm aus.", "@startupAndroidConfirmationExplanation": {"description": "Erklärung der ausdrücklichen Android-Bestätigung."},
-  "startupReversibleChoiceExplanation": "Deine Auswahl bleibt bestehen, bis du eine andere Start-App wählst. Du kannst sie jederzeit in den Android-Einstellungen ändern.", "@startupReversibleChoiceExplanation": {"description": "Erklärung der rückgängig machbaren Start-App-Auswahl."},
-  "startupChooseHomeAction": "Phone Detox als Start-App wählen", "@startupChooseHomeAction": {"description": "Hauptaktion zum Anfordern der Android-Start-App-Rolle."},
-  "startupOpenHomeSettingsAction": "Start-App-Einstellungen öffnen", "@startupOpenHomeSettingsAction": {"description": "Aktion zum Öffnen der Android-Start-App-Einstellungen."},
-  "startupWaitingForAndroid": "Warten auf die Android-Bestätigung…", "@startupWaitingForAndroid": {"description": "Status während der Android-Auswahl der Start-App."},
-  "startupAccessGranted": "Phone Detox ist jetzt dein Startbildschirm.", "@startupAccessGranted": {"description": "Status nach erfolgreicher Start-App-Aktivierung."},
-  "startupSelectionCancelled": "Auswahl abgebrochen. Phone Detox kann erst nach deiner Bestätigung zum Startbildschirm werden.", "@startupSelectionCancelled": {"description": "Status nach Abbruch der Start-App-Auswahl."},
-  "startupAnotherLauncherSelected": "Eine andere Start-App ist weiterhin ausgewählt. Versuche es erneut, wenn du bereit bist.", "@startupAnotherLauncherSelected": {"description": "Status, wenn eine andere Start-App ausgewählt bleibt."},
-  "startupSettingsOpened": "Wähle Phone Detox in den Android-Start-App-Einstellungen und kehre dann hierher zurück.", "@startupSettingsOpened": {"description": "Hinweis nach Öffnen der Start-App-Einstellungen."},
-  "startupHomeRoleUnavailableTitle": "Startbildschirm-Einrichtung nicht verfügbar", "@startupHomeRoleUnavailableTitle": {"description": "Titel bei nicht verfügbarer Android-Start-App-Auswahl."},
-  "startupHomeRoleUnavailable": "Android stellt keinen unterstützten Auswahlbildschirm bereit. Öffne die Einstellungen und wähle die Standard-Start-App manuell.", "@startupHomeRoleUnavailable": {"description": "Behebbare Erklärung bei nicht verfügbarer Start-App-Auswahl."},
-  "startupRoleLostTitle": "Phone Detox ist nicht mehr deine Start-App", "@startupRoleLostTitle": {"description": "Titel nach Entzug der zuvor gehaltenen Start-App-Rolle."},
-  "startupRoleLostExplanation": "Android verwendet derzeit eine andere Start-App. Stelle Phone Detox wieder her, um Home-Taste und Launcher weiter zu verwenden.", "@startupRoleLostExplanation": {"description": "Erklärung und Wiederherstellung nach Rollenentzug."},
-  "startupRestoreHomeAction": "Phone Detox als Start-App wiederherstellen", "@startupRestoreHomeAction": {"description": "Aktion zum Wiederherstellen der Android-Start-App-Rolle."},
-  "startupFailureTitle": "Phone Detox konnte nicht gestartet werden", "@startupFailureTitle": {"description": "Titel eines behebbaren Startfehlers."},
-  "startupFailureMessage": "Der Start-App-Status konnte nicht geprüft werden. Versuche es erneut oder bestätige die Start-App in den Android-Einstellungen.", "@startupFailureMessage": {"description": "Behebbare Fehlermeldung beim Start."},
-  "startupStrictBlockingTitle": "Strikte App-Blockierung aktivieren", "@startupStrictBlockingTitle": {"description": "Titel der optionalen Karte für strikte Blockierung."},
-  "startupStrictBlockingExplanation": "Optionaler Bedienungshilfenzugriff kann dich während einer Detox-Sitzung zurück zum Startbildschirm bringen, wenn eine ausgewählte blockierte App geöffnet wird.", "@startupStrictBlockingExplanation": {"description": "Erklärung, dass strikte Blockierung optional und von der Start-App-Aktivierung getrennt ist."},
-  "startupStrictBlockingAction": "Strikte Blockierung einrichten", "@startupStrictBlockingAction": {"description": "Aktion zum Öffnen der bestehenden Detox-Einrichtung und Zugriffserklärung."},
-  "jailBreakTooltip": "Aus Phone Detox ausbrechen", "@jailBreakTooltip": {"description": "Tooltip und Einstellungsaktion zum Verlassen von Phone Detox als Android-Start-App."},
-  "jailBreakDialogTitle": "Phone Detox verlassen?", "@jailBreakDialogTitle": {"description": "Bestätigungstitel beim Verlassen ohne aktive Detox-Sitzung."},
-  "jailBreakDialogBody": "Android öffnet die Einstellungen für die Start-App. Wähle deinen vorherigen Launcher, etwa Pixel Launcher oder One UI Home, um Phone Detox nicht mehr als Startbildschirm zu verwenden.", "@jailBreakDialogBody": {"description": "Erklärung der Android-Start-App-Auswahl ohne aktive Sitzung."},
-  "jailBreakPlatformExplanation": "Phone Detox kann die Standard-Start-App nicht ohne deine Bestätigung ändern.", "@jailBreakPlatformExplanation": {"description": "Erklärung, dass Android eine ausdrückliche Bestätigung benötigt."},
-  "jailBreakConfirmAction": "Ausbrechen", "@jailBreakConfirmAction": {"description": "Bestätigungsaktion zum Verlassen des Phone-Detox-Startmodus."},
-  "jailBreakActiveDialogTitle": "Detox beenden und Phone Detox verlassen?", "@jailBreakActiveDialogTitle": {"description": "Bestätigungstitel, wenn eine aktive Sitzung beendet wird."},
-  "jailBreakActiveDialogBody": "Durch Ausbrechen wird die aktive Detox-Sitzung sofort beendet, die App-Blockierung aufgehoben und die Android-Einstellung für Start-Apps geöffnet.", "@jailBreakActiveDialogBody": {"description": "Folgen des Ausbrechens während einer aktiven Sitzung."},
-  "jailBreakActiveConfirmAction": "Sitzung beenden und ausbrechen", "@jailBreakActiveConfirmAction": {"description": "Aktion zum Beenden der Sitzung und Öffnen der Start-App-Einstellungen."},
-  "jailBreakEndingSession": "Aktive Detox-Sitzung wird beendet…", "@jailBreakEndingSession": {"description": "Fortschrittsmeldung während der Sitzungsbereinigung."},
-  "jailBreakOpeningSettings": "Android-Einstellungen für Start-Apps werden geöffnet…", "@jailBreakOpeningSettings": {"description": "Fortschrittsmeldung beim Öffnen der Start-App-Einstellungen."},
-  "jailBreakWaitingForSelection": "Warten auf deine Auswahl der Start-App…", "@jailBreakWaitingForSelection": {"description": "Status während der ausstehenden Android-Start-App-Auswahl."},
-  "jailBreakCompletedTitle": "Ausbruch abgeschlossen", "@jailBreakCompletedTitle": {"description": "Neutraler Titel nach absichtlichem Verlust der Start-App-Rolle."},
-  "jailBreakCompletedBody": "Phone Detox ist nicht mehr deine Start-App. Drücke Home, um den ausgewählten Launcher zu öffnen.", "@jailBreakCompletedBody": {"description": "Neutrale Erklärung nach Auswahl eines anderen Launchers."},
-  "jailBreakOpenHomeAction": "Startbildschirm öffnen", "@jailBreakOpenHomeAction": {"description": "Aktion zum Öffnen der neu ausgewählten Android-Start-App."},
-  "jailBreakUseAgainAction": "Phone Detox wieder verwenden", "@jailBreakUseAgainAction": {"description": "Aktion zum erneuten Anfordern von Phone Detox als Start-App."},
-  "jailBreakCancelledMessage": "Phone Detox ist weiterhin deine Start-App.", "@jailBreakCancelledMessage": {"description": "Meldung, wenn Phone Detox ausgewählt bleibt."},
-  "jailBreakFailureTitle": "Ausbruch konnte nicht abgeschlossen werden", "@jailBreakFailureTitle": {"description": "Titel eines behebbaren Fehlers beim Ausbrechen."},
-  "jailBreakFailureBody": "Der Status der Android-Start-App konnte nicht bestätigt werden. Öffne die Standard-App-Einstellungen oder versuche es erneut.", "@jailBreakFailureBody": {"description": "Behebbarer Fehler bei der Prüfung der Start-App-Rolle."},
-  "jailBreakActiveCleanupFailureBody": "Phone Detox konnte die aktive Blockierungssitzung nicht vollständig entfernen.", "@jailBreakActiveCleanupFailureBody": {"description": "Fehler beim Bereinigen einer aktiven Detox-Sitzung."},
-  "jailBreakRetryAction": "Erneut versuchen", "@jailBreakRetryAction": {"description": "Aktion zum Wiederholen eines fehlgeschlagenen Ausbruchsschritts."},
-  "jailBreakOpenSettingsAnywayAction": "Start-App-Einstellungen trotzdem öffnen", "@jailBreakOpenSettingsAnywayAction": {"description": "Wiederherstellungsaktion trotz fehlgeschlagener Sitzungsbereinigung."},
-  "jailBreakOpenHomeSettingsAction": "Standard-App-Einstellungen öffnen", "@jailBreakOpenHomeSettingsAction": {"description": "Wiederherstellungsaktion zum Öffnen der Android-Standard-Apps."},
-  "jailBreakOpenAccessibilityAction": "Bedienungshilfen-Einstellungen öffnen", "@jailBreakOpenAccessibilityAction": {"description": "Wiederherstellungsaktion zur manuellen Steuerung des Bedienungshilfenzugriffs."},
-  "jailBreakAccessibilityStillEnabled": "Die aktive Blockierungssitzung wird beendet. Der Bedienungshilfenzugriff von Phone Detox kann aktiviert bleiben, blockiert ohne aktive Detox-Sitzung aber keine Apps.", "@jailBreakAccessibilityStillEnabled": {"description": "Erklärung, dass der Bedienungshilfenzugriff ohne aktive Sitzung nicht blockiert."},
-  "jailBreakSettingsSectionTitle": "Wiederherstellung", "@jailBreakSettingsSectionTitle": {"description": "Titel des Wiederherstellungsbereichs in den Einstellungen."},
-  "jailBreakSettingsDescription": "Wähle eine andere Android-Start-App und verwende Phone Detox nicht mehr als Launcher.", "@jailBreakSettingsDescription": {"description": "Beschreibung der Ausbruchsfunktion in den Einstellungen."},
-  "jailBreakOpenHomeFailed": "Drücke die Android-Home-Taste, um den ausgewählten Launcher zu öffnen.", "@jailBreakOpenHomeFailed": {"description": "Hinweis, wenn die ausgewählte Start-App nicht direkt geöffnet werden kann."}
+  "appName": "Phone Detox",
+  "@appName": {
+    "description": "Der in Betriebssystem und App angezeigte Anwendungsname."
+  },
+  "settingsTitle": "Einstellungen",
+  "@settingsTitle": {
+    "description": "Titel der Launcher-Einstellungen."
+  },
+  "settingsTooltip": "Einstellungen öffnen",
+  "@settingsTooltip": {
+    "description": "Kurzinfo der Schaltfläche für Launcher-Einstellungen."
+  },
+  "searchLabel": "Apps suchen",
+  "@searchLabel": {
+    "description": "Barrierefreie Beschriftung des App-Suchfelds."
+  },
+  "searchHint": "Name oder Paket",
+  "@searchHint": {
+    "description": "Hinweis zu möglichen App-Suchbegriffen."
+  },
+  "makeDefaultTitle": "Phone Detox als Start-App festlegen",
+  "@makeDefaultTitle": {
+    "description": "Überschrift zur Auswahl der Standard-Start-App."
+  },
+  "makeDefaultBody": "Wähle Phone Detox aus, wenn Android nach der Start-App fragt. Dies lässt sich jederzeit in den Systemeinstellungen ändern.",
+  "@makeDefaultBody": {
+    "description": "Erklärung der rückgängig machbaren Start-App-Auswahl."
+  },
+  "makeDefaultAction": "Start-App auswählen",
+  "@makeDefaultAction": {
+    "description": "Schaltfläche zur Android-Auswahl der Start-App."
+  },
+  "loadingApps": "Apps werden geladen…",
+  "@loadingApps": {
+    "description": "Meldung beim Laden startbarer Apps."
+  },
+  "loadAppsError": "Apps konnten nicht geladen werden. Android-Einstellungen und Navigation bleiben verfügbar.",
+  "@loadAppsError": {
+    "description": "Behebbarer Fehler bei der App-Suche."
+  },
+  "retryAction": "Erneut versuchen",
+  "@retryAction": {
+    "description": "Schaltfläche zum Wiederholen eines fehlgeschlagenen Vorgangs."
+  },
+  "noApps": "Keine startbaren Apps gefunden.",
+  "@noApps": {
+    "description": "Leerer Zustand ohne startbare Apps."
+  },
+  "noSearchResults": "Keine Apps entsprechen der Suche.",
+  "@noSearchResults": {
+    "description": "Leerer Zustand ohne Suchtreffer."
+  },
+  "appActionsTitle": "Aktionen für {appName}",
+  "@appActionsTitle": {
+    "description": "Überschrift des App-Aktionsmenüs.",
+    "placeholders": {
+      "appName": {
+        "type": "String",
+        "example": "Kamera"
+      }
+    }
+  },
+  "favouriteAction": "Zu Favoriten hinzufügen",
+  "@favouriteAction": {
+    "description": "Aktion zum Hinzufügen eines Favoriten."
+  },
+  "unfavouriteAction": "Aus Favoriten entfernen",
+  "@unfavouriteAction": {
+    "description": "Aktion zum Entfernen eines Favoriten."
+  },
+  "hideAction": "Im Launcher ausblenden",
+  "@hideAction": {
+    "description": "Aktion zum Ausblenden einer App."
+  },
+  "launchFailed": "Diese App konnte nicht geöffnet werden.",
+  "@launchFailed": {
+    "description": "Fehler beim Öffnen einer Android-App."
+  },
+  "hiddenAppsTitle": "Ausgeblendete Apps",
+  "@hiddenAppsTitle": {
+    "description": "Überschrift der Verwaltung ausgeblendeter Apps."
+  },
+  "hiddenAppsDescription": "Ausgeblendete Apps bleiben installiert und können hier jederzeit wiederhergestellt werden.",
+  "@hiddenAppsDescription": {
+    "description": "Erklärung des lokalen und rückgängig machbaren Ausblendens."
+  },
+  "hiddenAppsEmpty": "Keine Apps sind ausgeblendet.",
+  "@hiddenAppsEmpty": {
+    "description": "Leerer Zustand für ausgeblendete Apps."
+  },
+  "restoreAction": "Wiederherstellen",
+  "@restoreAction": {
+    "description": "Aktion zum Wiederherstellen einer App."
+  },
+  "detoxTooltip": "Detox öffnen",
+  "@detoxTooltip": {
+    "description": "Kurzinfo der Detox-Schaltfläche im Launcher."
+  },
+  "detoxTitle": "Detox",
+  "@detoxTitle": {
+    "description": "Titel der Detox-Einrichtung."
+  },
+  "detoxLoading": "Detox-Einstellungen werden geladen…",
+  "@detoxLoading": {
+    "description": "Meldung beim Laden des Detox-Zustands."
+  },
+  "detoxLoadError": "Detox-Einstellungen konnten nicht geladen werden. Versuche es erneut.",
+  "@detoxLoadError": {
+    "description": "Behebbarer Detox-Ladefehler."
+  },
+  "detoxManageAppsTitle": "Zu blockierende Apps",
+  "@detoxManageAppsTitle": {
+    "description": "Titel der Detox-App-Auswahl."
+  },
+  "detoxManageAppsDescription": "Diese Pakete werden während einer Sitzung blockiert.",
+  "@detoxManageAppsDescription": {
+    "description": "Erklärung der ausgewählten Detox-Pakete."
+  },
+  "detoxNoAppsAvailable": "Keine startbaren Apps verfügbar.",
+  "@detoxNoAppsAvailable": {
+    "description": "Leerer Zustand der Detox-App-Auswahl."
+  },
+  "detoxSelectedApps": "{count, plural, =0{Keine Apps ausgewählt} =1{1 App ausgewählt} other{{count} Apps ausgewählt}}",
+  "@detoxSelectedApps": {
+    "description": "Anzahl ausgewählter Detox-Pakete.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "detoxEmptyList": "Wähle mindestens eine ablenkende App.",
+  "@detoxEmptyList": {
+    "description": "Hinweis bei leerer Detox-Liste."
+  },
+  "detoxDurationTitle": "Sitzungsdauer",
+  "@detoxDurationTitle": {
+    "description": "Überschrift der Detox-Dauerauswahl."
+  },
+  "detoxMinutes": "{minutes} Minuten",
+  "@detoxMinutes": {
+    "description": "Detox-Dauer in Minuten.",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "example": "30"
+      }
+    }
+  },
+  "detoxCustomDurationLabel": "Eigene Dauer (5–480 Minuten)",
+  "@detoxCustomDurationLabel": {
+    "description": "Beschriftung der eigenen Detox-Dauer."
+  },
+  "detoxCustomDurationError": "Gib einen Wert zwischen 5 und 480 ein.",
+  "@detoxCustomDurationError": {
+    "description": "Validierungsfehler der eigenen Detox-Dauer."
+  },
+  "detoxAccessibilityExplanation": "Strikte Blockierung benötigt Bedienungshilfenzugriff. Er wird nur verwendet, um während einer aktiven Sitzung das sichtbare App-Paket zu erkennen.",
+  "@detoxAccessibilityExplanation": {
+    "description": "Erklärung des benötigten Bedienungshilfenzugriffs."
+  },
+  "detoxAccessibilityEnabled": "Bedienungshilfenzugriff aktiviert",
+  "@detoxAccessibilityEnabled": {
+    "description": "Aktivierter Bedienungshilfenstatus."
+  },
+  "detoxAccessibilityDisabled": "Bedienungshilfenzugriff deaktiviert",
+  "@detoxAccessibilityDisabled": {
+    "description": "Deaktivierter Bedienungshilfenstatus."
+  },
+  "detoxAccessibilityUnavailable": "Bedienungshilfenzugriff nicht verfügbar",
+  "@detoxAccessibilityUnavailable": {
+    "description": "Nicht verfügbarer Bedienungshilfenstatus."
+  },
+  "detoxStartAction": "Sitzung starten",
+  "@detoxStartAction": {
+    "description": "Aktion zum Starten einer Detox-Sitzung."
+  },
+  "detoxStartError": "Die Sitzung konnte nicht gestartet werden. Prüfe den Bedienungshilfenzugriff und versuche es erneut.",
+  "@detoxStartError": {
+    "description": "Behebbarer Fehler beim Sitzungsstart."
+  },
+  "detoxAddAction": "Zur Detox-Liste hinzufügen",
+  "@detoxAddAction": {
+    "description": "Aktion zum Hinzufügen eines App-Pakets zur Detox-Liste."
+  },
+  "detoxRemoveAction": "Aus Detox-Liste entfernen",
+  "@detoxRemoveAction": {
+    "description": "Aktion zum Entfernen eines App-Pakets aus der Detox-Liste."
+  },
+  "detoxBlockedUntil": "Diese App ist bis {endTime} blockiert.",
+  "@detoxBlockedUntil": {
+    "description": "Meldung bei einem blockierten direkten App-Start.",
+    "placeholders": {
+      "endTime": {
+        "type": "String",
+        "example": "16:30"
+      }
+    }
+  },
+  "detoxDisclosureTitle": "Verwendung des Bedienungshilfenzugriffs",
+  "@detoxDisclosureTitle": {
+    "description": "Titel der hervorgehobenen Zugriffserklärung."
+  },
+  "detoxDisclosureWhatTitle": "Welcher Zugriff verwendet wird",
+  "@detoxDisclosureWhatTitle": {
+    "description": "Überschrift zu beobachteten Zugriffsinformationen."
+  },
+  "detoxDisclosureWhatBody": "Phone Detox erkennt, welches Anwendungspaket gerade sichtbar ist, solange sein Bedienungshilfendienst aktiviert ist.",
+  "@detoxDisclosureWhatBody": {
+    "description": "Erklärung der Erkennung sichtbarer App-Pakete."
+  },
+  "detoxDisclosureWhyTitle": "Warum er verwendet wird",
+  "@detoxDisclosureWhyTitle": {
+    "description": "Überschrift zum Zweck des Zugriffs."
+  },
+  "detoxDisclosureWhyBody": "Während einer aktiven Detox-Sitzung werden blockierte Apps erkannt. Bei konfigurierten Apps kann Phone Detox dich außerdem für die gewählte bewusste Pause zum Startbildschirm zurückbringen.",
+  "@detoxDisclosureWhyBody": {
+    "description": "Erklärung des Blockierungsverhaltens."
+  },
+  "detoxDisclosureNotAccessedTitle": "Worauf nicht zugegriffen wird",
+  "@detoxDisclosureNotAccessedTitle": {
+    "description": "Überschrift zu ausgeschlossenen Informationen."
+  },
+  "detoxDisclosureNotAccessedBody": "Phone Detox liest keine Passwörter, Eingaben, Nachrichten, Bildschirm- oder Browserinhalte, Benachrichtigungen, Bilder, Kontakte, Dateien oder Bedienungshilfen-Knotenbäume.",
+  "@detoxDisclosureNotAccessedBody": {
+    "description": "Erklärung der niemals gelesenen Daten."
+  },
+  "detoxDisclosureDataTitle": "Datenverarbeitung",
+  "@detoxDisclosureDataTitle": {
+    "description": "Überschrift zur lokalen Datenverarbeitung."
+  },
+  "detoxDisclosureDataBody": "Die Verarbeitung erfolgt nur auf diesem Gerät. Sichtbare Pakete und installierte Apps werden nie übertragen. Es gibt keine Analyse oder Verfolgung.",
+  "@detoxDisclosureDataBody": {
+    "description": "Erklärung der ausschließlich lokalen Verarbeitung."
+  },
+  "detoxDisclosureControlTitle": "Du behältst die Kontrolle",
+  "@detoxDisclosureControlTitle": {
+    "description": "Überschrift zu rückgängig machbaren Nutzerkontrollen."
+  },
+  "detoxDisclosureControlBody": "Du kannst jederzeit eine Sitzung beenden, den Zugriff deaktivieren, eine andere Start-App wählen oder Phone Detox deinstallieren.",
+  "@detoxDisclosureControlBody": {
+    "description": "Erklärung der Kontroll- und Wiederherstellungswege."
+  },
+  "detoxDisclosureConsent": "Ich verstehe, wie der Bedienungshilfenzugriff verwendet wird.",
+  "@detoxDisclosureConsent": {
+    "description": "Bestätigungsfeld für die Zugriffserklärung."
+  },
+  "continueAction": "Weiter",
+  "@continueAction": {
+    "description": "Aktion nach bestätigter Zugriffserklärung."
+  },
+  "detoxActiveTitle": "Detox-Sitzung aktiv",
+  "@detoxActiveTitle": {
+    "description": "Titel der aktiven Detox-Sitzung."
+  },
+  "detoxEndsAt": "Endet um {endTime}",
+  "@detoxEndsAt": {
+    "description": "Lokale Endzeit der aktiven Sitzung.",
+    "placeholders": {
+      "endTime": {
+        "type": "String",
+        "example": "16:30"
+      }
+    }
+  },
+  "detoxBlockedAppsCount": "{count, plural, =1{1 blockierte App} other{{count} blockierte Apps}}",
+  "@detoxBlockedAppsCount": {
+    "description": "Anzahl blockierter Apps in der aktiven Sitzung.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "detoxEnforcementDisabledWarning": "Die Sitzung ist noch aktiv, aber die Blockierung greift nicht, weil der Bedienungshilfenzugriff deaktiviert ist.",
+  "@detoxEnforcementDisabledWarning": {
+    "description": "Warnung bei einer nicht durchgesetzten aktiven Sitzung."
+  },
+  "detoxOpenAccessibilitySettings": "Bedienungshilfen-Einstellungen öffnen",
+  "@detoxOpenAccessibilitySettings": {
+    "description": "Aktion zum Öffnen der Android-Bedienungshilfen."
+  },
+  "detoxEndSessionAction": "Sitzung beenden",
+  "@detoxEndSessionAction": {
+    "description": "Aktion zum Öffnen des bewussten Beendens."
+  },
+  "detoxEndSessionTitle": "Diese Sitzung beenden?",
+  "@detoxEndSessionTitle": {
+    "description": "Titel des Dialogs zum bewussten Beenden."
+  },
+  "detoxEndSessionBody": "Halte die Schaltfläche 3 Sekunden lang gedrückt, um die Sitzung zu beenden.",
+  "@detoxEndSessionBody": {
+    "description": "Anweisung zum bewussten Beenden."
+  },
+  "detoxHoldToEnd": "Zum Beenden halten",
+  "@detoxHoldToEnd": {
+    "description": "Beschriftung der Drei-Sekunden-Halteschaltfläche."
+  },
+  "detoxEmergencyExitAction": "Notausstieg",
+  "@detoxEmergencyExitAction": {
+    "description": "Barrierefreie Aktion zum sofortigen Beenden."
+  },
+  "detoxEmergencyExitTitle": "Notausstieg verwenden?",
+  "@detoxEmergencyExitTitle": {
+    "description": "Titel der Notausstieg-Bestätigung."
+  },
+  "detoxEmergencyExitBody": "Dadurch wird die Sitzung sofort beendet und die Blockierung aufgehoben.",
+  "@detoxEmergencyExitBody": {
+    "description": "Folge des bestätigten Notausstiegs."
+  },
+  "detoxEmergencyExitConfirm": "Jetzt beenden",
+  "@detoxEmergencyExitConfirm": {
+    "description": "Bestätigungsaktion des Notausstiegs."
+  },
+  "detoxSessionComplete": "Detox-Sitzung abgeschlossen.",
+  "@detoxSessionComplete": {
+    "description": "Meldung nach natürlichem Sitzungsende."
+  },
+  "startupLoading": "Dein Startbildschirm wird vorbereitet…",
+  "@startupLoading": {
+    "description": "Meldung beim Ermitteln des Startzustands."
+  },
+  "startupActivationTitle": "Phone Detox als Startbildschirm festlegen",
+  "@startupActivationTitle": {
+    "description": "Titel der erstmaligen Aktivierung als Start-App."
+  },
+  "startupActivationExplanation": "Phone Detox ersetzt deinen normalen Launcher und wird geöffnet, wenn du die Home-Taste verwendest.",
+  "@startupActivationExplanation": {
+    "description": "Erklärung von Phone Detox als Android-Start-App."
+  },
+  "startupAndroidConfirmationExplanation": "Android benötigt deine Bestätigung. Wähle Phone Detox auf dem folgenden Systembildschirm aus.",
+  "@startupAndroidConfirmationExplanation": {
+    "description": "Erklärung der ausdrücklichen Android-Bestätigung."
+  },
+  "startupReversibleChoiceExplanation": "Deine Auswahl bleibt bestehen, bis du eine andere Start-App wählst. Du kannst sie jederzeit in den Android-Einstellungen ändern.",
+  "@startupReversibleChoiceExplanation": {
+    "description": "Erklärung der rückgängig machbaren Start-App-Auswahl."
+  },
+  "startupChooseHomeAction": "Phone Detox als Start-App wählen",
+  "@startupChooseHomeAction": {
+    "description": "Hauptaktion zum Anfordern der Android-Start-App-Rolle."
+  },
+  "startupOpenHomeSettingsAction": "Start-App-Einstellungen öffnen",
+  "@startupOpenHomeSettingsAction": {
+    "description": "Aktion zum Öffnen der Android-Start-App-Einstellungen."
+  },
+  "startupWaitingForAndroid": "Warten auf die Android-Bestätigung…",
+  "@startupWaitingForAndroid": {
+    "description": "Status während der Android-Auswahl der Start-App."
+  },
+  "startupAccessGranted": "Phone Detox ist jetzt dein Startbildschirm.",
+  "@startupAccessGranted": {
+    "description": "Status nach erfolgreicher Start-App-Aktivierung."
+  },
+  "startupSelectionCancelled": "Auswahl abgebrochen. Phone Detox kann erst nach deiner Bestätigung zum Startbildschirm werden.",
+  "@startupSelectionCancelled": {
+    "description": "Status nach Abbruch der Start-App-Auswahl."
+  },
+  "startupAnotherLauncherSelected": "Eine andere Start-App ist weiterhin ausgewählt. Versuche es erneut, wenn du bereit bist.",
+  "@startupAnotherLauncherSelected": {
+    "description": "Status, wenn eine andere Start-App ausgewählt bleibt."
+  },
+  "startupSettingsOpened": "Wähle Phone Detox in den Android-Start-App-Einstellungen und kehre dann hierher zurück.",
+  "@startupSettingsOpened": {
+    "description": "Hinweis nach Öffnen der Start-App-Einstellungen."
+  },
+  "startupHomeRoleUnavailableTitle": "Startbildschirm-Einrichtung nicht verfügbar",
+  "@startupHomeRoleUnavailableTitle": {
+    "description": "Titel bei nicht verfügbarer Android-Start-App-Auswahl."
+  },
+  "startupHomeRoleUnavailable": "Android stellt keinen unterstützten Auswahlbildschirm bereit. Öffne die Einstellungen und wähle die Standard-Start-App manuell.",
+  "@startupHomeRoleUnavailable": {
+    "description": "Behebbare Erklärung bei nicht verfügbarer Start-App-Auswahl."
+  },
+  "startupRoleLostTitle": "Phone Detox ist nicht mehr deine Start-App",
+  "@startupRoleLostTitle": {
+    "description": "Titel nach Entzug der zuvor gehaltenen Start-App-Rolle."
+  },
+  "startupRoleLostExplanation": "Android verwendet derzeit eine andere Start-App. Stelle Phone Detox wieder her, um Home-Taste und Launcher weiter zu verwenden.",
+  "@startupRoleLostExplanation": {
+    "description": "Erklärung und Wiederherstellung nach Rollenentzug."
+  },
+  "startupRestoreHomeAction": "Phone Detox als Start-App wiederherstellen",
+  "@startupRestoreHomeAction": {
+    "description": "Aktion zum Wiederherstellen der Android-Start-App-Rolle."
+  },
+  "startupFailureTitle": "Phone Detox konnte nicht gestartet werden",
+  "@startupFailureTitle": {
+    "description": "Titel eines behebbaren Startfehlers."
+  },
+  "startupFailureMessage": "Der Start-App-Status konnte nicht geprüft werden. Versuche es erneut oder bestätige die Start-App in den Android-Einstellungen.",
+  "@startupFailureMessage": {
+    "description": "Behebbare Fehlermeldung beim Start."
+  },
+  "startupStrictBlockingTitle": "Strikte App-Blockierung aktivieren",
+  "@startupStrictBlockingTitle": {
+    "description": "Titel der optionalen Karte für strikte Blockierung."
+  },
+  "startupStrictBlockingExplanation": "Optionaler Bedienungshilfenzugriff kann dich während einer Detox-Sitzung zurück zum Startbildschirm bringen, wenn eine ausgewählte blockierte App geöffnet wird.",
+  "@startupStrictBlockingExplanation": {
+    "description": "Erklärung, dass strikte Blockierung optional und von der Start-App-Aktivierung getrennt ist."
+  },
+  "startupStrictBlockingAction": "Strikte Blockierung einrichten",
+  "@startupStrictBlockingAction": {
+    "description": "Aktion zum Öffnen der bestehenden Detox-Einrichtung und Zugriffserklärung."
+  },
+  "jailBreakTooltip": "Aus Phone Detox ausbrechen",
+  "@jailBreakTooltip": {
+    "description": "Tooltip und Einstellungsaktion zum Verlassen von Phone Detox als Android-Start-App."
+  },
+  "jailBreakDialogTitle": "Phone Detox verlassen?",
+  "@jailBreakDialogTitle": {
+    "description": "Bestätigungstitel beim Verlassen ohne aktive Detox-Sitzung."
+  },
+  "jailBreakDialogBody": "Android öffnet die Einstellungen für die Start-App. Wähle deinen vorherigen Launcher, etwa Pixel Launcher oder One UI Home, um Phone Detox nicht mehr als Startbildschirm zu verwenden.",
+  "@jailBreakDialogBody": {
+    "description": "Erklärung der Android-Start-App-Auswahl ohne aktive Sitzung."
+  },
+  "jailBreakPlatformExplanation": "Phone Detox kann die Standard-Start-App nicht ohne deine Bestätigung ändern.",
+  "@jailBreakPlatformExplanation": {
+    "description": "Erklärung, dass Android eine ausdrückliche Bestätigung benötigt."
+  },
+  "jailBreakConfirmAction": "Ausbrechen",
+  "@jailBreakConfirmAction": {
+    "description": "Bestätigungsaktion zum Verlassen des Phone-Detox-Startmodus."
+  },
+  "jailBreakActiveDialogTitle": "Detox beenden und Phone Detox verlassen?",
+  "@jailBreakActiveDialogTitle": {
+    "description": "Bestätigungstitel, wenn eine aktive Sitzung beendet wird."
+  },
+  "jailBreakActiveDialogBody": "Durch Ausbrechen wird die aktive Detox-Sitzung sofort beendet, die App-Blockierung aufgehoben und die Android-Einstellung für Start-Apps geöffnet.",
+  "@jailBreakActiveDialogBody": {
+    "description": "Folgen des Ausbrechens während einer aktiven Sitzung."
+  },
+  "jailBreakActiveConfirmAction": "Sitzung beenden und ausbrechen",
+  "@jailBreakActiveConfirmAction": {
+    "description": "Aktion zum Beenden der Sitzung und Öffnen der Start-App-Einstellungen."
+  },
+  "jailBreakEndingSession": "Aktive Detox-Sitzung wird beendet…",
+  "@jailBreakEndingSession": {
+    "description": "Fortschrittsmeldung während der Sitzungsbereinigung."
+  },
+  "jailBreakOpeningSettings": "Android-Einstellungen für Start-Apps werden geöffnet…",
+  "@jailBreakOpeningSettings": {
+    "description": "Fortschrittsmeldung beim Öffnen der Start-App-Einstellungen."
+  },
+  "jailBreakWaitingForSelection": "Warten auf deine Auswahl der Start-App…",
+  "@jailBreakWaitingForSelection": {
+    "description": "Status während der ausstehenden Android-Start-App-Auswahl."
+  },
+  "jailBreakCompletedTitle": "Ausbruch abgeschlossen",
+  "@jailBreakCompletedTitle": {
+    "description": "Neutraler Titel nach absichtlichem Verlust der Start-App-Rolle."
+  },
+  "jailBreakCompletedBody": "Phone Detox ist nicht mehr deine Start-App. Drücke Home, um den ausgewählten Launcher zu öffnen.",
+  "@jailBreakCompletedBody": {
+    "description": "Neutrale Erklärung nach Auswahl eines anderen Launchers."
+  },
+  "jailBreakOpenHomeAction": "Startbildschirm öffnen",
+  "@jailBreakOpenHomeAction": {
+    "description": "Aktion zum Öffnen der neu ausgewählten Android-Start-App."
+  },
+  "jailBreakUseAgainAction": "Phone Detox wieder verwenden",
+  "@jailBreakUseAgainAction": {
+    "description": "Aktion zum erneuten Anfordern von Phone Detox als Start-App."
+  },
+  "jailBreakCancelledMessage": "Phone Detox ist weiterhin deine Start-App.",
+  "@jailBreakCancelledMessage": {
+    "description": "Meldung, wenn Phone Detox ausgewählt bleibt."
+  },
+  "jailBreakFailureTitle": "Ausbruch konnte nicht abgeschlossen werden",
+  "@jailBreakFailureTitle": {
+    "description": "Titel eines behebbaren Fehlers beim Ausbrechen."
+  },
+  "jailBreakFailureBody": "Der Status der Android-Start-App konnte nicht bestätigt werden. Öffne die Standard-App-Einstellungen oder versuche es erneut.",
+  "@jailBreakFailureBody": {
+    "description": "Behebbarer Fehler bei der Prüfung der Start-App-Rolle."
+  },
+  "jailBreakActiveCleanupFailureBody": "Phone Detox konnte die aktive Blockierungssitzung nicht vollständig entfernen.",
+  "@jailBreakActiveCleanupFailureBody": {
+    "description": "Fehler beim Bereinigen einer aktiven Detox-Sitzung."
+  },
+  "jailBreakRetryAction": "Erneut versuchen",
+  "@jailBreakRetryAction": {
+    "description": "Aktion zum Wiederholen eines fehlgeschlagenen Ausbruchsschritts."
+  },
+  "jailBreakOpenSettingsAnywayAction": "Start-App-Einstellungen trotzdem öffnen",
+  "@jailBreakOpenSettingsAnywayAction": {
+    "description": "Wiederherstellungsaktion trotz fehlgeschlagener Sitzungsbereinigung."
+  },
+  "jailBreakOpenHomeSettingsAction": "Standard-App-Einstellungen öffnen",
+  "@jailBreakOpenHomeSettingsAction": {
+    "description": "Wiederherstellungsaktion zum Öffnen der Android-Standard-Apps."
+  },
+  "jailBreakOpenAccessibilityAction": "Bedienungshilfen-Einstellungen öffnen",
+  "@jailBreakOpenAccessibilityAction": {
+    "description": "Wiederherstellungsaktion zur manuellen Steuerung des Bedienungshilfenzugriffs."
+  },
+  "jailBreakAccessibilityStillEnabled": "Die aktive Blockierungssitzung wird beendet. Der Bedienungshilfenzugriff von Phone Detox kann aktiviert bleiben, blockiert ohne aktive Detox-Sitzung aber keine Apps.",
+  "@jailBreakAccessibilityStillEnabled": {
+    "description": "Erklärung, dass der Bedienungshilfenzugriff ohne aktive Sitzung nicht blockiert."
+  },
+  "jailBreakSettingsSectionTitle": "Wiederherstellung",
+  "@jailBreakSettingsSectionTitle": {
+    "description": "Titel des Wiederherstellungsbereichs in den Einstellungen."
+  },
+  "jailBreakSettingsDescription": "Wähle eine andere Android-Start-App und verwende Phone Detox nicht mehr als Launcher.",
+  "@jailBreakSettingsDescription": {
+    "description": "Beschreibung der Ausbruchsfunktion in den Einstellungen."
+  },
+  "jailBreakOpenHomeFailed": "Drücke die Android-Home-Taste, um den ausgewählten Launcher zu öffnen.",
+  "@jailBreakOpenHomeFailed": {
+    "description": "Hinweis, wenn die ausgewählte Start-App nicht direkt geöffnet werden kann."
+  },
+  "mindfulTakeBreath": "Atme kurz durch, bevor du fortfährst.",
+  "@mindfulTakeBreath": {
+    "description": "German localization for mindfulTakeBreath."
+  },
+  "mindfulExternalExplanation": "Diese App wurde außerhalb von Phone Detox geöffnet. Beim Fortfahren wird ihr Hauptbildschirm geöffnet; das ursprüngliche Ziel einer Benachrichtigung oder eines Links kann nicht wiederhergestellt werden.",
+  "@mindfulExternalExplanation": {
+    "description": "German localization for mindfulExternalExplanation."
+  },
+  "mindfulDirectExplanation": "Halte kurz inne und entscheide dann, ob das Öffnen dieser App noch zu deiner Absicht passt.",
+  "@mindfulDirectExplanation": {
+    "description": "German localization for mindfulDirectExplanation."
+  },
+  "mindfulWhyQuestion": "Warum öffnest du diese App?",
+  "@mindfulWhyQuestion": {
+    "description": "German localization for mindfulWhyQuestion."
+  },
+  "mindfulIntentionReply": "Jemandem antworten",
+  "@mindfulIntentionReply": {
+    "description": "German localization for mindfulIntentionReply."
+  },
+  "mindfulIntentionTask": "Eine bestimmte Aufgabe erledigen",
+  "@mindfulIntentionTask": {
+    "description": "German localization for mindfulIntentionTask."
+  },
+  "mindfulIntentionSearch": "Nach etwas suchen",
+  "@mindfulIntentionSearch": {
+    "description": "German localization for mindfulIntentionSearch."
+  },
+  "mindfulIntentionCreate": "Etwas erstellen oder veröffentlichen",
+  "@mindfulIntentionCreate": {
+    "description": "German localization for mindfulIntentionCreate."
+  },
+  "mindfulIntentionOther": "Andere",
+  "@mindfulIntentionOther": {
+    "description": "German localization for mindfulIntentionOther."
+  },
+  "mindfulOtherLabel": "Schreibe deine Absicht",
+  "@mindfulOtherLabel": {
+    "description": "German localization for mindfulOtherLabel."
+  },
+  "mindfulGoBack": "Zurück",
+  "@mindfulGoBack": {
+    "description": "German localization for mindfulGoBack."
+  },
+  "mindfulOpenIntentionally": "Bewusst öffnen",
+  "@mindfulOpenIntentionally": {
+    "description": "German localization for mindfulOpenIntentionally."
+  },
+  "mindfulAppUnavailable": "Diese App ist nicht mehr verfügbar. Gehe zurück, um fortzufahren.",
+  "@mindfulAppUnavailable": {
+    "description": "German localization for mindfulAppUnavailable."
+  },
+  "mindfulModeOff": "Aus",
+  "@mindfulModeOff": {
+    "description": "German localization for mindfulModeOff."
+  },
+  "mindfulModePause": "Pause",
+  "@mindfulModePause": {
+    "description": "German localization for mindfulModePause."
+  },
+  "mindfulModePauseIntention": "Pause + Absicht",
+  "@mindfulModePauseIntention": {
+    "description": "German localization for mindfulModePauseIntention."
+  },
+  "mindfulDelayTitle": "Verzögerung",
+  "@mindfulDelayTitle": {
+    "description": "German localization for mindfulDelayTitle."
+  },
+  "mindfulManageApps": "Apps verwalten",
+  "@mindfulManageApps": {
+    "description": "German localization for mindfulManageApps."
+  },
+  "mindfulNoConfiguredApps": "Noch keine Apps konfiguriert. Halte eine App im Launcher gedrückt, um Mindful Opening hinzuzufügen.",
+  "@mindfulNoConfiguredApps": {
+    "description": "German localization for mindfulNoConfiguredApps."
+  },
+  "mindfulOpeningAction": "Bewusstes Öffnen",
+  "@mindfulOpeningAction": {
+    "description": "German localization for mindfulOpeningAction."
+  },
+  "mindfulConfiguredSemantics": "Bewusstes Öffnen konfiguriert",
+  "@mindfulConfiguredSemantics": {
+    "description": "German localization for mindfulConfiguredSemantics."
+  },
+  "mindfulSettingsTitle": "Bewusstes Öffnen",
+  "@mindfulSettingsTitle": {
+    "description": "German localization for mindfulSettingsTitle."
+  },
+  "mindfulSettingsDescription": "Vor dem Öffnen ausgewählter Apps kurz innehalten.",
+  "@mindfulSettingsDescription": {
+    "description": "German localization for mindfulSettingsDescription."
+  },
+  "mindfulEnabledTitle": "Bewusstes Öffnen aktiviert",
+  "@mindfulEnabledTitle": {
+    "description": "German localization for mindfulEnabledTitle."
+  },
+  "mindfulPartialCoverageWarning": "Bewusstes Öffnen funktioniert in Phone Detox. Aktiviere den Bedienungshilfenzugriff und akzeptiere die aktualisierte Erklärung, um auch Apps aus Benachrichtigungen, Links, der Übersicht und anderen Apps zu erfassen.",
+  "@mindfulPartialCoverageWarning": {
+    "description": "German localization for mindfulPartialCoverageWarning."
+  },
+  "saveAction": "Speichern",
+  "@saveAction": {
+    "description": "German localization for saveAction."
+  },
+  "mindfulSecondsRemaining": "{seconds, plural, =0{Bereit zum Fortfahren} =1{Noch 1 Sekunde} other{Noch {seconds} Sekunden}}",
+  "@mindfulSecondsRemaining": {
+    "description": "Countdown remaining before intentional opening.",
+    "placeholders": {
+      "seconds": {
+        "type": "int",
+        "example": "8"
+      }
+    }
+  },
+  "mindfulRuleTitle": "Bewusstes Öffnen für {appName}",
+  "@mindfulRuleTitle": {
+    "description": "Rule editor title for an app.",
+    "placeholders": {
+      "appName": {
+        "type": "String",
+        "example": "Instagram"
+      }
+    }
+  },
+  "mindfulDelaySeconds": "{seconds}s",
+  "@mindfulDelaySeconds": {
+    "description": "Delay option in seconds.",
+    "placeholders": {
+      "seconds": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "mindfulRuleSummary": "{seconds} Sekunden Pause",
+  "@mindfulRuleSummary": {
+    "description": "Configured Mindful delay summary.",
+    "placeholders": {
+      "seconds": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "mindfulConfiguredCount": "{count, plural, =0{Keine Apps konfiguriert} =1{1 App konfiguriert} other{{count} Apps konfiguriert}}",
+  "@mindfulConfiguredCount": {
+    "description": "Number of apps configured for Mindful Opening.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  }
 }

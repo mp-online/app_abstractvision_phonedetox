@@ -180,7 +180,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get detoxDisclosureWhyBody =>
-      'Während einer aktiven Sitzung wird damit eine ausgewählte blockierte App erkannt und du wirst sofort zum Startbildschirm zurückgebracht.';
+      'Während einer aktiven Detox-Sitzung werden blockierte Apps erkannt. Bei konfigurierten Apps kann Phone Detox dich außerdem für die gewählte bewusste Pause zum Startbildschirm zurückbringen.';
 
   @override
   String get detoxDisclosureNotAccessedTitle => 'Worauf nicht zugegriffen wird';
@@ -444,4 +444,127 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get jailBreakOpenHomeFailed =>
       'Drücke die Android-Home-Taste, um den ausgewählten Launcher zu öffnen.';
+
+  @override
+  String get mindfulTakeBreath => 'Atme kurz durch, bevor du fortfährst.';
+
+  @override
+  String get mindfulExternalExplanation =>
+      'Diese App wurde außerhalb von Phone Detox geöffnet. Beim Fortfahren wird ihr Hauptbildschirm geöffnet; das ursprüngliche Ziel einer Benachrichtigung oder eines Links kann nicht wiederhergestellt werden.';
+
+  @override
+  String get mindfulDirectExplanation =>
+      'Halte kurz inne und entscheide dann, ob das Öffnen dieser App noch zu deiner Absicht passt.';
+
+  @override
+  String get mindfulWhyQuestion => 'Warum öffnest du diese App?';
+
+  @override
+  String get mindfulIntentionReply => 'Jemandem antworten';
+
+  @override
+  String get mindfulIntentionTask => 'Eine bestimmte Aufgabe erledigen';
+
+  @override
+  String get mindfulIntentionSearch => 'Nach etwas suchen';
+
+  @override
+  String get mindfulIntentionCreate => 'Etwas erstellen oder veröffentlichen';
+
+  @override
+  String get mindfulIntentionOther => 'Andere';
+
+  @override
+  String get mindfulOtherLabel => 'Schreibe deine Absicht';
+
+  @override
+  String get mindfulGoBack => 'Zurück';
+
+  @override
+  String get mindfulOpenIntentionally => 'Bewusst öffnen';
+
+  @override
+  String get mindfulAppUnavailable =>
+      'Diese App ist nicht mehr verfügbar. Gehe zurück, um fortzufahren.';
+
+  @override
+  String get mindfulModeOff => 'Aus';
+
+  @override
+  String get mindfulModePause => 'Pause';
+
+  @override
+  String get mindfulModePauseIntention => 'Pause + Absicht';
+
+  @override
+  String get mindfulDelayTitle => 'Verzögerung';
+
+  @override
+  String get mindfulManageApps => 'Apps verwalten';
+
+  @override
+  String get mindfulNoConfiguredApps =>
+      'Noch keine Apps konfiguriert. Halte eine App im Launcher gedrückt, um Mindful Opening hinzuzufügen.';
+
+  @override
+  String get mindfulOpeningAction => 'Bewusstes Öffnen';
+
+  @override
+  String get mindfulConfiguredSemantics => 'Bewusstes Öffnen konfiguriert';
+
+  @override
+  String get mindfulSettingsTitle => 'Bewusstes Öffnen';
+
+  @override
+  String get mindfulSettingsDescription =>
+      'Vor dem Öffnen ausgewählter Apps kurz innehalten.';
+
+  @override
+  String get mindfulEnabledTitle => 'Bewusstes Öffnen aktiviert';
+
+  @override
+  String get mindfulPartialCoverageWarning =>
+      'Bewusstes Öffnen funktioniert in Phone Detox. Aktiviere den Bedienungshilfenzugriff und akzeptiere die aktualisierte Erklärung, um auch Apps aus Benachrichtigungen, Links, der Übersicht und anderen Apps zu erfassen.';
+
+  @override
+  String get saveAction => 'Speichern';
+
+  @override
+  String mindfulSecondsRemaining(int seconds) {
+    String _temp0 = intl.Intl.pluralLogic(
+      seconds,
+      locale: localeName,
+      other: 'Noch $seconds Sekunden',
+      one: 'Noch 1 Sekunde',
+      zero: 'Bereit zum Fortfahren',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String mindfulRuleTitle(String appName) {
+    return 'Bewusstes Öffnen für $appName';
+  }
+
+  @override
+  String mindfulDelaySeconds(int seconds) {
+    return '${seconds}s';
+  }
+
+  @override
+  String mindfulRuleSummary(int seconds) {
+    return '$seconds Sekunden Pause';
+  }
+
+  @override
+  String mindfulConfiguredCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Apps konfiguriert',
+      one: '1 App konfiguriert',
+      zero: 'Keine Apps konfiguriert',
+    );
+    return '$_temp0';
+  }
 }

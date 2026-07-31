@@ -1,9 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../settings/data/shared_preferences_launcher_repository.dart';
-import '../../settings/domain/launcher_preferences_repository.dart';
 import '../../detox/presentation/detox_controller.dart';
 import '../../detox/presentation/detox_state.dart';
+import '../../mindful_opening/presentation/mindful_opening_controller.dart';
+import '../../settings/data/shared_preferences_launcher_repository.dart';
+import '../../settings/domain/launcher_preferences_repository.dart';
 import '../data/platform_launcher_repository.dart';
 import '../domain/launch_decision.dart';
 import '../domain/launchable_app.dart';
@@ -13,12 +14,10 @@ import 'launcher_state.dart';
 final launcherRepositoryProvider = Provider<LauncherRepository>(
   (ref) => PlatformLauncherRepository(),
 );
-
 final launcherPreferencesRepositoryProvider =
     Provider<LauncherPreferencesRepository>(
       (ref) => SharedPreferencesLauncherRepository(),
     );
-
 final launcherControllerProvider =
     NotifierProvider<LauncherController, LauncherState>(LauncherController.new);
 
@@ -36,14 +35,12 @@ class LauncherController extends Notifier<LauncherState> {
   }
 
   Future<void> refresh() {
-    final inFlight = _refreshInFlight;
-    if (inFlight != null) return inFlight;
+    final current = _refreshInFlight;
+    if (current != null) return current;
     final operation = _performRefresh();
     _refreshInFlight = operation;
     return operation.whenComplete(() {
-      if (identical(_refreshInFlight, operation)) {
-        _refreshInFlight = null;
-      }
+      if (identical(_refreshInFlight, operation)) _refreshInFlight = null;
     });
   }
 
@@ -74,15 +71,14 @@ class LauncherController extends Notifier<LauncherState> {
         clearError: true,
       );
     } catch (error) {
-      if (version != _refreshVersion) return;
-      state = state.copyWith(status: LauncherStatus.error, error: error);
+      if (version == _refreshVersion) {
+        state = state.copyWith(status: LauncherStatus.error, error: error);
+      }
     }
   }
 
-  void setSearchQuery(String query) {
-    state = state.copyWith(searchQuery: query);
-  }
-
+  void setSearchQuery(String query) =>
+      state = state.copyWith(searchQuery: query);
   Future<void> toggleFavourite(LaunchableApp app) async {
     final updated = state.favouriteIds.toSet();
     updated.contains(app.id) ? updated.remove(app.id) : updated.add(app.id);
@@ -118,6 +114,10 @@ class LauncherController extends Notifier<LauncherState> {
         session.blockedPackageNames.contains(app.packageName)) {
       return LaunchBlocked(blockedUntil: session.endsAt);
     }
+    final request = await ref
+        .read(mindfulOpeningControllerProvider.notifier)
+        .requestDirectLaunch(app.packageName);
+    if (request != null) return LaunchRequiresMindfulOpening(request);
     await _launcherRepository.launchApp(app);
     return const LaunchAllowed();
   }

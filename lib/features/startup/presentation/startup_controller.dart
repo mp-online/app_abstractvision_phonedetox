@@ -8,6 +8,7 @@ import '../../jail_break/presentation/jail_break_controller.dart';
 import '../../launcher/domain/home_role_request_result.dart';
 import '../../launcher/domain/home_role_status.dart';
 import '../../launcher/presentation/launcher_controller.dart';
+import '../../mindful_opening/presentation/mindful_opening_controller.dart';
 import '../data/shared_preferences_startup_repository.dart';
 import '../domain/home_role_loss_reason.dart';
 import '../domain/startup_preferences_repository.dart';
@@ -18,7 +19,6 @@ final startupPreferencesRepositoryProvider =
     Provider<StartupPreferencesRepository>(
       (ref) => SharedPreferencesStartupRepository(),
     );
-
 final startupControllerProvider =
     NotifierProvider<StartupController, StartupState>(StartupController.new);
 
@@ -26,7 +26,6 @@ class StartupController extends Notifier<StartupState> {
   late final StartupPreferencesRepository _preferences;
   bool _requestInProgress = false;
   int _refreshGeneration = 0;
-
   @override
   StartupState build() {
     _preferences = ref.watch(startupPreferencesRepositoryProvider);
@@ -130,15 +129,13 @@ class StartupController extends Notifier<StartupState> {
           return;
         }
       }
-      final fallbackStatus = switch (result) {
-        HomeRoleRequestResult.unavailable => StartupStatus.unavailable,
-        _ =>
-          state.hasPreviouslyCompletedActivation
-              ? StartupStatus.roleLost
-              : StartupStatus.activationRequired,
-      };
+      final fallback = result == HomeRoleRequestResult.unavailable
+          ? StartupStatus.unavailable
+          : state.hasPreviouslyCompletedActivation
+          ? StartupStatus.roleLost
+          : StartupStatus.activationRequired;
       state = state.copyWith(
-        status: fallbackStatus,
+        status: fallback,
         homeRoleStatus: result == HomeRoleRequestResult.unavailable
             ? HomeRoleStatus.unavailable
             : HomeRoleStatus.notHeld,
@@ -182,13 +179,20 @@ class StartupController extends Notifier<StartupState> {
     if (role == HomeRoleStatus.held) {
       await _preferences.setHasCompletedLauncherActivation(true);
       if (generation != _refreshGeneration) return;
-      final refreshes = <Future<void>>[
-        ref.read(launcherControllerProvider.notifier).refresh(),
-      ];
       if (!detoxAlreadyReconciled) {
-        refreshes.add(ref.read(detoxControllerProvider.notifier).refresh());
+        await ref.read(detoxControllerProvider.notifier).refresh();
       }
-      await Future.wait(refreshes);
+      if (generation != _refreshGeneration) return;
+      await ref.read(launcherControllerProvider.notifier).refresh();
+      if (generation != _refreshGeneration) return;
+      final packages = ref
+          .read(launcherControllerProvider)
+          .apps
+          .map((app) => app.packageName)
+          .toSet();
+      await ref
+          .read(mindfulOpeningControllerProvider.notifier)
+          .refresh(availablePackages: packages);
       if (generation != _refreshGeneration) return;
       state = StartupState(
         status: StartupStatus.ready,
@@ -198,7 +202,6 @@ class StartupController extends Notifier<StartupState> {
       );
       return;
     }
-
     final jailBreak = ref.read(jailBreakControllerProvider);
     if (role == HomeRoleStatus.notHeld &&
         jailBreak.status == JailBreakStatus.completed) {

@@ -3,27 +3,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/widgets/clock_header.dart';
 import '../../../l10n/app_localizations.dart';
-import '../../jail_break/presentation/jail_break_controller.dart';
-import '../../jail_break/presentation/jail_break_dialog.dart';
-import '../../settings/presentation/settings_screen.dart';
 import '../../detox/domain/accessibility_status.dart';
 import '../../detox/presentation/detox_controller.dart';
 import '../../detox/presentation/detox_screen.dart';
+import '../../jail_break/presentation/jail_break_controller.dart';
+import '../../jail_break/presentation/jail_break_dialog.dart';
+import '../../mindful_opening/domain/mindful_package_policy.dart';
+import '../../mindful_opening/presentation/mindful_opening_controller.dart';
+import '../../mindful_opening/presentation/mindful_rule_editor_sheet.dart';
+import '../../settings/presentation/settings_screen.dart';
 import '../domain/launch_decision.dart';
 import '../domain/launchable_app.dart';
 import 'launcher_controller.dart';
 import 'launcher_state.dart';
 
-class LauncherScreen extends ConsumerStatefulWidget {
+class LauncherScreen extends ConsumerWidget {
   const LauncherScreen({super.key});
-
   @override
-  ConsumerState<LauncherScreen> createState() => _LauncherScreenState();
-}
-
-class _LauncherScreenState extends ConsumerState<LauncherScreen> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(launcherControllerProvider);
     final detox = ref.watch(detoxControllerProvider);
     final jailBreak = ref.watch(jailBreakControllerProvider);
@@ -101,9 +98,7 @@ class _LauncherScreenState extends ConsumerState<LauncherScreen> {
 
 class _StrictBlockingCard extends StatelessWidget {
   const _StrictBlockingCard({required this.onPressed});
-
   final VoidCallback onPressed;
-
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
@@ -136,9 +131,7 @@ class _StrictBlockingCard extends StatelessWidget {
 
 class _LauncherBody extends ConsumerWidget {
   const _LauncherBody({required this.state});
-
   final LauncherState state;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
@@ -183,7 +176,7 @@ class _LauncherBody extends ConsumerWidget {
         return ListView.separated(
           itemCount: apps.length,
           separatorBuilder: (_, _) => const Divider(height: 1),
-          itemBuilder: (context, index) => _AppTile(app: apps[index]),
+          itemBuilder: (_, index) => _AppTile(app: apps[index]),
         );
     }
   }
@@ -191,14 +184,34 @@ class _LauncherBody extends ConsumerWidget {
 
 class _AppTile extends ConsumerWidget {
   const _AppTile({required this.app});
-
   final LaunchableApp app;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(launcherControllerProvider);
+    final launcher = ref.watch(launcherControllerProvider);
     final detox = ref.watch(detoxControllerProvider);
+    final mindful = ref.watch(mindfulOpeningControllerProvider);
     final isBlocked = detox.blockedPackageNames.contains(app.packageName);
+    final isMindful =
+        mindful.enabled && mindful.rules.containsKey(app.packageName);
+    final isFavourite = launcher.favouriteIds.contains(app.id);
+    final l10n = AppLocalizations.of(context);
+    final icons = <Widget>[
+      if (isBlocked)
+        Semantics(
+          label: l10n.detoxAddAction,
+          child: const Icon(Icons.block, size: 18),
+        ),
+      if (isMindful)
+        Semantics(
+          label: l10n.mindfulConfiguredSemantics,
+          child: const Icon(Icons.hourglass_bottom_rounded, size: 18),
+        ),
+      if (isFavourite)
+        Semantics(
+          label: l10n.favouriteAction,
+          child: const Icon(Icons.star, size: 18),
+        ),
+    ];
     return ListTile(
       title: Text(app.label, maxLines: 1, overflow: TextOverflow.ellipsis),
       subtitle: Text(
@@ -206,24 +219,20 @@ class _AppTile extends ConsumerWidget {
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
-      trailing: isBlocked
-          ? const Icon(Icons.block, size: 18)
-          : state.favouriteIds.contains(app.id)
-          ? const Icon(Icons.star, size: 18)
-          : null,
+      trailing: icons.isEmpty ? null : Wrap(spacing: 6, children: icons),
       onTap: () async {
         try {
           final decision = await ref
               .read(launcherControllerProvider.notifier)
               .launch(app);
           if (decision is LaunchBlocked && context.mounted) {
-            final endTime = MaterialLocalizations.of(context).formatTimeOfDay(
+            final end = MaterialLocalizations.of(context).formatTimeOfDay(
               TimeOfDay.fromDateTime(decision.blockedUntil.toLocal()),
             );
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  AppLocalizations.of(context).detoxBlockedUntil(endTime),
+                  AppLocalizations.of(context).detoxBlockedUntil(end),
                 ),
               ),
             );
@@ -254,7 +263,7 @@ class _AppTile extends ConsumerWidget {
         .contains(app.packageName);
     await showModalBottomSheet<void>(
       context: context,
-      builder: (context) => SafeArea(
+      builder: (sheetContext) => SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -265,7 +274,7 @@ class _AppTile extends ConsumerWidget {
                 isFavourite ? l10n.unfavouriteAction : l10n.favouriteAction,
               ),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.pop(sheetContext);
                 ref
                     .read(launcherControllerProvider.notifier)
                     .toggleFavourite(app);
@@ -279,17 +288,26 @@ class _AppTile extends ConsumerWidget {
                 isBlocked ? l10n.detoxRemoveAction : l10n.detoxAddAction,
               ),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.pop(sheetContext);
                 ref
                     .read(detoxControllerProvider.notifier)
                     .toggleBlockedPackage(app.packageName);
               },
             ),
+            if (MindfulPackagePolicy.isConfigurable(app.packageName))
+              ListTile(
+                leading: const Icon(Icons.hourglass_bottom_rounded),
+                title: Text(l10n.mindfulOpeningAction),
+                onTap: () {
+                  Navigator.pop(sheetContext);
+                  showMindfulRuleEditor(context, ref, app);
+                },
+              ),
             ListTile(
               leading: const Icon(Icons.visibility_off_outlined),
               title: Text(l10n.hideAction),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.pop(sheetContext);
                 ref.read(launcherControllerProvider.notifier).hide(app);
               },
             ),

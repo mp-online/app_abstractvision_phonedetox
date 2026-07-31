@@ -1,36 +1,21 @@
-# Codex Handoff — PR-004 Jail Break QA
+# Codex Handoff — PR-005 Mindful Opening QA
 
 ## Implemented
 
-PR-004 adds the launcher-header and Settings Jail Break entry points, one shared confirmation UI, an immutable Riverpod coordinator, active Detox cleanup, existing Home-settings fallback reuse, centralized resume verification, typed intentional role loss, neutral completion UI, cancellation messaging, recovery after cleanup/status failures, and guarded current-Home opening on the existing launcher channel.
+Mindful rules, global enablement, direct and external request creation, full-screen countdown/intention UI, admission, strict Detox precedence, current-Home safety, disclosure v2, centralized startup recovery, Jail Break cleanup, indicators, Settings management, English/German localization, and native/Dart decision tests.
 
-No permission or dependency was added. Accessibility is not disabled programmatically. Phone Detox never claims or attempts to silently remove its own Home role. No second lifecycle observer/channel, boot receiver, foreground service, background activity launch, polling, process kill, Home-role auto-reclaim, device administrator, or uninstall prevention was added.
+No permission, runtime dependency, service, receiver, billing, subscription, analytics, network call, or behavioral history was added. External notification/deep-link destinations are not restored; the primary launcher activity opens after confirmation.
 
 ## Automated verification
 
-Run from the repository root:
-
-```text
-flutter pub get
-flutter gen-l10n
-dart format --set-exit-if-changed lib test
-flutter analyze --no-pub
-flutter test --no-pub
-cd android
-gradlew testDebugUnitTest
-gradlew :app:testDebugUnitTest
-cd ..
-flutter build apk --debug
-```
-
-On Windows with the repository and Pub cache on different drives, aggregate Gradle tests may encounter the documented dependency-owned path issue. Preserve that result and separately report the app Kotlin task.
+Run `flutter pub get`, `flutter gen-l10n`, `dart format --set-exit-if-changed lib test`, `flutter analyze --no-pub`, `flutter test --no-pub`, `android/gradlew :app:testDebugUnitTest`, `android/gradlew testDebugUnitTest`, and `flutter build apk --debug`. Preserve the known cross-drive aggregate Gradle result if it remains.
 
 ## Manual verification still required
 
-- Pixel: header placement, confirmation cancel, keep Phone Detox, select Pixel Launcher, repeated Home, reopen, restore, active-session cleanup, Accessibility remains enabled but inert.
-- Samsung/One UI: repeat with One UI Home and button/gesture navigation; confirm no autostart prompt or auto-reclaim.
-- Supported pre-Android-10 device: settings fallback, resolved-Home result, cancel/return.
-- Failure cases: native cleanup error, settings unavailable, process death/rotation while Android settings is open.
-- Device accessibility: TalkBack order/labels and large system text.
-
-Do not mark any manual device item complete without the named device or emulator evidence.
+- Pixel Android 15+, current Samsung/One UI, and Android 10.
+- Direct pause/cancel/confirm, navigation within an admitted app, Home then reopen.
+- External Recents, notification, browser link, other app, and assistant opening.
+- Accessibility disabled partial coverage and v1-to-v2 disclosure migration.
+- Jail Break with pending/admitted state and rules preserved after restoring Home.
+- Reboot and Flutter process death with valid and expired requests.
+- Gesture/buttons, large text, TalkBack order, and recovery paths.

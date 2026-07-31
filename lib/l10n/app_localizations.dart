@@ -389,7 +389,7 @@ abstract class AppLocalizations {
   /// Disclosure of blocking behavior.
   ///
   /// In en, this message translates to:
-  /// **'During an active session, this detects an app you selected for blocking and immediately returns you to the Home screen.'**
+  /// **'During an active Detox session it detects selected blocked apps. For configured apps, Phone Detox may also return you Home for the Mindful Opening pause.'**
   String get detoxDisclosureWhyBody;
 
   /// Heading for information excluded from Accessibility processing.
@@ -817,6 +817,192 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Press the Android Home button to open the launcher you selected.'**
   String get jailBreakOpenHomeFailed;
+
+  /// mindfulTakeBreath.
+  ///
+  /// In en, this message translates to:
+  /// **'Take a breath before continuing.'**
+  String get mindfulTakeBreath;
+
+  /// mindfulExternalExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'This app was opened outside Phone Detox. Continuing opens its main launcher screen; the original notification or link destination cannot be restored.'**
+  String get mindfulExternalExplanation;
+
+  /// mindfulDirectExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause for a moment, then choose whether opening this app still supports what you meant to do.'**
+  String get mindfulDirectExplanation;
+
+  /// mindfulWhyQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Why are you opening this app?'**
+  String get mindfulWhyQuestion;
+
+  /// mindfulIntentionReply.
+  ///
+  /// In en, this message translates to:
+  /// **'Reply to someone'**
+  String get mindfulIntentionReply;
+
+  /// mindfulIntentionTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete a specific task'**
+  String get mindfulIntentionTask;
+
+  /// mindfulIntentionSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search for something'**
+  String get mindfulIntentionSearch;
+
+  /// mindfulIntentionCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create or publish something'**
+  String get mindfulIntentionCreate;
+
+  /// mindfulIntentionOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get mindfulIntentionOther;
+
+  /// mindfulOtherLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your intention'**
+  String get mindfulOtherLabel;
+
+  /// mindfulGoBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Go back'**
+  String get mindfulGoBack;
+
+  /// mindfulOpenIntentionally.
+  ///
+  /// In en, this message translates to:
+  /// **'Open intentionally'**
+  String get mindfulOpenIntentionally;
+
+  /// mindfulAppUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This app is no longer available. Go back to continue.'**
+  String get mindfulAppUnavailable;
+
+  /// mindfulModeOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Off'**
+  String get mindfulModeOff;
+
+  /// mindfulModePause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get mindfulModePause;
+
+  /// mindfulModePauseIntention.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause + intention'**
+  String get mindfulModePauseIntention;
+
+  /// mindfulDelayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delay'**
+  String get mindfulDelayTitle;
+
+  /// mindfulManageApps.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage apps'**
+  String get mindfulManageApps;
+
+  /// mindfulNoConfiguredApps.
+  ///
+  /// In en, this message translates to:
+  /// **'No apps are configured yet. Long-press an app in the launcher to add Mindful Opening.'**
+  String get mindfulNoConfiguredApps;
+
+  /// mindfulOpeningAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Mindful opening'**
+  String get mindfulOpeningAction;
+
+  /// mindfulConfiguredSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Mindful Opening configured'**
+  String get mindfulConfiguredSemantics;
+
+  /// mindfulSettingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Mindful opening'**
+  String get mindfulSettingsTitle;
+
+  /// mindfulSettingsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause before opening selected apps.'**
+  String get mindfulSettingsDescription;
+
+  /// mindfulEnabledTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Mindful opening enabled'**
+  String get mindfulEnabledTitle;
+
+  /// mindfulPartialCoverageWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Mindful Opening works from Phone Detox. Enable Accessibility access and accept the updated disclosure to also catch apps opened from notifications, links, Recents, and other apps.'**
+  String get mindfulPartialCoverageWarning;
+
+  /// saveAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get saveAction;
+
+  /// Countdown remaining before intentional opening.
+  ///
+  /// In en, this message translates to:
+  /// **'{seconds, plural, =0{Ready to continue} =1{1 second remaining} other{{seconds} seconds remaining}}'**
+  String mindfulSecondsRemaining(int seconds);
+
+  /// Rule editor title for an app.
+  ///
+  /// In en, this message translates to:
+  /// **'Mindful Opening for {appName}'**
+  String mindfulRuleTitle(String appName);
+
+  /// Delay option in seconds.
+  ///
+  /// In en, this message translates to:
+  /// **'{seconds}s'**
+  String mindfulDelaySeconds(int seconds);
+
+  /// Configured Mindful delay summary.
+  ///
+  /// In en, this message translates to:
+  /// **'{seconds}-second pause'**
+  String mindfulRuleSummary(int seconds);
+
+  /// Number of apps configured for Mindful Opening.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No apps configured} =1{1 app configured} other{{count} apps configured}}'**
+  String mindfulConfiguredCount(int count);
 }
 
 class _AppLocalizationsDelegate

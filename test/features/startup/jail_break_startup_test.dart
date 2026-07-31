@@ -12,6 +12,9 @@ import 'package:phone_detox/features/launcher/domain/home_role_status.dart';
 import 'package:phone_detox/features/launcher/domain/launchable_app.dart';
 import 'package:phone_detox/features/launcher/domain/launcher_repository.dart';
 import 'package:phone_detox/features/launcher/presentation/launcher_controller.dart';
+import 'package:phone_detox/features/mindful_opening/presentation/mindful_opening_controller.dart';
+
+import '../../support/fake_mindful_repository.dart';
 import 'package:phone_detox/features/settings/domain/launcher_preferences_repository.dart';
 import 'package:phone_detox/features/startup/domain/home_role_loss_reason.dart';
 import 'package:phone_detox/features/startup/domain/startup_preferences_repository.dart';
@@ -105,6 +108,9 @@ void main() {
     container = ProviderContainer(
       overrides: [
         launcherRepositoryProvider.overrideWithValue(home),
+        mindfulOpeningRepositoryProvider.overrideWithValue(
+          FakeMindfulRepository(),
+        ),
         launcherPreferencesRepositoryProvider.overrideWithValue(
           _LauncherPreferences(),
         ),

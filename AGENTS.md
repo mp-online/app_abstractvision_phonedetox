@@ -157,3 +157,16 @@ A change is complete only when:
 - Do not add a second platform channel, process kill, background activity launch, Home-role auto-reclaim, permission, or service for Jail Break.
 - Do not claim Pixel, Samsung, older-Android, TalkBack, Home-button, or active-enforcement QA without execution evidence.
 - See `docs/adr/0004-jail-break-and-home-role-exit.md`.
+
+
+## Active PR-005 Mindful Opening constraints
+
+- Strict Detox hard blocks always precede Mindful Opening.
+- External Mindful interception requires disclosure version 2 and Phone Detox as current Home.
+- Accessibility handling remains package-name-only; never inspect nodes, content, notifications, URLs, or original intents.
+- Persist rules, one temporary request, and one temporary admission only. Never persist intentions or behavioral history.
+- Admission ends on meaningful package transitions and survives keyboards/System UI/permission surfaces.
+- Jail Break and global disable clear request/admission but preserve configured rules.
+- Do not claim external deep-link restoration or device QA without execution evidence.
+- Do not add Usage Access, notification access, overlay, VPN, foreground service, boot receiver, billing, subscription, analytics, network communication, or a backend.
+- See `docs/adr/0005-mindful-opening-and-admission.md`.

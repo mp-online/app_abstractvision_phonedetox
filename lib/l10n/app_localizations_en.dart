@@ -177,7 +177,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get detoxDisclosureWhyBody =>
-      'During an active session, this detects an app you selected for blocking and immediately returns you to the Home screen.';
+      'During an active Detox session it detects selected blocked apps. For configured apps, Phone Detox may also return you Home for the Mindful Opening pause.';
 
   @override
   String get detoxDisclosureNotAccessedTitle => 'What is not accessed';
@@ -428,4 +428,127 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get jailBreakOpenHomeFailed =>
       'Press the Android Home button to open the launcher you selected.';
+
+  @override
+  String get mindfulTakeBreath => 'Take a breath before continuing.';
+
+  @override
+  String get mindfulExternalExplanation =>
+      'This app was opened outside Phone Detox. Continuing opens its main launcher screen; the original notification or link destination cannot be restored.';
+
+  @override
+  String get mindfulDirectExplanation =>
+      'Pause for a moment, then choose whether opening this app still supports what you meant to do.';
+
+  @override
+  String get mindfulWhyQuestion => 'Why are you opening this app?';
+
+  @override
+  String get mindfulIntentionReply => 'Reply to someone';
+
+  @override
+  String get mindfulIntentionTask => 'Complete a specific task';
+
+  @override
+  String get mindfulIntentionSearch => 'Search for something';
+
+  @override
+  String get mindfulIntentionCreate => 'Create or publish something';
+
+  @override
+  String get mindfulIntentionOther => 'Other';
+
+  @override
+  String get mindfulOtherLabel => 'Write your intention';
+
+  @override
+  String get mindfulGoBack => 'Go back';
+
+  @override
+  String get mindfulOpenIntentionally => 'Open intentionally';
+
+  @override
+  String get mindfulAppUnavailable =>
+      'This app is no longer available. Go back to continue.';
+
+  @override
+  String get mindfulModeOff => 'Off';
+
+  @override
+  String get mindfulModePause => 'Pause';
+
+  @override
+  String get mindfulModePauseIntention => 'Pause + intention';
+
+  @override
+  String get mindfulDelayTitle => 'Delay';
+
+  @override
+  String get mindfulManageApps => 'Manage apps';
+
+  @override
+  String get mindfulNoConfiguredApps =>
+      'No apps are configured yet. Long-press an app in the launcher to add Mindful Opening.';
+
+  @override
+  String get mindfulOpeningAction => 'Mindful opening';
+
+  @override
+  String get mindfulConfiguredSemantics => 'Mindful Opening configured';
+
+  @override
+  String get mindfulSettingsTitle => 'Mindful opening';
+
+  @override
+  String get mindfulSettingsDescription =>
+      'Pause before opening selected apps.';
+
+  @override
+  String get mindfulEnabledTitle => 'Mindful opening enabled';
+
+  @override
+  String get mindfulPartialCoverageWarning =>
+      'Mindful Opening works from Phone Detox. Enable Accessibility access and accept the updated disclosure to also catch apps opened from notifications, links, Recents, and other apps.';
+
+  @override
+  String get saveAction => 'Save';
+
+  @override
+  String mindfulSecondsRemaining(int seconds) {
+    String _temp0 = intl.Intl.pluralLogic(
+      seconds,
+      locale: localeName,
+      other: '$seconds seconds remaining',
+      one: '1 second remaining',
+      zero: 'Ready to continue',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String mindfulRuleTitle(String appName) {
+    return 'Mindful Opening for $appName';
+  }
+
+  @override
+  String mindfulDelaySeconds(int seconds) {
+    return '${seconds}s';
+  }
+
+  @override
+  String mindfulRuleSummary(int seconds) {
+    return '$seconds-second pause';
+  }
+
+  @override
+  String mindfulConfiguredCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count apps configured',
+      one: '1 app configured',
+      zero: 'No apps configured',
+    );
+    return '$_temp0';
+  }
 }
